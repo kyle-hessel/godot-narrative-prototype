@@ -306,8 +306,6 @@ func determine_target() -> void:
 				sort_objects_by_distance()
 				var obj_index: int = overlapping_objects.find(targeted_object)
 				
-				var failed: bool = false
-				
 				# check if next potential candidate is non-existent (out of bounds). If not, do the below check.
 				if !(obj_index + 1 > overlapping_objects.size() - 1):
 					# determine the next object to target that is further than the one we started with.
