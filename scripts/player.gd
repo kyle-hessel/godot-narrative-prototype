@@ -12,11 +12,11 @@ var player_speed_current: float = 0.0
 @export var player_decel_rate: float = 14.0
 @export var player_jump_decel_rate: float = 10.0
 @export var player_rotation_rate: float = 9.0
-@export var target_cam_bias_default: float = 0.3
-@export var target_cam_bias_additive: float = 0.2
-var target_cam_bias: float = target_cam_bias_default
+#@export var target_cam_bias_default: float = 0.3
+#@export var target_cam_bias_additive: float = 0.2
+#var target_cam_bias: float = target_cam_bias_default
+#@export var tracking_range: float = 6.0
 @export var cam_lerp_rate: float = 5.0
-@export var tracking_range: float = 6.0
 @export var jump_velocity: float = 5.0
 @export var jump_velocity_multiplier: float = 1.25
 @export var root_motion_multiplier: float = 4.0
@@ -33,6 +33,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var player_mesh: Node3D = $MeshInstance3D
 @onready var player_cam: Camera3D = $SpringArm3D/PlayerCam
+@onready var target_icon: Sprite2D = $UI/TargetingIcon
 
 var viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
 var viewport_height: int = ProjectSettings.get_setting("display/window/size/viewport_height")
@@ -241,6 +242,184 @@ func combat_action_crater() -> void:
 # name subject to change
 func combat_action_ult_explode() -> void:
 	print("ult: explode!")
+
+# organize array of overlapping objects by distance, closest to farthest.
+func sort_objects_by_distance() -> void:
+	# makes use of a custom sorting lambda function to compare distances between points and the player, and sort lowest to highest!
+	if overlapping_objects.size() > 1:
+		overlapping_objects.sort_custom(func(a, b): return a.global_position.distance_squared_to($starblade_wielder.global_position) < b.global_position.distance_squared_to($starblade_wielder.global_position))
+
+# returns the first valid candidate for targeting if visiblity checks pass, if there is one.
+func objects_visibility_check(obj_array: Array[Node3D]) -> Node3D:
+	for object in obj_array:
+		var half_height: float = object.collision_shape.shape.height * 0.5
+		var target_pos: Vector3 = Vector3(object.position.x, object.position.y + half_height, object.position.z)
+		
+		# if object is fit for targeting, return said object
+		if player_cam.is_position_in_frustum(target_pos):
+			return object
+			
+	# if whole loop completes without a candidate, return null
+	return null
+
+# returns whether a given object is in view instead of iterating over all overlapping objects.
+func object_visibility_check(object: Node3D) -> bool:
+	var half_height: float = object.collision_shape.shape.height * 0.5
+	var target_pos: Vector3 = Vector3(object.position.x, object.position.y + half_height, object.position.z)
+	
+	return player_cam.is_position_in_frustum(target_pos)
+
+# advanced target lock handling
+func determine_target() -> void:
+	if !overlapping_objects.is_empty():
+		# toggling targeting on and off
+		if Input.is_action_just_pressed("target"):
+				# if we have overlapping objects, toggle targeting
+				targeting = !targeting
+				if targeted_object && object_visibility_check(targeted_object):
+					target_icon.visible = !target_icon.visible
+				
+				# if targeting, find nearest object to target.
+				if targeting:
+					sort_objects_by_distance()
+					
+					# extra checks to ensure object is fit for targeting (visibility, mostly)
+					targeted_object = objects_visibility_check(overlapping_objects) # returns first closest visible object
+					
+					# if no object met requirements, set targeting back to false.
+					if targeted_object == null:
+						targeting = false
+						target_icon.visible = false
+				
+				# if false, clear.
+				else:
+					targeted_object = null
+					tracking = false
+		
+		# target toggling/switching, only if already actively in target mode.
+		# *** the below implementation for the remainder of this function does have a few edge case bugs remaining, seemingly.
+		if targeting && overlapping_objects.size() > 1:	
+			
+			# move target backwards
+			if Input.is_action_just_pressed("target_toggle_left"):
+				# sort again so that distance information is always up to date, then fetch our current target's new array position.
+				sort_objects_by_distance()
+				var obj_index: int = overlapping_objects.find(targeted_object)
+				
+				var failed: bool = false
+				
+				# check if next potential candidate is non-existent (out of bounds). If not, do the below check.
+				if !(obj_index + 1 > overlapping_objects.size() - 1):
+					# determine the next object to target that is further than the one we started with.
+					for obj in overlapping_objects:
+						# skip array indexes lower (closer) than our initial object, inclusive.
+						var current_index: int = overlapping_objects.find(obj)
+						if current_index <= obj_index:
+							continue
+						# extra checks to ensure object is fit for targeting (this is why the for loop is necessary).
+						else:
+							#print(obj)
+							if object_visibility_check(obj) == true:
+								# if everything succeeded, retarget to the given object and break out.
+								targeted_object = obj
+								break
+							else:
+								# if nothing succeeded, just fetch the nearest visible object. if this fails there may not be one.
+								targeted_object = objects_visibility_check(overlapping_objects)
+								break
+						
+				# if the next candidate was out of bounds, wrap back to the front of the array.
+				else:
+					# do similar checks to above to find the lowest indexed object that meets requirements.
+					for obj in overlapping_objects:
+						# simply start at the beginning of the array, since we wrapped around.
+						if object_visibility_check(obj) == true:
+							# if everything succeeded, retarget to the given object and break out.
+							targeted_object = obj
+							break
+						else:
+							# if nothing succeeded, just fetch the nearest visible object. if this fails there may not be one.
+							targeted_object = objects_visibility_check(overlapping_objects)
+							break
+				
+				
+			# move target forwards
+			if Input.is_action_just_pressed("target_toggle_right"):
+				# sort again so that distance information is always up to date.
+				sort_objects_by_distance()
+				
+				# duplicate our original array and reverse it to maintain easy looping, now sorting from furthest to closest.
+				var overlapping_objects_reversed: Array[Node3D] = overlapping_objects.duplicate()
+				overlapping_objects_reversed.reverse()
+				#print(overlapping_objects_reversed)
+				
+				# fetch our current target's new array position.
+				var obj_index: int = overlapping_objects_reversed.find(targeted_object)
+				
+				# check if next potential candidate is non-existent. If not, do the below check.
+				if !(obj_index + 1 > overlapping_objects_reversed.size() - 1):
+					# determine the next object to target that is further than the one we started with.
+					for obj in overlapping_objects_reversed:
+						# skip array indexes lower (farther) than our initial object, inclusive.
+						var current_index: int = overlapping_objects_reversed.find(obj)
+						if current_index <= obj_index:
+							continue
+						# extra checks to ensure object is fit for targeting.
+						else:
+							#print(obj)
+							if object_visibility_check(obj) == true:
+								# if everything succeeded, retarget to the given object and break out.
+								targeted_object = obj
+								break
+							else:
+								# if nothing succeeded, just fetch the nearest visible object. if this fails there may not be one.
+								targeted_object = objects_visibility_check(overlapping_objects_reversed)
+								break
+				
+				# if the next candidate was out of bounds, wrap back to the front of the array.
+				else:
+					# do similar checks to above to find the lowest indexed object that meets requirements.
+					for obj in overlapping_objects_reversed:
+						# simply start at the beginning of the array, since we wrapped around.
+						if object_visibility_check(obj) == true:
+							# if everything succeeded, retarget to the given object and break out.
+							targeted_object = obj
+							break
+						else:
+							# if nothing succeeded, just fetch the nearest visible object. if this fails there may not be one.
+							targeted_object = objects_visibility_check(overlapping_objects_reversed)
+							break
+
+func _on_overlap_area_body_entered(body: Node3D):
+	# if this is the first overlapping object, auto-target it (make this a setting later to decide if this is default behavior).
+	if overlapping_objects.is_empty():
+		overlapping_objects.push_back(body)
+		targeted_object = body
+		
+		targeting = true
+		target_icon.visible = true
+	# if we already have other overlapping objects, just add it to the array.
+	else:
+		overlapping_objects.push_back(body)
+	
+	#print(overlapping_objects)
+
+func _on_overlap_area_body_exited(body: Node3D):
+	# remove any body that leaves.
+	body.hit_received = false
+	overlapping_objects.erase(body)
+	
+	# if there's no more overlapping objects, drop targeting.
+	if overlapping_objects.is_empty():
+		targeting = false
+		target_icon.visible = false
+		targeted_object = null
+	# if there's remaining overlapping objects, find the new nearest target and target it (make this a setting later to decide if this is default behavior).
+	else:
+		sort_objects_by_distance()
+		targeted_object = overlapping_objects[0]
+		
+	#print(overlapping_objects)
 
 ### HELPER FUNCTIONS
 func tween_val(object: Node, property: NodePath, final_val: Variant, duration: float, trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_IN_OUT, parallel: bool = true):

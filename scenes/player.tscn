@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdplgwr0kkrcr"]
+[gd_scene load_steps=7 format=3 uid="uid://cdplgwr0kkrcr"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_vbk4d"]
+[ext_resource type="Texture2D" uid="uid://dw4odbkkyov0u" path="res://assets/UI/Target_Reticle.png" id="2_3hnpp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ty4c4"]
 
@@ -8,6 +9,9 @@
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_pieuv"]
 slide_on_slope = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u6bcy"]
+radius = 13.125
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_vbk4d")
@@ -29,3 +33,23 @@ spring_length = 8.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 current = true
 fov = 60.0
+
+[node name="OverlapArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OverlapArea"]
+shape = SubResource("SphereShape3D_u6bcy")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TargetingIcon" type="Sprite2D" parent="Control"]
+texture = ExtResource("2_3hnpp")
+
+[connection signal="body_entered" from="OverlapArea" to="." method="_on_overlap_area_body_entered"]
+[connection signal="body_exited" from="OverlapArea" to="." method="_on_overlap_area_body_exited"]
