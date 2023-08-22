@@ -44,16 +44,27 @@ var viewport_wh: Vector2 = Vector2(viewport_width, viewport_height)
 var overlapping_objects: Array[Node3D]
 var targeted_object: Node3D = null
 
+var current_combat_action: String = "none"
+
+var available_combat_actions: Array[String] = [ "ability1", "ability2", "ability3", "ability4" ]
+
+# weapon actions dictionary w/ defaults
+var combat_actions = {
+	"action1": available_combat_actions[0],
+	"action2": available_combat_actions[1],
+	"action3": available_combat_actions[2],
+	"action4": available_combat_actions[3],
+}
+
 enum PlayerMovementState {
 	IDLE = 0,
 	WALK = 1,
 	SPRINT = 2,
 	DODGE = 3,
 	ATTACK = 4,
-	DAMAGED = 5,
-	STUN = 6,
-	CHAT = 7,
-	DEAD = 8
+	STUN = 5,
+	CHAT = 6,
+	DEAD = 7
 }
 
 var movement_state: PlayerMovementState = PlayerMovementState.IDLE
