@@ -4,8 +4,8 @@ extends CharacterBody3D
 @export var player_health_current: float = player_health_max
 
 var player_speed_current: float = 0.0
-@export var player_speed_walk_max: float = 5.0
-@export var player_speed_sprint_max: float = player_speed_walk_max * 2.0
+@export var player_speed_walk_max: float = 6.0
+@export var player_speed_sprint_max: float = player_speed_walk_max * 3.0
 @export var player_jump_speed_modifier: float = 0.8
 @export var player_walk_accel_rate: float = 4.0
 @export var player_sprint_accel_rate: float = 9.0
@@ -131,7 +131,7 @@ func calculate_player_lateral_movement(delta: float) -> void:
 
 func determine_player_movement_speed(delta: float) -> void:
 	if Input.is_action_just_pressed("sprint"):
-		if movement_state == PlayerMovementState.WALK:
+		if movement_state == PlayerMovementState.WALK || movement_state == PlayerMovementState.IDLE:
 			movement_state = PlayerMovementState.SPRINT
 		else:
 			movement_state = PlayerMovementState.WALK
