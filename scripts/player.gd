@@ -190,3 +190,92 @@ func rotate_cam_joypad(delta: float) -> void:
 	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_up_joystick") * -joystick_sensitivity * delta
 	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_down_joystick") * joystick_sensitivity * delta
 	$SpringArm3D.rotation.x = clamp($SpringArm3D.rotation.x, -1.4, 0.3)
+
+
+### HELPER FUNCTIONS
+func tween_val(object: Node, property: NodePath, final_val: Variant, duration: float, trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_IN_OUT, parallel: bool = true):
+	var tween: Tween = get_tree().create_tween()
+	tween.stop()
+	tween.set_trans(trans_type)
+	tween.set_ease(ease_type)
+	tween.set_parallel(parallel)
+	tween.tween_property(object, property, final_val, duration)
+	tween.play()
+
+# generic, reimplemented from engine source
+func looking_at_gd(target: Vector3, up: Vector3) -> Basis:
+	var v_z: Vector3 = -target.normalized()
+	var v_x: Vector3 = up.cross(v_z)
+	
+	v_x.normalized()
+	var v_y: Vector3 = v_z.cross(v_x)
+	
+	var v_basis: Basis = Basis(v_x, v_y, v_z)
+	return v_basis
+	
+# for meshes, such as player (minor modification of looking_at)
+func facing_object(target: Vector3, up: Vector3)-> Basis:
+	var v_z: Vector3 = target.normalized()
+	var v_x: Vector3 = up.cross(v_z)
+	
+	v_x.normalized()
+	var v_y: Vector3 = v_z.cross(v_x)
+	
+	var v_basis: Basis = Basis(v_x, v_y, v_z)
+	return v_basis
+	
+# generic, reimplemented from engine source
+func look_at_from_pos_gd(obj: Node3D, pos: Vector3, target: Vector3, up: Vector3) -> void:
+	var lookat: Transform3D = Transform3D(looking_at_gd(target - pos, up), pos)
+	var original_scale: Vector3 = obj.scale
+	obj.global_transform = lookat
+	obj.scale = original_scale
+	
+# generic, reimplemented from engine source
+func look_at_gd(obj: Node3D, target: Vector3, up: Vector3) -> void:
+	var origin: Vector3 = obj.global_transform.origin
+	look_at_from_pos_gd(obj, origin, target, up)
+	
+# for camera (adds lerp to default look_at_from_position)
+func look_at_from_pos_lerp(obj: Node3D, pos: Vector3, target: Vector3, up: Vector3, delta: float) -> void:
+	var lookat: Transform3D = Transform3D(looking_at_gd(target - pos, up), pos)
+	var original_scale: Vector3 = obj.scale
+	#obj.global_transform = lerp(obj.global_transform, lookat, player_rotation_rate * delta)
+	obj.global_transform = obj.global_transform.interpolate_with(lookat, cam_lerp_rate * delta)
+	#obj.global_transform = lookat
+	obj.scale = original_scale
+	
+# for meshes, such as player (minor modification of looking_at_from_position)
+func facing_object_from_pos_lerp(obj: Node3D, pos: Vector3, target: Vector3, up: Vector3, delta: float) -> void:
+	var lookat: Transform3D = Transform3D(facing_object(target - pos, up), pos)
+	var original_scale: Vector3 = obj.scale
+	#obj.global_transform = lerp(obj.global_transform, lookat, player_rotation_rate * delta)
+	obj.global_transform = obj.global_transform.interpolate_with(lookat, player_rotation_rate * delta)
+	#obj.global_transform = lookat
+	obj.scale = original_scale
+
+# for camera (adds lerp to default look_at)
+func look_at_lerp(obj: Node3D, target: Vector3, up: Vector3, delta: float) -> void:
+	var origin: Vector3 = obj.global_transform.origin
+	look_at_from_pos_lerp(obj, origin, target, up, delta)
+
+# for meshes, such as player (minor modification of look_at)
+func face_object_lerp(obj: Node3D, target: Vector3, up: Vector3, delta: float) -> void:
+	var origin: Vector3 = obj.global_transform.origin
+	facing_object_from_pos_lerp(obj, origin, target, up, delta)
+
+# returns front, back, left, or right.
+func find_relative_direction(from: Vector3, to: Vector3) -> String:
+	var angle_diff: float = rad_to_deg(from.signed_angle_to(to, Vector3.UP))
+	#print("angle diff: ", angle_diff)
+							
+	if angle_diff < 45.0 && angle_diff >= -45.0:
+		return "back"
+	elif angle_diff < -45.0 && angle_diff >= -135.0:
+		return "left"
+	elif angle_diff < 135.0 && angle_diff >= 45.0:
+		return "right"
+	elif angle_diff >= 135.0 || angle_diff < -135.0:
+		return "front"
+	else:
+		return "?"
