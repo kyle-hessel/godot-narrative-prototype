@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdplgwr0kkrcr"]
+[gd_scene load_steps=5 format=3 uid="uid://cdplgwr0kkrcr"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_vbk4d"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ty4c4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c2aid"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_pieuv"]
+slide_on_slope = true
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_vbk4d")
@@ -19,7 +22,10 @@ mesh = SubResource("CapsuleMesh_c2aid")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.906307, 0.422618, 0, -0.422618, 0.906307, 0, 0.744943, 0)
+shape = SubResource("SeparationRayShape3D_pieuv")
 spring_length = 8.0
 
 [node name="PlayerCam" type="Camera3D" parent="SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+current = true
+fov = 60.0

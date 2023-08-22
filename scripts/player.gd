@@ -62,8 +62,9 @@ var movement_state: PlayerMovementState = PlayerMovementState.IDLE
 func _ready():
 	# capture mouse movement for camera navigation
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	$SpringArm3D.add_excluded_object(self)
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	# only do the below movements if already in movement states 0-2.
 	if movement_state < 3:
 		calculate_player_lateral_movement(delta)
@@ -72,6 +73,7 @@ func _physics_process(delta: float):
 	# camera movement w/ controller
 	rotate_cam_joypad(delta)
 	
+	# collisions
 	move_and_slide()
 
 func _input(event):
@@ -170,11 +172,10 @@ func rotate_cam_kb_m(event) -> void:
 
 
 func rotate_cam_joypad(delta: float) -> void:
-	pass
 	# controller spring arm rotation
-#	$SpringArm3D.rotation.y -= Input.get_action_strength("camera_left_joystick") * -joystick_sensitivity * delta
-#	$SpringArm3D.rotation.y -= Input.get_action_strength("camera_right_joystick") * joystick_sensitivity * delta
-#
-#	$SpringArm3D.rotation.x = Input.get_action_strength("camera_up_joystick") * -joystick_sensitivity * delta
-#	$SpringArm3D.rotation.x = Input.get_action_strength("camera_down_joystick") * joystick_sensitivity * delta
-#	$SpringArm3D.rotation.x = clamp($SpringArm3D.rotation.x, -1.4, 0.3)
+	$SpringArm3D.rotation.y -= Input.get_action_strength("camera_left_joystick") * -joystick_sensitivity * delta
+	$SpringArm3D.rotation.y -= Input.get_action_strength("camera_right_joystick") * joystick_sensitivity * delta
+
+	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_up_joystick") * -joystick_sensitivity * delta
+	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_down_joystick") * joystick_sensitivity * delta
+	$SpringArm3D.rotation.x = clamp($SpringArm3D.rotation.x, -1.4, 0.3)
