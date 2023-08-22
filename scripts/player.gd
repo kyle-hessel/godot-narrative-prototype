@@ -46,9 +46,9 @@ var targeted_object: Node3D = null
 
 var current_combat_action: String = "none"
 
-var available_combat_actions: Array[String] = [ "ability1", "ability2", "ability3", "ability4" ]
+var available_combat_actions: Array[String] = [ "big_swing", "pummel", "crater", "ult_explode" ]
 
-# weapon actions dictionary w/ defaults
+# combat actions dictionary w/ defaults
 var combat_actions = {
 	"action1": available_combat_actions[0],
 	"action2": available_combat_actions[1],
@@ -60,8 +60,8 @@ enum PlayerMovementState {
 	IDLE = 0,
 	WALK = 1,
 	SPRINT = 2,
-	DODGE = 3,
-	ATTACK = 4,
+	ATTACK = 3,
+	DODGE = 4,
 	STUN = 5,
 	CHAT = 6,
 	DEAD = 7
@@ -90,6 +90,10 @@ func _physics_process(delta: float) -> void:
 func _input(event):
 	# camera movement w/ mouse
 	rotate_cam_kb_m(event)
+	
+	# handle what happens when the player presses different combat actions in combat.
+	# using 'event.' instead of 'Input.' for better input event buffering.
+	interpret_combat_action_handles(event)
 
 func rotate_player(delta: float) -> void:
 	# player mesh rotation relative to camera. Note: the entire Player never rotates: only the spring arm or the mesh.
@@ -191,6 +195,52 @@ func rotate_cam_joypad(delta: float) -> void:
 	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_down_joystick") * joystick_sensitivity * delta
 	$SpringArm3D.rotation.x = clamp($SpringArm3D.rotation.x, -1.4, 0.3)
 
+# translates button presses to appropriate assigned combat actions using value fetching from the combat_actions dictionary,
+# and sends this off to handle_combat_action to begin executing the appropriate action.
+func interpret_combat_action_handles(event) -> void:
+	if movement_state < 4:
+		# determine which combat action to execute based on player assignments
+		if event.is_action_pressed("combat_action1"):
+			handle_combat_action(combat_actions["action1"])
+			
+		elif event.is_action_pressed("combat_action2"):
+			handle_combat_action(combat_actions["action2"])
+			
+		elif event.is_action_pressed("combat_action3"):
+			handle_combat_action(combat_actions["action3"])
+			
+		elif event.is_action_pressed("combat_action4"):
+			handle_combat_action(combat_actions["action4"])
+
+# funnel inputted combat action into the appropriate function call.
+func handle_combat_action(command: String) -> void:
+	match command:
+		"big_swing":
+			combat_action_big_swing()
+		"pummel":
+			combat_action_pummel()
+		"crater":
+			combat_action_crater()
+		"ult_explode":
+			combat_action_ult_explode()
+		_:
+			print("Not a valid combat action.")
+
+# name subject to change
+func combat_action_big_swing() -> void:
+	print("big swing!")
+
+# name subject to change
+func combat_action_pummel() -> void:
+	print("pummel!")
+
+# name subject to change
+func combat_action_crater() -> void:
+	print("crater!")
+
+# name subject to change
+func combat_action_ult_explode() -> void:
+	print("ult: explode!")
 
 ### HELPER FUNCTIONS
 func tween_val(object: Node, property: NodePath, final_val: Variant, duration: float, trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_IN_OUT, parallel: bool = true):
