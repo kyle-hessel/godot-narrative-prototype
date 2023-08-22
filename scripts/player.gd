@@ -81,12 +81,17 @@ func _physics_process(delta: float) -> void:
 	if movement_state < 3:
 		calculate_player_lateral_movement(delta)
 		apply_jump_and_gravity(delta)
+		
+		if movement_state > 0:
+			rotate_player(delta)
 	
 	# camera movement w/ controller
 	rotate_cam_joypad(delta)
 	
 	# collisions
 	move_and_slide()
+	
+	#print(movement_state)
 
 func _input(event):
 	# camera movement w/ mouse
@@ -140,18 +145,24 @@ func calculate_player_lateral_movement(delta: float) -> void:
 	
 	# determine if the player will be walking or sprinting.
 	if has_direction:
+		# ensure that the player switches to the walk state when having a direction without overwriting an existing sprint.
+		if movement_state != PlayerMovementState.SPRINT:
+			movement_state = PlayerMovementState.WALK
+		
 		determine_player_movement_speed(delta)
 		apply_player_lateral_movement(delta, direction)
 	else:
 		stop_player_movement(delta)
 
 func determine_player_movement_speed(delta: float) -> void:
+	# toggle sprint on and off while moving.
 	if Input.is_action_just_pressed("sprint"):
 		if movement_state == PlayerMovementState.WALK || movement_state == PlayerMovementState.IDLE:
 			movement_state = PlayerMovementState.SPRINT
 		else:
 			movement_state = PlayerMovementState.WALK
 	
+	# determine player movement speed based on current movement state.
 	if movement_state == PlayerMovementState.IDLE || movement_state == PlayerMovementState.WALK:
 		player_speed_current = player_speed_walk_max
 	elif movement_state == PlayerMovementState.SPRINT:
