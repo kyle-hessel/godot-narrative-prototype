@@ -42,13 +42,15 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OverlapArea"]
 shape = SubResource("SphereShape3D_u6bcy")
 
-[node name="Control" type="Control" parent="."]
+[node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TargetingIcon" type="Sprite2D" parent="Control"]
+[node name="TargetingIcon" type="Sprite2D" parent="UI"]
+visible = false
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_3hnpp")
 
 [connection signal="body_entered" from="OverlapArea" to="." method="_on_overlap_area_body_entered"]
