@@ -1,11 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdplgwr0kkrcr"]
+[gd_scene load_steps=9 format=3 uid="uid://cdplgwr0kkrcr"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_vbk4d"]
 [ext_resource type="Texture2D" uid="uid://dw4odbkkyov0u" path="res://assets/UI/Target_Reticle.png" id="2_3hnpp"]
+[ext_resource type="Shader" path="res://shaders/art_style/halftone.gdshader" id="2_cyob2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ty4c4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c2aid"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tc8uh"]
+render_priority = 0
+shader = ExtResource("2_cyob2")
+shader_parameter/albedo = Color(0.552941, 0.752941, 0.929412, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/albedo_energy = 1.2
+shader_parameter/frequency = 330.0
+shader_parameter/radius_weight = 2.0
+shader_parameter/shade_bias = 2.0
+shader_parameter/shade_amount = 0.7
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_pieuv"]
 slide_on_slope = true
@@ -23,6 +36,7 @@ shape = SubResource("CapsuleShape3D_ty4c4")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_c2aid")
+surface_material_override/0 = SubResource("ShaderMaterial_tc8uh")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.906307, 0.422618, 0, -0.422618, 0.906307, 0, 0.744943, 0)
