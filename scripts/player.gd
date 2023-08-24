@@ -5,7 +5,7 @@ extends CharacterBody3D
 
 var player_speed_current: float = 0.0
 @export var player_speed_walk_max: float = 6.0
-@export var player_speed_sprint_max: float = player_speed_walk_max * 3.0
+@export var player_speed_sprint_max: float = player_speed_walk_max * 2.0
 @export var player_jump_speed_modifier: float = 0.8
 @export var player_walk_accel_rate: float = 4.0
 @export var player_sprint_accel_rate: float = 9.0
