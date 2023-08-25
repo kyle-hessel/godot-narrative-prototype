@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7iu0t1i7pqvh"]
+
+[ext_resource type="Script" path="res://scripts/managers/calendar_manager.gd" id="1_lh3uk"]
+
+[node name="CalendarManager" type="Node"]
+script = ExtResource("1_lh3uk")

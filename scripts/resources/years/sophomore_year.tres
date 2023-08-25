@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Year" load_steps=2 format=3 uid="uid://cq0gi6jigixuw"]
+
+[ext_resource type="Script" path="res://scripts/resources/years/year.gd" id="1_w4tpm"]
+
+[resource]
+script = ExtResource("1_w4tpm")
+title = "Sophomore Year"
+calendar_years = {
+"end_year": 2026,
+"start_year": 2025
+}
+start_month = 8
+start_day = 25
+months = Array[Resource("res://scripts/resources/months/month.gd")]([])
