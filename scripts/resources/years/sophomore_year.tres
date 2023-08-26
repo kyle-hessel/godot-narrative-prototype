@@ -6,8 +6,9 @@
 script = ExtResource("1_w4tpm")
 title = "Sophomore Year"
 calendar_years = {
-"end_year": 2026,
-"start_year": 2025
+"current_year": 2024,
+"end_year": 2025,
+"start_year": 2024
 }
 start_month = 8
 start_day = 25
