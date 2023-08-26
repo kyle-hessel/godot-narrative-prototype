@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Day" load_steps=2 format=3 uid="uid://bsbblcmw51tkr"]
+
+[ext_resource type="Script" path="res://scripts/resources/days/day.gd" id="1_cnmnh"]
+
+[resource]
+script = ExtResource("1_cnmnh")
+week_day = "Monday"
+holiday = "Fall Semester Begins"
+events = {
+"Hangout": "Peter"
+}

@@ -1,27 +1,19 @@
-[gd_resource type="Resource" script_class="Year" load_steps=6 format=3 uid="uid://drl6wrmtby01m"]
+[gd_resource type="Resource" script_class="Year" load_steps=5 format=3 uid="uid://drl6wrmtby01m"]
 
-[ext_resource type="Script" path="res://scripts/resources/days/day.gd" id="1_8sskc"]
 [ext_resource type="Script" path="res://scripts/resources/months/month.gd" id="1_27nw1"]
 [ext_resource type="Script" path="res://scripts/resources/years/year.gd" id="1_st2aa"]
-
-[sub_resource type="Resource" id="Resource_n7s7f"]
-script = ExtResource("1_8sskc")
-week_day = "Sunday"
-holiday = "none"
-events = {
-"Hangout": "Jamie"
-}
+[ext_resource type="Resource" uid="uid://bsbblcmw51tkr" path="res://scripts/resources/days/august_28.tres" id="1_wy1gp"]
 
 [sub_resource type="Resource" id="Resource_wqe4g"]
 script = ExtResource("1_27nw1")
-title = "January"
-length = 31
-days = Array[ExtResource("1_8sskc")]([SubResource("Resource_n7s7f")])
+title = "August"
+days = Array[Resource("res://scripts/resources/days/day.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, ExtResource("1_wy1gp"), null, null, null])
 
 [resource]
 script = ExtResource("1_st2aa")
 title = "Freshman Year"
 calendar_years = {
+"current_year": 2024,
 "end_year": 2025,
 "start_year": 2024
 }
