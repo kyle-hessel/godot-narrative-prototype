@@ -13,14 +13,14 @@ var current_month_num: int = 7
 var current_day_num: int = 24
 
 func _ready() -> void:
-	# first time current date load on game startup.
+	# first time current date load on game startup. loads everything (day/month/year) by default.
 	load_current_date()
 	print_date_info()
 	
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("day_increment_test"):
 		print("Starting next day.")
-		advance_date()
+		advance_date(12)
 		print_date_info()
 
 func print_date_info() -> void:
@@ -82,16 +82,28 @@ func print_date_events() -> void:
 			_:
 				print("event: " + event + ", " + day.events.get(event) + ".")
 
-# load current date data into memory using saved array positions.
-func load_current_date() -> void:
+# load current date data into memory using saved array positions. 
+# false inputs lead to not reloading existing months/years when unnecessary.
+# inputs are true by default for cleaner _ready call, as loading everything is necessary on game boot.
+func load_current_date(load_month: bool = true, load_year: bool = true) -> void:
 	#print(ResourceLoader.exists("res://scripts/resources/calendars/college_calendar.tres"))
-	year = load(game_calendar.years[current_year_num].resource_path)
-	#print(school_year.calendar_years.get("end_year"))
-	month = load(year.months[current_month_num].resource_path)
+	if load_year:
+		year = load(game_calendar.years[current_year_num].resource_path)
+		#print("year loaded.")
+	if load_month:
+		month = load(year.months[current_month_num].resource_path)
+		#print("month loaded.")
+	
+	# always load days regardless of inputs.
 	day = load(month.days[current_day_num].resource_path)
+	#print("day loaded.")
 
 # only use this for counts less than ~28, (the min size of a month) which is all that should be needed anyhow.
 func advance_date(count: int = 1) -> void:
+	# decide if new months or years need to be loaded; false by default as most days will stay in the same month/year.
+	var is_new_month: bool = false
+	var is_new_year: bool = false
+	
 	# add a check here later to not advance past the last calendar day, whatever that ends up being.
 	
 	# if advancing by the current count jumps to a new month, determine what to do.
@@ -101,10 +113,13 @@ func advance_date(count: int = 1) -> void:
 		if month.title == "December":
 			current_year_num += 1
 			current_month_num = 0
+			is_new_year = true
+			is_new_month = true
 		
 		# otherwise just advance the month.
 		else:
 			current_month_num += 1
+			is_new_month = true
 		# subtract any days from the previous month that were skipped by count before setting current_day_num using count
 		var last_month_difference: int = (month.days.size() - 1) - current_day_num
 		current_day_num = (count - last_month_difference) - 1  # subtract one since day array starts at 0, not 1.
@@ -114,4 +129,4 @@ func advance_date(count: int = 1) -> void:
 		current_day_num += count
 	
 	# load the new date.
-	load_current_date()
+	load_current_date(is_new_month, is_new_year)
