@@ -6,20 +6,21 @@ var game_calendar: Calendar = preload("res://scripts/resources/calendars/college
 var year: Year = Year.new()
 var month: Month = Month.new()
 var day: Day = Day.new()
-# these three values will need to be saved
+# these three values will need to be saved. They're all the current display day/month/year, minus one.
+# game start date on new save: (7-24-0 - which is Sunday August 25, 2024).
 var current_year_num: int = 0
 var current_month_num: int = 7
 var current_day_num: int = 24
 
 func _ready() -> void:
-	# first-time date load on game startup.
+	# first time current date load on game startup.
 	load_current_date()
 	print_date_info()
 	
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("day_increment_test"):
 		print("Starting next day.")
-		advance_date(1)
+		advance_date()
 		print_date_info()
 
 func print_date_info() -> void:
@@ -95,18 +96,22 @@ func advance_date(count: int = 1) -> void:
 	
 	# if advancing by the current count jumps to a new month, determine what to do.
 	if (current_day_num + count) >= month.days.size():
+		
 		# if in the last month of the year, advance both year and month.
 		if month.title == "December":
 			current_year_num += 1
 			current_month_num = 0
+		
 		# otherwise just advance the month.
 		else:
 			current_month_num += 1
 		# subtract any days from the previous month that were skipped by count before setting current_day_num using count
 		var last_month_difference: int = (month.days.size() - 1) - current_day_num
 		current_day_num = (count - last_month_difference) - 1  # subtract one since day array starts at 0, not 1.
+		
 	# if the count stays in the same month, just increment day count.
 	else:
 		current_day_num += count
+	
 	# load the new date.
 	load_current_date()
