@@ -2,7 +2,17 @@ extends Resource
 
 class_name Day
 
-@export var week_day: String = "Sunday"
+enum WeekDay {
+	SUNDAY = 0,
+	MONDAY = 1,
+	TUESDAY = 2,
+	WEDNESDAY = 3,
+	THURSDAY = 4,
+	FRIDAY = 5,
+	SATURDAY = 6
+}
+
+@export var week_day: WeekDay = WeekDay.SUNDAY
 @export var holiday: String = "none"
 
 enum Weather {

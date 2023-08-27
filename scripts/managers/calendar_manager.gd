@@ -20,7 +20,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("day_increment_test"):
 		print("Starting next day.")
-		advance_date(12)
+		advance_date()
 		print_date_info()
 
 func print_date_info() -> void:
@@ -29,7 +29,25 @@ func print_date_info() -> void:
 	print_date_events()
 	
 func print_date() -> void:
-	print("Today is " + day.week_day + " " + month.title + " " + str(current_day_num + 1) + ", " + str(year.number) + ".")
+	var week_day: String
+	
+	match day.week_day:
+		day.WeekDay.SUNDAY:
+			week_day = "Sunday"
+		day.WeekDay.MONDAY:
+			week_day = "Monday"
+		day.WeekDay.TUESDAY:
+			week_day = "Tuesday"
+		day.WeekDay.WEDNESDAY:
+			week_day = "Wednesday"
+		day.WeekDay.THURSDAY:
+			week_day = "Thursday"
+		day.WeekDay.FRIDAY:
+			week_day = "Friday"
+		day.WeekDay.SATURDAY:
+			week_day = "Saturday"
+	
+	print("Today is " + week_day + " " + month.title + " " + str(current_day_num + 1) + ", " + str(year.number) + ".")
 
 func print_date_weather() -> void:
 	var forecast: String
@@ -93,7 +111,7 @@ func load_current_date(load_month: bool = true, load_year: bool = true) -> void:
 	if load_month:
 		month = load(year.months[current_month_num].resource_path)
 		#print("month loaded.")
-	
+		
 	# always load days regardless of inputs.
 	day = load(month.days[current_day_num].resource_path)
 	#print("day loaded.")
@@ -103,8 +121,6 @@ func advance_date(count: int = 1) -> void:
 	# decide if new months or years need to be loaded; false by default as most days will stay in the same month/year.
 	var is_new_month: bool = false
 	var is_new_year: bool = false
-	
-	# add a check here later to not advance past the last calendar day, whatever that ends up being.
 	
 	# if advancing by the current count jumps to a new month, determine what to do.
 	if (current_day_num + count) >= month.days.size():

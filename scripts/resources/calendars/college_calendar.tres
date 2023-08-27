@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_6ugut"]
 script = ExtResource("3_4gypd")
-week_day = "Wednesday"
+week_day = 3
 holiday = "New Year's Day"
 weather = 4
 wind_multiplier = 0.0
@@ -16,7 +16,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_peiek"]
 script = ExtResource("3_4gypd")
-week_day = "Thursday"
+week_day = 4
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -24,7 +24,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_dsj5g"]
 script = ExtResource("3_4gypd")
-week_day = "Friday"
+week_day = 5
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -32,7 +32,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_tydjj"]
 script = ExtResource("3_4gypd")
-week_day = "Saturday"
+week_day = 6
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -40,7 +40,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_yosvu"]
 script = ExtResource("3_4gypd")
-week_day = "Sunday"
+week_day = 0
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -48,7 +48,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_thseh"]
 script = ExtResource("3_4gypd")
-week_day = "Monday"
+week_day = 1
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -56,7 +56,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_7nmbk"]
 script = ExtResource("3_4gypd")
-week_day = "Tuesday"
+week_day = 2
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -64,7 +64,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_1wbhd"]
 script = ExtResource("3_4gypd")
-week_day = "Wednesday"
+week_day = 3
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -72,7 +72,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_xbbwp"]
 script = ExtResource("3_4gypd")
-week_day = "Thursday"
+week_day = 4
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -80,7 +80,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_rqgys"]
 script = ExtResource("3_4gypd")
-week_day = "Friday"
+week_day = 5
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -88,7 +88,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_2pud1"]
 script = ExtResource("3_4gypd")
-week_day = "Saturday"
+week_day = 6
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -96,7 +96,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_tao26"]
 script = ExtResource("3_4gypd")
-week_day = "Sunday"
+week_day = 0
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -104,7 +104,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_ba7rj"]
 script = ExtResource("3_4gypd")
-week_day = "Monday"
+week_day = 1
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -112,7 +112,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_ctmtk"]
 script = ExtResource("3_4gypd")
-week_day = "Tuesday"
+week_day = 2
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -120,7 +120,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_w0mba"]
 script = ExtResource("3_4gypd")
-week_day = "Wednesday"
+week_day = 3
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -128,7 +128,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_8e1de"]
 script = ExtResource("3_4gypd")
-week_day = "Thursday"
+week_day = 4
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -136,7 +136,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_uv60h"]
 script = ExtResource("3_4gypd")
-week_day = "Friday"
+week_day = 5
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -144,7 +144,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_cvaoc"]
 script = ExtResource("3_4gypd")
-week_day = "Saturday"
+week_day = 6
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -152,7 +152,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_vh255"]
 script = ExtResource("3_4gypd")
-week_day = "Sunday"
+week_day = 0
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -160,7 +160,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_e8akl"]
 script = ExtResource("3_4gypd")
-week_day = "Monday"
+week_day = 1
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -168,7 +168,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_5lfo4"]
 script = ExtResource("3_4gypd")
-week_day = "Tuesday"
+week_day = 2
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -176,7 +176,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_pn3kp"]
 script = ExtResource("3_4gypd")
-week_day = "Wednesday"
+week_day = 3
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -184,7 +184,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_qgh48"]
 script = ExtResource("3_4gypd")
-week_day = "Thursday"
+week_day = 4
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -192,7 +192,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_88id2"]
 script = ExtResource("3_4gypd")
-week_day = "Friday"
+week_day = 5
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -200,7 +200,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_gxk7n"]
 script = ExtResource("3_4gypd")
-week_day = "Saturday"
+week_day = 6
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -208,7 +208,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_keymd"]
 script = ExtResource("3_4gypd")
-week_day = "Sunday"
+week_day = 0
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -216,7 +216,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_5bvo3"]
 script = ExtResource("3_4gypd")
-week_day = "Monday"
+week_day = 1
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -224,7 +224,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_f8fq4"]
 script = ExtResource("3_4gypd")
-week_day = "Tuesday"
+week_day = 2
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -232,7 +232,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_pkchf"]
 script = ExtResource("3_4gypd")
-week_day = "Wednesday"
+week_day = 3
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -240,7 +240,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_dsbiu"]
 script = ExtResource("3_4gypd")
-week_day = "Thursday"
+week_day = 4
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
@@ -248,7 +248,7 @@ events = {}
 
 [sub_resource type="Resource" id="Resource_qflvw"]
 script = ExtResource("3_4gypd")
-week_day = "Friday"
+week_day = 5
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
