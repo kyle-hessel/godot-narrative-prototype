@@ -1,15 +1,95 @@
-[gd_resource type="Resource" script_class="Year" load_steps=5 format=3 uid="uid://drl6wrmtby01m"]
+[gd_resource type="Resource" script_class="Year" load_steps=17 format=3 uid="uid://drl6wrmtby01m"]
 
-[ext_resource type="Resource" uid="uid://bsbblcmw51tkr" path="res://scripts/resources/days/first_day.tres" id="1_1ork6"]
-[ext_resource type="Script" path="res://scripts/resources/months/month.gd" id="1_27nw1"]
-[ext_resource type="Script" path="res://scripts/resources/years/year.gd" id="1_st2aa"]
+[ext_resource type="Resource" uid="uid://bdjwgaj2l43uh" path="res://scripts/resources/months/august_2024.tres" id="1_558ff"]
+[ext_resource type="Script" path="res://scripts/resources/months/month.gd" id="2_wakui"]
+[ext_resource type="Script" path="res://scripts/resources/days/day.gd" id="2_xivku"]
+[ext_resource type="Script" path="res://scripts/resources/years/year.gd" id="3_uixpp"]
 
-[sub_resource type="Resource" id="Resource_wqe4g"]
-script = ExtResource("1_27nw1")
-title = "August"
-days = Array[Resource("res://scripts/resources/days/day.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, ExtResource("1_1ork6"), null, null, null, null, null, null])
+[sub_resource type="Resource" id="Resource_pkhch"]
+script = ExtResource("2_xivku")
+week_day = "Sunday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_4n67r"]
+script = ExtResource("2_xivku")
+week_day = "Monday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_eeksp"]
+script = ExtResource("2_xivku")
+week_day = "Tuesday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_n4kht"]
+script = ExtResource("2_xivku")
+week_day = "Wednesday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_jw0rv"]
+script = ExtResource("2_xivku")
+week_day = "Thursday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_pmi0k"]
+script = ExtResource("2_xivku")
+week_day = "Friday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ccy4h"]
+script = ExtResource("2_xivku")
+week_day = "Saturday"
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_krafn"]
+script = ExtResource("2_xivku")
+week_day = "Sunday"
+holiday = "none"
+weather = 7
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_mcmt0"]
+script = ExtResource("2_wakui")
+title = "September"
+days = Array[ExtResource("2_xivku")]([SubResource("Resource_pkhch"), SubResource("Resource_4n67r"), SubResource("Resource_eeksp"), SubResource("Resource_n4kht"), SubResource("Resource_jw0rv"), SubResource("Resource_pmi0k"), SubResource("Resource_ccy4h"), SubResource("Resource_krafn"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_y3cjq"]
+script = ExtResource("2_wakui")
+title = "January"
+days = Array[ExtResource("2_xivku")]([])
+
+[sub_resource type="Resource" id="Resource_dgb73"]
+script = ExtResource("2_wakui")
+title = "January"
+days = Array[ExtResource("2_xivku")]([])
+
+[sub_resource type="Resource" id="Resource_itii8"]
+script = ExtResource("2_wakui")
+title = "January"
+days = Array[ExtResource("2_xivku")]([])
 
 [resource]
-script = ExtResource("1_st2aa")
+script = ExtResource("3_uixpp")
 number = 2024
-months = Array[ExtResource("1_27nw1")]([SubResource("Resource_wqe4g")])
+months = Array[ExtResource("2_wakui")]([null, null, null, null, null, null, null, ExtResource("1_558ff"), SubResource("Resource_mcmt0"), SubResource("Resource_y3cjq"), SubResource("Resource_dgb73"), SubResource("Resource_itii8")])

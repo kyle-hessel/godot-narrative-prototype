@@ -8,20 +8,24 @@ var month: Month = Month.new()
 var day: Day = Day.new()
 # these three values will need to be saved
 var current_year_num: int = 0
-var current_month_num: int = 0
+var current_month_num: int = 7
 var current_day_num: int = 24
 
 func _ready() -> void:
 	# first-time date load on game startup.
 	load_current_date()
+	print_date_info()
 	
+func _process(delta) -> void:
+	if Input.is_action_just_pressed("day_increment_test"):
+		print("Starting next day.")
+		advance_date(1)
+		print_date_info()
+
+func print_date_info() -> void:
 	print_date()
 	print_date_weather()
 	print_date_events()
-	
-func process() -> void:
-	if Input.is_action_just_pressed("day_increment_test"):
-		advance_date(1)
 	
 func print_date() -> void:
 	print("Today is " + day.week_day + " " + month.title + " " + str(current_day_num + 1) + ", " + str(year.number) + ".")
@@ -52,12 +56,16 @@ func print_date_weather() -> void:
 		day.Weather.FOGGY:
 			forecast = "fog"
 		_:
-			pass
+			forecast = "sun"
 	
 	print("The forecast today shows " + forecast + ".")
 
 func print_date_events() -> void:
+	if day.holiday != "none":
+		print("Today is a holiday: " + day.holiday + ".")
+	
 	print("Today's events:")
+	
 	for event in day.events.keys():
 		match event:
 			"Hangout":
@@ -67,7 +75,9 @@ func print_date_events() -> void:
 			"Work":
 				print(event + " at " + day.events.get(event) + ".")
 			"Visit":
-				print (event + " " + day.events.get(event) + ".")
+				print(event + " " + day.events.get(event) + ".")
+			"Move":
+				print(event + " to " + day.events.get(event) + ".")
 			_:
 				print("event: " + event + ", " + day.events.get(event) + ".")
 
@@ -84,7 +94,7 @@ func advance_date(count: int = 1) -> void:
 	# add a check here later to not advance past the last calendar day, whatever that ends up being.
 	
 	# if advancing by the current count jumps to a new month, determine what to do.
-	if (current_day_num + count) >= month.days.size() - 1:
+	if (current_day_num + count) >= month.days.size():
 		# if in the last month of the year, advance both year and month.
 		if month.title == "December":
 			current_year_num += 1

@@ -19,10 +19,6 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scenes/singletons/game_manager.tscn"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [input]
 
 jump={
