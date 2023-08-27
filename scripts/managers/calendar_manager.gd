@@ -3,7 +3,7 @@ extends Node
 class_name CalendarManager
 
 var game_calendar: Calendar = preload("res://scripts/resources/calendars/college_calendar.tres")
-var school_year: Year = Year.new()
+var year: Year = Year.new()
 var month: Month = Month.new()
 var day: Day = Day.new()
 # these three values will need to be saved
@@ -16,24 +16,67 @@ func _ready() -> void:
 	load_current_date()
 	
 	print_date()
-	var todays_events: Dictionary = day.events
-	print(todays_events.keys()[0] + " with " + todays_events.get(todays_events.keys()[0]) + " today.")
+	print_date_weather()
+	print_date_events()
 	
 func process() -> void:
-	pass
+	if Input.is_action_just_pressed("day_increment_test"):
+		advance_date(1)
 	
 func print_date() -> void:
-	print("Today is " + day.week_day + " " + month.title + " " + str(current_day_num + 1) + ", " + str(school_year.calendar_years.get("current_year")) + ".")
+	print("Today is " + day.week_day + " " + month.title + " " + str(current_day_num + 1) + ", " + str(year.number) + ".")
+
+func print_date_weather() -> void:
+	var forecast: String
+	match day.weather:
+		day.Weather.SUNNY:
+			forecast = "sun"
+		day.Weather.CLOUDY:
+			forecast = "clouds"
+		day.Weather.RAINY:
+			forecast = "rain"
+		day.Weather.LIGHTNING:
+			forecast = "rain with lightning"
+		day.Weather.SNOW:
+			forecast = "snow"
+		day.Weather.SUNNY_WIND:
+			forecast = "snow with wind"
+		day.Weather.CLOUDY_WIND:
+			forecast = "clouds with wind"
+		day.Weather.RAINY_WIND:
+			forecast = "rain with wind"
+		day.Weather.LIGHTNING_WIND:
+			forecast = "rain with wind and lightning"
+		day.Weather.SNOW_WIND:
+			forecast = "a blizzard"
+		day.Weather.FOGGY:
+			forecast = "fog"
+		_:
+			pass
+	
+	print("The forecast today shows " + forecast + ".")
 
 func print_date_events() -> void:
-	pass
+	print("Today's events:")
+	for event in day.events.keys():
+		match event:
+			"Hangout":
+				print(event + " with " + day.events.get(event) + ".")
+			"Attend":
+				print(event + " " + day.events.get(event) + ".")
+			"Work":
+				print(event + " at " + day.events.get(event) + ".")
+			"Visit":
+				print (event + " " + day.events.get(event) + ".")
+			_:
+				print("event: " + event + ", " + day.events.get(event) + ".")
 
 # load current date data into memory using saved array positions.
 func load_current_date() -> void:
 	#print(ResourceLoader.exists("res://scripts/resources/calendars/college_calendar.tres"))
-	school_year = load(game_calendar.years[current_year_num].resource_path)
+	year = load(game_calendar.years[current_year_num].resource_path)
 	#print(school_year.calendar_years.get("end_year"))
-	month = load(school_year.months[current_month_num].resource_path)
+	month = load(year.months[current_month_num].resource_path)
 	day = load(month.days[current_day_num].resource_path)
 
 # only use this for counts less than ~28, (the min size of a month) which is all that should be needed anyhow.

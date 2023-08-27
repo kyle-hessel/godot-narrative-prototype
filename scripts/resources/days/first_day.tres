@@ -8,5 +8,6 @@ week_day = "Sunday"
 holiday = "none"
 weather = 0
 events = {
+"Attend": "CS 101",
 "Hangout": "Peter"
 }

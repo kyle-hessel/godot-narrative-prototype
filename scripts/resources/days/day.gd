@@ -20,4 +20,5 @@ enum Weather {
 }
 
 @export var weather: Weather = Weather.SUNNY
+@export var wind_multiplier: float = 0.0
 @export var events: Dictionary = {}

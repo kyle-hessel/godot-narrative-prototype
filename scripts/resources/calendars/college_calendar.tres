@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="Calendar" load_steps=6 format=3 uid="uid://c7y2j8wpolqph"]
+[gd_resource type="Resource" script_class="Calendar" load_steps=3 format=3 uid="uid://c7y2j8wpolqph"]
 
 [ext_resource type="Script" path="res://scripts/resources/calendars/calendar.gd" id="1_5qqbi"]
-[ext_resource type="Resource" uid="uid://drl6wrmtby01m" path="res://scripts/resources/years/freshman_year.tres" id="2_w585k"]
-[ext_resource type="Resource" uid="uid://cq0gi6jigixuw" path="res://scripts/resources/years/sophomore_year.tres" id="3_3qtb4"]
-[ext_resource type="Resource" uid="uid://crgkr20cs33a4" path="res://scripts/resources/years/junior_year.tres" id="4_ebo5w"]
-[ext_resource type="Resource" uid="uid://f0kpng684jfv" path="res://scripts/resources/years/senior_year.tres" id="5_prue6"]
+[ext_resource type="Resource" uid="uid://drl6wrmtby01m" path="res://scripts/resources/years/2024.tres" id="2_tur1x"]
 
 [resource]
 script = ExtResource("1_5qqbi")
 title = "Altitude University Academic Calendar"
-years = Array[Resource("res://scripts/resources/years/year.gd")]([ExtResource("2_w585k"), ExtResource("3_3qtb4"), ExtResource("4_ebo5w"), ExtResource("5_prue6")])
+years = Array[Resource("res://scripts/resources/years/year.gd")]([ExtResource("2_tur1x")])
