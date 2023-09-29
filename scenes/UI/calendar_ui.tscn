@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyxhch875vcai"]
+
+[ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="1_r46mo"]
+
+[node name="CalendarCanvas" type="CanvasLayer"]
+
+[node name="CalendarOutsideMargin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_r46mo")
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 40
+
+[node name="CalendarContainer" type="PanelContainer" parent="CalendarOutsideMargin"]
+layout_mode = 2
+
+[node name="CalendarInsideMargin" type="MarginContainer" parent="CalendarOutsideMargin/CalendarContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CalendarVBox" type="VBoxContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin"]
+layout_mode = 2
+
+[node name="TitleHBox" type="HBoxContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MonthTitle" type="Label" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "January"
+horizontal_alignment = 1
+
+[node name="YearTitle" type="Label" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "2024
+"
+
+[node name="DaysGrid" type="GridContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
+layout_mode = 2
