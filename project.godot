@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 GameManager="*res://scenes/singletons/game_manager.tscn"
 UIManager="*res://scenes/singletons/ui_manager.tscn"
 
+[display]
+
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
 [input]
 
 jump={
