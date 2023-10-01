@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyxhch875vcai"]
+[gd_scene load_steps=3 format=3 uid="uid://cyxhch875vcai"]
 
 [ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="1_r46mo"]
+[ext_resource type="Script" path="res://scripts/UI/calendar_ui.gd" id="1_x5g1r"]
 
 [node name="CalendarCanvas" type="CanvasLayer"]
+script = ExtResource("1_x5g1r")
 
 [node name="CalendarOutsideMargin" type="MarginContainer" parent="."]
 anchors_preset = 15

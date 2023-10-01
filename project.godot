@@ -24,6 +24,7 @@ UIManager="*res://scenes/singletons/ui_manager.tscn"
 
 window/size/resizable=false
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 
 [input]
 
