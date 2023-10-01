@@ -1,11 +1,19 @@
 extends Control
 
+var ui_open: bool = false
+var calendar_ui := preload("res://scenes/UI/calendar_ui.tscn")
+var calendar_ui_inst : CanvasLayer
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
 	pass
+
+
+func _process(delta):
+	if Input.is_action_just_pressed("menu_game"):
+		if !ui_open:
+			calendar_ui_inst = calendar_ui.instantiate()
+			add_child(calendar_ui_inst)
+			ui_open = true
+		else:
+			ui_open = false
+			calendar_ui_inst.queue_free()
