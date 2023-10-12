@@ -35,8 +35,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Altitude University Academic Calendar"
 
-[node name="Control" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
-custom_minimum_size = Vector2(0, 10)
+[node name="MonthTitleBufferTop" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
+custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
 [node name="TitleHBox" type="HBoxContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
@@ -69,5 +69,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="DaysGrid" type="GridContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
+[node name="MonthTitleBufferBottom" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+
+[node name="DaysGrid" type="GridContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 110
+theme_override_constants/v_separation = 90
+columns = 7

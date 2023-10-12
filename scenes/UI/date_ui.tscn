@@ -1,5 +1,14 @@
-[gd_scene format=3 uid="uid://6o3wq78p0aem"]
+[gd_scene load_steps=2 format=3 uid="uid://6o3wq78p0aem"]
+
+[ext_resource type="Texture2D" uid="uid://clu2id2a758qa" path="res://icon.svg" id="1_nmpn3"]
 
 [node name="DateUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 73.0
+texture = ExtResource("1_nmpn3")
+expand_mode = 1
