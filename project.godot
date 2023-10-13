@@ -30,7 +30,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/clean_top_bar/plugin.cfg", "res://addons/horizontal_file_system/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

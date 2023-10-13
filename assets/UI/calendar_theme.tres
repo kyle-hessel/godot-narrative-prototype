@@ -1,6 +1,23 @@
-[gd_resource type="Theme" format=3 uid="uid://b2s7haww6nd6t"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b2s7haww6nd6t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn5c6"]
+bg_color = Color(0.980392, 0.980392, 0.980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al5r4"]
+bg_color = Color(0.34902, 0.6, 0.941176, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [resource]
+DatePanelContainer/base_type = &"PanelContainer"
+DatePanelContainer/styles/panel = SubResource("StyleBoxFlat_xn5c6")
 HeaderLarge/font_sizes/font_size = 48
 HeaderMedium/font_sizes/font_size = 64
 HeaderSmall/font_sizes/font_size = 20
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_al5r4")

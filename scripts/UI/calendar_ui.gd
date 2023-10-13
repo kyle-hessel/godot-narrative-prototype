@@ -9,4 +9,6 @@ func _ready():
 	year_title.text = str(GameManager.calendar_manager.year.number)
 	
 	for d in range(GameManager.calendar_manager.month.days.size()):
-		%DaysGrid.add_child(date_entry.instantiate())
+		var date_inst: Control = date_entry.instantiate()
+		%DaysGrid.add_child(date_inst)
+		date_inst.date_number.text = str(d + 1)
