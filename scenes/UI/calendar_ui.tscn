@@ -13,10 +13,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_r46mo")
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 30
 
 [node name="CalendarContainer" type="PanelContainer" parent="CalendarOutsideMargin"]
 layout_mode = 2
@@ -33,10 +33,11 @@ layout_mode = 2
 
 [node name="CalendarTitle" type="Label" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
 layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 text = "Altitude University Academic Calendar"
 
 [node name="MonthTitleBufferTop" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="TitleHBox" type="HBoxContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
@@ -58,7 +59,7 @@ horizontal_alignment = 1
 [node name="YearTitle" type="Label" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
+size_flags_stretch_ratio = 0.65
 theme_type_variation = &"HeaderMedium"
 text = "2024
 "
@@ -70,12 +71,13 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="MonthTitleBufferBottom" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
 [node name="DaysGrid" type="GridContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/h_separation = 110
-theme_override_constants/v_separation = 90
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 190
+theme_override_constants/v_separation = 150
 columns = 7

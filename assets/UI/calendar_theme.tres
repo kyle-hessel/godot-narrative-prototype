@@ -2,4 +2,5 @@
 
 [resource]
 HeaderLarge/font_sizes/font_size = 48
-HeaderMedium/font_sizes/font_size = 36
+HeaderMedium/font_sizes/font_size = 64
+HeaderSmall/font_sizes/font_size = 20
