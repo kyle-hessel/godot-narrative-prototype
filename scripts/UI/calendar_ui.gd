@@ -8,8 +8,9 @@ func _ready():
 	month_title.text = GameManager.calendar_manager.month.title
 	year_title.text = str(GameManager.calendar_manager.year.number)
 	
+	var current_day: int = GameManager.calendar_manager.current_day_num
+	
 	for d in range(GameManager.calendar_manager.month.days.size()):
-		var current_day: int = GameManager.calendar_manager.current_day_num
 		var date_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_inst)
 		
