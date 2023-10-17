@@ -5,6 +5,8 @@ extends CanvasLayer
 var date_entry: PackedScene = preload("res://scenes/UI/date_ui.tscn")
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	month_title.text = GameManager.calendar_manager.month.title
 	year_title.text = str(GameManager.calendar_manager.year.number)
 	
@@ -15,5 +17,9 @@ func _ready():
 		%DaysGrid.add_child(date_inst)
 		
 		date_inst.date_number.text = str(d + 1)
+		date_inst.date_num = d + 1
 		if d == current_day:
 			date_inst.date_panel.modulate = "d6b247"
+
+func _exit_tree():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

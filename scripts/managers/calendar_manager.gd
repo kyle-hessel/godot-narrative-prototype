@@ -17,6 +17,8 @@ func _ready() -> void:
 	load_current_date()
 	print_date_info()
 	
+	
+	
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("day_increment_test"):
 		print("Starting next day.")
@@ -26,7 +28,7 @@ func _process(delta) -> void:
 func print_date_info() -> void:
 	print_date()
 	print_date_weather()
-	print_date_events()
+	print_date_events(day)
 	
 func print_date() -> void:
 	var week_day: String
@@ -79,7 +81,7 @@ func print_date_weather() -> void:
 	
 	print("The forecast today shows " + forecast + ".")
 
-func print_date_events() -> void:
+func print_date_events(day: Day) -> void:
 	if day.holiday != "none":
 		print("Today is a holiday: " + day.holiday + ".")
 	
