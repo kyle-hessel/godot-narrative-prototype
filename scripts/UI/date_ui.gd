@@ -13,7 +13,16 @@ func _ready():
 	pass
 
 func _process(delta: float) -> void:
-	if is_mouse_entered && Input.is_action_just_pressed("gui_select"):
+	pass
+
+func _on_date_panel_mouse_entered():
+	is_mouse_entered = true
+
+func _on_date_panel_mouse_exited():
+	is_mouse_entered = false
+
+func _on_date_panel_gui_input(event: InputEvent):
+	if is_mouse_entered && event.is_action_pressed("gui_select"):
 		# fetch year and month here instead of at the initialization of EVERY date_ui instance. The information will
 		# almost never be needed for *all* of them, so it will be more efficient to just fetch this on the fly as requested.
 		var year_fetch: Year = GameManager.calendar_manager.year
@@ -26,10 +35,3 @@ func _process(delta: float) -> void:
 		print(month_fetch.title)
 		print(calendar_day_num + 1)
 		GameManager.calendar_manager.print_date_events(day_fetch)
-		
-
-func _on_date_panel_mouse_entered():
-	is_mouse_entered = true
-
-func _on_date_panel_mouse_exited():
-	is_mouse_entered = false

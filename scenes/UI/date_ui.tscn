@@ -39,5 +39,6 @@ theme_override_font_sizes/font_size = 35
 text = "0"
 horizontal_alignment = 2
 
+[connection signal="gui_input" from="DatePanel" to="." method="_on_date_panel_gui_input"]
 [connection signal="mouse_entered" from="DatePanel" to="." method="_on_date_panel_mouse_entered"]
 [connection signal="mouse_exited" from="DatePanel" to="." method="_on_date_panel_mouse_exited"]
