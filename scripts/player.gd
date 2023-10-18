@@ -87,8 +87,9 @@ func _physics_process(delta: float) -> void:
 		if movement_state > 0:
 			rotate_player(delta)
 	
-	# camera movement w/ controller
-	rotate_cam_joypad(delta)
+	if !UIManager.ui_open:
+		# camera movement w/ controller
+		rotate_cam_joypad(delta)
 	
 	# collisions
 	move_and_slide()
@@ -96,8 +97,9 @@ func _physics_process(delta: float) -> void:
 	#print(movement_state)
 
 func _input(event):
-	# camera movement w/ mouse
-	rotate_cam_kb_m(event)
+	if !UIManager.ui_open:
+		# camera movement w/ mouse
+		rotate_cam_kb_m(event)
 	
 	# handle what happens when the player presses different combat actions in combat.
 	# using 'event.' instead of 'Input.' for better input event buffering.
