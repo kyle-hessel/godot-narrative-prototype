@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyxhch875vcai"]
+[gd_scene load_steps=4 format=3 uid="uid://cyxhch875vcai"]
 
 [ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="1_r46mo"]
 [ext_resource type="Script" path="res://scripts/UI/calendar_ui.gd" id="1_x5g1r"]
+[ext_resource type="PackedScene" uid="uid://bjxlplnjacyae" path="res://scenes/UI/calendar_arrow_ui.tscn" id="3_pt150"]
 
 [node name="CalendarCanvas" type="CanvasLayer"]
 script = ExtResource("1_x5g1r")
@@ -43,10 +44,14 @@ layout_mode = 2
 [node name="TitleHBox" type="HBoxContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
 layout_mode = 2
 
+[node name="CalendarArrowUILeft" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox" instance=ExtResource("3_pt150")]
+layout_mode = 2
+size_flags_horizontal = 6
+
 [node name="LeftMonthTitleSpacer" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.75
 
 [node name="MonthTitle" type="Label" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
 layout_mode = 2
@@ -55,6 +60,11 @@ size_flags_stretch_ratio = 0.7
 theme_type_variation = &"HeaderMedium"
 text = "August"
 horizontal_alignment = 1
+
+[node name="MiddleMonthTitleSpacer" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
 
 [node name="YearTitle" type="Label" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
 layout_mode = 2
@@ -68,7 +78,11 @@ horizontal_alignment = 1
 [node name="RightMonthTitleSpacer" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.75
+
+[node name="CalendarArrowUIRight" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox" instance=ExtResource("3_pt150")]
+layout_mode = 2
+size_flags_horizontal = 6
 
 [node name="MonthTitleBufferBottom" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
 custom_minimum_size = Vector2(0, 120)

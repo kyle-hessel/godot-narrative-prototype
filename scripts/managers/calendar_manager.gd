@@ -17,8 +17,7 @@ func _ready() -> void:
 	load_current_date()
 	print_date_info()
 	
-	
-	
+
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("day_increment_test"):
 		print("Starting next day.")
