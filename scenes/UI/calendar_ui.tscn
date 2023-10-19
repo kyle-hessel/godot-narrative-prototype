@@ -58,7 +58,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
 theme_type_variation = &"HeaderMedium"
-text = "August"
+text = "Month"
 horizontal_alignment = 1
 
 [node name="MiddleMonthTitleSpacer" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]
@@ -71,8 +71,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.65
 theme_type_variation = &"HeaderMedium"
-text = "2024
-"
+text = "Year"
 horizontal_alignment = 1
 
 [node name="RightMonthTitleSpacer" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox"]

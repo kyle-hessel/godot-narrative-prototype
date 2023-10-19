@@ -2,8 +2,8 @@ extends CanvasLayer
 
 class_name CalendarUI
 
-var calendar_year_num: int = GameManager.calendar_manager.current_year_num
-var calendar_month_num: int = GameManager.calendar_manager.current_month_num
+var calendar_year_num: int
+var calendar_month_num: int
 @onready var month_title: Label = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/MonthTitle
 @onready var year_title: Label = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/YearTitle
 @onready var arrow_left: CalendarArrowUI = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/CalendarArrowUILeft
@@ -17,8 +17,8 @@ func _ready():
 	calendar_year_num = GameManager.calendar_manager.current_year_num
 	calendar_month_num = GameManager.calendar_manager.current_month_num
 	
-	#month_title.text = GameManager.calendar_manager.month.title
-	#year_title.text = str(GameManager.calendar_manager.year.number)
+	month_title.text = GameManager.calendar_manager.month.title
+	year_title.text = str(GameManager.calendar_manager.year.number)
 	arrow_left.on_click.connect(_month_left)
 	arrow_right.on_click.connect(_month_right)
 	
