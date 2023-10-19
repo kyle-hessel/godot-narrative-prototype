@@ -11,8 +11,11 @@ var calendar_month_num: int
 
 var date_entry: PackedScene = preload("res://scenes/UI/date_ui.tscn")
 
+signal show_mouse
+signal hide_mouse
+
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	emit_signal("show_mouse")
 	
 	calendar_year_num = GameManager.calendar_manager.current_year_num
 	calendar_month_num = GameManager.calendar_manager.current_month_num
@@ -25,7 +28,7 @@ func _ready():
 	generate_date_grid(GameManager.calendar_manager.month)
 
 func _exit_tree():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	emit_signal("hide_mouse")
 
 func generate_date_grid(month: Month) -> void:
 	var current_day: int = GameManager.calendar_manager.current_day_num
