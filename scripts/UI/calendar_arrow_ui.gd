@@ -2,9 +2,6 @@ extends Control
 
 class_name CalendarArrowUI
 
-# simple bool to decide if arrow goes back or forwards in time (right = forward)
-var dir_right: bool = true
-
 var is_mouse_entered: bool = false
 
 signal on_click
