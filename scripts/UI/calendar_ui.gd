@@ -41,10 +41,17 @@ func generate_date_grid(month: Month) -> void:
 
 # shift back a month
 func _month_left() -> void:
-	# this if check avoids going backwards past the start of the academic calendar.
+	# this if check avoids going backwards past the start of the academic calendar (august 2024).
 	if calendar_month_num > 7 || calendar_year_num > 0:
 		print("back in time!")
-		calendar_month_num -= 1
+		
+		# if in january, roll over to the year before (if we got this far, meaning we are in >=2025).
+		if calendar_month_num == 0:
+			calendar_year_num -= 1
+			calendar_month_num = 11
+		# otherwise, just decrement month.
+		else:
+			calendar_month_num -= 1
 		
 		for c in %DaysGrid.get_children():
 			c.queue_free()
@@ -53,18 +60,27 @@ func _month_left() -> void:
 
 # shift forward a month
 func _month_right() -> void:
-	# NOTE: add an if check later like above to stop from going past the end of the 4-year academic calendar.
-	print("forward in time!")
-	calendar_month_num += 1
-	
-	for c in %DaysGrid.get_children():
-		c.queue_free()
-	
-	rebuild_calendar()
+	# this if check avoids going forwards past the end of the academic calendar (may 2028).
+	if calendar_month_num < 5 || calendar_year_num < 4:
+		print("forward in time!")
+		
+		# if in december, roll over into the next year.
+		if calendar_month_num == 11:
+			calendar_year_num += 1
+			calendar_month_num = 0
+		# otherwise, just increment month.
+		else:
+			calendar_month_num += 1
+		
+		for c in %DaysGrid.get_children():
+			c.queue_free()
+		
+		rebuild_calendar()
 
 func rebuild_calendar() -> void:
 	var year_fetch: Year = load(GameManager.calendar_manager.game_calendar.years[calendar_year_num].resource_path)
 	var month_fetch: Month = load(year_fetch.months[calendar_month_num].resource_path)
 	
+	year_title.text = str(year_fetch.number)
 	month_title.text = month_fetch.title
 	generate_date_grid(month_fetch)
