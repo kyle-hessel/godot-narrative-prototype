@@ -5,11 +5,7 @@ class_name DateUI
 @onready var date_panel: PanelContainer = $DatePanel
 @onready var date_number: Label = $DatePanel/DatePanelMargin/DateNumber
 
-
-
 var calendar_day_num: int
-
-var is_mouse_entered: bool = false
 
 func _ready():
 	pass
@@ -17,14 +13,8 @@ func _ready():
 func _process(delta: float) -> void:
 	pass
 
-func _on_date_panel_mouse_entered():
-	is_mouse_entered = true
-
-func _on_date_panel_mouse_exited():
-	is_mouse_entered = false
-
 func _on_date_panel_gui_input(event: InputEvent):
-	if is_mouse_entered && event.is_action_pressed("gui_select"):
+	if event.is_action_pressed("gui_select"):
 		# fetch year and month here instead of at the initialization of EVERY date_ui instance. The information will
 		# almost never be needed for *all* of them, so it will be more efficient to just fetch this on the fly as requested.
 		var calendar_year_num: int = UIManager.calendar_ui_inst.calendar_year_num
