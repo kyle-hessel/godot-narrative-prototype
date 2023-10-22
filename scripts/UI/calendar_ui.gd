@@ -52,6 +52,7 @@ func generate_date_grid(month: Month, year: Year) -> void:
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
 		
+		date_ui_inst.in_current_month = true
 		date_ui_inst.date_number.text = str(d + 1)
 		date_ui_inst.calendar_day_num = d
 		if month == GameManager.calendar_manager.month:
@@ -72,10 +73,11 @@ func generate_date_grid_previous_month(previous_month_size: int, start_day: int)
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
 		
+		date_ui_inst.in_current_month = false
 		date_ui_inst.date_number.text = str(month_day_pos + 1)
 		date_ui_inst.calendar_day_num = month_day_pos
 		month_day_pos += 1
-		date_ui_inst.date_panel.modulate = "586ebc"
+		date_ui_inst.date_panel.modulate = "586ebcbe"
 
 # generates any days from the next month that need to show up on the grid of the current month
 func generate_date_grid_next_month(day_count: int) -> void:
@@ -83,9 +85,10 @@ func generate_date_grid_next_month(day_count: int) -> void:
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
 		
+		date_ui_inst.in_current_month = false
 		date_ui_inst.date_number.text = str(d + 1)
 		date_ui_inst.calendar_day_num = d
-		date_ui_inst.date_panel.modulate = "586ebc"
+		date_ui_inst.date_panel.modulate = "586ebcbe"
 
 # shift back a month
 func _month_left() -> void:
