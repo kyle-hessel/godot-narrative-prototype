@@ -9,6 +9,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("menu_game"):
+		# this will need to change if the calendar can ever be opened over other UI elements later.
 		if !ui_open:
 			calendar_ui_inst = calendar_ui.instantiate()
 			calendar_ui_inst.show_mouse.connect(_gui_show_mouse)

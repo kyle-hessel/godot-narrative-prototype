@@ -25,22 +25,67 @@ func _ready():
 	arrow_left.on_click.connect(_month_left)
 	arrow_right.on_click.connect(_month_right)
 	
-	generate_date_grid(GameManager.calendar_manager.month)
+	generate_date_grid(GameManager.calendar_manager.month, GameManager.calendar_manager.year)
 
 func _exit_tree():
 	emit_signal("hide_mouse")
 
-func generate_date_grid(month: Month) -> void:
+# generates all days of the current month.
+func generate_date_grid(month: Month, year: Year) -> void:
 	var current_day: int = GameManager.calendar_manager.current_day_num
+	var month_start_weekday: Day.WeekDay = month.days[0].week_day
 	
+	# populate DaysGrid with any days from the last month that show up in the first week row.
+	if month_start_weekday != Day.WeekDay.SUNDAY:
+		# if month is not january, use the current year to load days from previous month.
+		if calendar_month_num > 0:
+			var month_fetch: Month = load(year.months[calendar_month_num - 1].resource_path)
+			generate_date_grid_previous_month(month_fetch.days.size(), month_start_weekday)
+		# if month is january, use the prior year to load days from the previous month.
+		else:
+			var year_fetch: Year = load(GameManager.calendar_manager.game_calendar.years[calendar_year_num - 1].resource_path)
+			var month_fetch: Month = load(year_fetch.months[11].resource_path)
+			generate_date_grid_previous_month(month_fetch.days.size(), month_start_weekday)
+	
+	# populate DaysGrid with all of the days of the current month.
 	for d in range(month.days.size()):
-		var date_inst: Control = date_entry.instantiate()
-		%DaysGrid.add_child(date_inst)
+		var date_ui_inst: Control = date_entry.instantiate()
+		%DaysGrid.add_child(date_ui_inst)
 		
-		date_inst.date_number.text = str(d + 1)
-		date_inst.calendar_day_num = d
-		if d == current_day:
-			date_inst.date_panel.modulate = "d6b247"
+		date_ui_inst.date_number.text = str(d + 1)
+		date_ui_inst.calendar_day_num = d
+		if month == GameManager.calendar_manager.month:
+			if d == current_day:
+				date_ui_inst.date_panel.modulate = "d6b247"
+	
+	# populate DaysGrid with any days from the next month that show up in the last week row.
+	print(%DaysGrid.get_children().size())
+	var remaining_days_to_fill: int = 42 - %DaysGrid.get_children().size()
+	
+	generate_date_grid_next_month(remaining_days_to_fill)
+
+# generates any days from the prior month that need to show up on the grid of the current month
+func generate_date_grid_previous_month(previous_month_size: int, start_day: int) -> void:
+	var month_day_pos: int = previous_month_size - start_day
+	
+	for d in range(start_day):
+		var date_ui_inst: Control = date_entry.instantiate()
+		%DaysGrid.add_child(date_ui_inst)
+		
+		date_ui_inst.date_number.text = str(month_day_pos + 1)
+		date_ui_inst.calendar_day_num = month_day_pos
+		month_day_pos += 1
+		date_ui_inst.date_panel.modulate = "586ebc"
+
+# generates any days from the next month that need to show up on the grid of the current month
+func generate_date_grid_next_month(day_count: int) -> void:
+	for d in range(day_count):
+		var date_ui_inst: Control = date_entry.instantiate()
+		%DaysGrid.add_child(date_ui_inst)
+		
+		date_ui_inst.date_number.text = str(d + 1)
+		date_ui_inst.calendar_day_num = d
+		date_ui_inst.date_panel.modulate = "586ebc"
 
 # shift back a month
 func _month_left() -> void:
@@ -57,6 +102,7 @@ func _month_left() -> void:
 			calendar_month_num -= 1
 		
 		for c in %DaysGrid.get_children():
+			%DaysGrid.remove_child(c)
 			c.queue_free()
 		
 		rebuild_calendar()
@@ -76,6 +122,7 @@ func _month_right() -> void:
 			calendar_month_num += 1
 		
 		for c in %DaysGrid.get_children():
+			%DaysGrid.remove_child(c)
 			c.queue_free()
 		
 		rebuild_calendar()
@@ -86,4 +133,4 @@ func rebuild_calendar() -> void:
 	
 	year_title.text = str(year_fetch.number)
 	month_title.text = month_fetch.title
-	generate_date_grid(month_fetch)
+	generate_date_grid(month_fetch, year_fetch)
