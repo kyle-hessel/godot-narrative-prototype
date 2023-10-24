@@ -55,12 +55,17 @@ func generate_date_grid(month: Month, year: Year) -> void:
 		date_ui_inst.in_current_month = true
 		date_ui_inst.date_number.text = str(d + 1)
 		date_ui_inst.calendar_day_num = d
+		date_ui_inst.calendar_year = year
+		date_ui_inst.calendar_month = month
 		if month == GameManager.calendar_manager.month:
 			if d == current_day:
 				date_ui_inst.date_panel.modulate = "d6b247"
+		
+		date_ui_inst.init_events()
 	
 	# populate DaysGrid with any days from the next month that show up in the last week row.
 	print(%DaysGrid.get_children().size())
+	
 	var remaining_days_to_fill: int = 42 - %DaysGrid.get_children().size()
 	
 	generate_date_grid_next_month(remaining_days_to_fill)

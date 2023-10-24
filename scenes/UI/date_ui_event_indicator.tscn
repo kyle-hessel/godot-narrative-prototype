@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6f8rsywbk76a"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kkswp"]
+
+[node name="date_ui_event_indicator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0.329412, 0.447059, 0.811765, 1)
+position = Vector2(10, -10)
+scale = Vector2(20, 20)
+mesh = SubResource("SphereMesh_kkswp")

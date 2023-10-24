@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_k4rcq")
-week_day = "Sunday"
+week_day = 0
 holiday = "none"
 weather = 0
 wind_multiplier = 0.0
 events = {
+"Attend": "orientation",
 "Hangout": "Peter",
 "Move": "dorm"
 }

@@ -27,16 +27,27 @@ theme_type_variation = &"DatePanelContainer"
 
 [node name="DatePanelMargin" type="MarginContainer" parent="DatePanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = -40
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 10
 
-[node name="DateNumber" type="Label" parent="DatePanel/DatePanelMargin"]
+[node name="EventsGrid" type="GridContainer" parent="DatePanel/DatePanelMargin"]
 layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/h_separation = -10
+columns = 3
+
+[node name="DateNumber" type="Label" parent="."]
+layout_direction = 3
+layout_mode = 2
+offset_left = -61.0
+offset_top = -53.0
+offset_right = -41.0
+offset_bottom = -1.0
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.482353, 0.505882, 0.858824, 1)
 theme_override_font_sizes/font_size = 35
 text = "0"
-horizontal_alignment = 2
 
 [connection signal="gui_input" from="DatePanel" to="." method="_on_date_panel_gui_input"]

@@ -533,7 +533,9 @@ week_day = 4
 holiday = "Halloween"
 weather = 0
 wind_multiplier = 0.0
-events = {}
+events = {
+"Hangout": "Sasha"
+}
 
 [sub_resource type="Resource" id="Resource_y3cjq"]
 script = ExtResource("2_wakui")

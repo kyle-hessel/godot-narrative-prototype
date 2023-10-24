@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Calendar" load_steps=46 format=3 uid="uid://c7y2j8wpolqph"]
+[gd_resource type="Resource" script_class="Calendar" load_steps=103 format=3 uid="uid://c7y2j8wpolqph"]
 
 [ext_resource type="Script" path="res://scripts/resources/calendars/calendar.gd" id="1_5qqbi"]
 [ext_resource type="Resource" uid="uid://drl6wrmtby01m" path="res://scripts/resources/years/2024.tres" id="2_tur1x"]
@@ -267,10 +267,226 @@ weather = 0
 wind_multiplier = 0.0
 events = {}
 
+[sub_resource type="Resource" id="Resource_d8j0q"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_0uosm"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_hapuf"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_0wvra"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_yprm3"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ebym4"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_nyvb4"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_abevx"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_o2jmp"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_lsg4y"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_63m7c"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_sht0m"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_bsumn"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_cmfmf"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ihkqv"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_juhro"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_7pnr2"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_fshq3"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_evqmh"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_w1vrn"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_wbghb"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_wsw80"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_tyqdp"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_n82ke"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ykvmt"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ubkar"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_i32dp"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
 [sub_resource type="Resource" id="Resource_5f64d"]
 script = ExtResource("4_eoh72")
 title = "February"
-days = Array[ExtResource("3_4gypd")]([SubResource("Resource_mdl4m"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+days = Array[ExtResource("3_4gypd")]([SubResource("Resource_mdl4m"), SubResource("Resource_d8j0q"), SubResource("Resource_0uosm"), SubResource("Resource_hapuf"), SubResource("Resource_0wvra"), SubResource("Resource_yprm3"), SubResource("Resource_ebym4"), SubResource("Resource_nyvb4"), SubResource("Resource_abevx"), SubResource("Resource_o2jmp"), SubResource("Resource_lsg4y"), SubResource("Resource_63m7c"), SubResource("Resource_sht0m"), SubResource("Resource_bsumn"), SubResource("Resource_cmfmf"), SubResource("Resource_ihkqv"), SubResource("Resource_juhro"), SubResource("Resource_7pnr2"), SubResource("Resource_fshq3"), SubResource("Resource_evqmh"), SubResource("Resource_w1vrn"), SubResource("Resource_wbghb"), SubResource("Resource_wsw80"), SubResource("Resource_tyqdp"), SubResource("Resource_n82ke"), SubResource("Resource_ykvmt"), SubResource("Resource_ubkar"), SubResource("Resource_i32dp")])
 
 [sub_resource type="Resource" id="Resource_1invq"]
 script = ExtResource("3_4gypd")
@@ -280,10 +496,250 @@ weather = 0
 wind_multiplier = 0.0
 events = {}
 
+[sub_resource type="Resource" id="Resource_ct5ca"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_upiyw"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_6nyrk"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_pg0vq"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_05nio"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_eaj3h"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_wfhe8"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_qpknt"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ypgei"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_0ubyr"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_4kvxr"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_h3y86"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_vqq1c"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_7eoy2"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_yullh"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_re3he"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_uj74u"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_vyhhk"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ddt03"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ghkca"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_4tgib"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_1cck1"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_4plta"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_lwt5e"]
+script = ExtResource("3_4gypd")
+week_day = 2
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_s6qye"]
+script = ExtResource("3_4gypd")
+week_day = 3
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_ty6ls"]
+script = ExtResource("3_4gypd")
+week_day = 4
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_t6eme"]
+script = ExtResource("3_4gypd")
+week_day = 5
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_yfkqi"]
+script = ExtResource("3_4gypd")
+week_day = 6
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_fiu6w"]
+script = ExtResource("3_4gypd")
+week_day = 0
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
+[sub_resource type="Resource" id="Resource_toptl"]
+script = ExtResource("3_4gypd")
+week_day = 1
+holiday = "none"
+weather = 0
+wind_multiplier = 0.0
+events = {}
+
 [sub_resource type="Resource" id="Resource_yhylt"]
 script = ExtResource("4_eoh72")
 title = "March"
-days = Array[ExtResource("3_4gypd")]([SubResource("Resource_1invq"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+days = Array[ExtResource("3_4gypd")]([SubResource("Resource_1invq"), SubResource("Resource_ct5ca"), SubResource("Resource_upiyw"), SubResource("Resource_6nyrk"), SubResource("Resource_pg0vq"), SubResource("Resource_05nio"), SubResource("Resource_eaj3h"), SubResource("Resource_wfhe8"), SubResource("Resource_qpknt"), SubResource("Resource_ypgei"), SubResource("Resource_0ubyr"), SubResource("Resource_4kvxr"), SubResource("Resource_h3y86"), SubResource("Resource_vqq1c"), SubResource("Resource_7eoy2"), SubResource("Resource_yullh"), SubResource("Resource_re3he"), SubResource("Resource_uj74u"), SubResource("Resource_vyhhk"), SubResource("Resource_ddt03"), SubResource("Resource_ghkca"), SubResource("Resource_4tgib"), SubResource("Resource_1cck1"), SubResource("Resource_4plta"), SubResource("Resource_lwt5e"), SubResource("Resource_s6qye"), SubResource("Resource_ty6ls"), SubResource("Resource_t6eme"), SubResource("Resource_yfkqi"), SubResource("Resource_fiu6w"), SubResource("Resource_toptl")])
 
 [sub_resource type="Resource" id="Resource_x8jm4"]
 script = ExtResource("3_8yevr")
