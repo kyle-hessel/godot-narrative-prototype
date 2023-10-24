@@ -8,8 +8,6 @@ class_name DateUI
 
 var event_indicator: PackedScene = preload("res://scenes/UI/date_ui_event_indicator.tscn")
 
-var calendar_year_num: int = UIManager.calendar_ui_inst.calendar_year_num
-var calendar_month_num: int = UIManager.calendar_ui_inst.calendar_month_num
 var calendar_day_num: int
 var calendar_year: Year
 var calendar_month: Month
