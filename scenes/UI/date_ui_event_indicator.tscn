@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6f8rsywbk76a"]
+[gd_scene load_steps=3 format=3 uid="uid://b6f8rsywbk76a"]
+
+[ext_resource type="Script" path="res://scripts/UI/date_ui_event_indicator.gd" id="1_1eqa4"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_kkswp"]
 
@@ -6,9 +8,9 @@
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 3
+script = ExtResource("1_1eqa4")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-modulate = Color(0.329412, 0.447059, 0.811765, 1)
 position = Vector2(10, -10)
 scale = Vector2(20, 20)
 mesh = SubResource("SphereMesh_kkswp")

@@ -27,6 +27,18 @@ func init_events() -> void:
 	for e in calendar_day.events.keys():
 		var event_indicator_inst: Control = event_indicator.instantiate()
 		events_grid.add_child(event_indicator_inst)
+		
+		match e:
+			"Hangout":
+				event_indicator_inst.indicator_mesh.modulate = "b8526e"
+			"Attend":
+				event_indicator_inst.indicator_mesh.modulate = "5472cf"
+			"Work":
+				event_indicator_inst.indicator_mesh.modulate = "bf542f"
+			"Visit":
+				event_indicator_inst.indicator_mesh.modulate = "3c8b67"
+			"Move":
+				event_indicator_inst.indicator_mesh.modulate = "b0a256"
 
 func _on_date_panel_gui_input(event: InputEvent):
 	if event.is_action_pressed("gui_select") && in_current_month:
