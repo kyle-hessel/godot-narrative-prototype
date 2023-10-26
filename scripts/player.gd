@@ -79,15 +79,15 @@ func _ready():
 	$SpringArm3D.add_excluded_object(self)
 
 func _physics_process(delta: float) -> void:
-	# only do the below movements if already in movement states 0-2.
-	if movement_state < 3:
-		calculate_player_lateral_movement(delta)
-		apply_jump_and_gravity(delta)
-		
-		if movement_state > 0:
-			rotate_player(delta)
-	
 	if !UIManager.ui_open:
+		# only do the below movements if already in movement states 0-2.
+		if movement_state < 3:
+			calculate_player_lateral_movement(delta)
+			apply_jump_and_gravity(delta)
+			
+			if movement_state > 0:
+				rotate_player(delta)
+		
 		# camera movement w/ controller
 		rotate_cam_joypad(delta)
 	
