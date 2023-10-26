@@ -101,9 +101,9 @@ func _input(event):
 		# camera movement w/ mouse
 		rotate_cam_kb_m(event)
 	
-	# handle what happens when the player presses different combat actions in combat.
-	# using 'event.' instead of 'Input.' for better input event buffering.
-	interpret_combat_action_handles(event)
+		# handle what happens when the player presses different combat actions in combat.
+		# using 'event.' instead of 'Input.' for better input event buffering.
+		interpret_combat_action_handles(event)
 
 func rotate_player(delta: float) -> void:
 	# player mesh rotation relative to camera. Note: the entire Player never rotates: only the spring arm or the mesh.

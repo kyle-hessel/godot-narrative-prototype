@@ -60,6 +60,7 @@ func generate_date_grid(month: Month, year: Year) -> void:
 		date_ui_inst.calendar_month = month
 		if month == GameManager.calendar_manager.month:
 			if d == current_day:
+				date_ui_inst.date_panel.grab_focus()
 				date_ui_inst.date_panel.modulate = "d6b247"
 		
 		date_ui_inst.init_events()
