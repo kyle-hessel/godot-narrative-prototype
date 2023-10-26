@@ -21,7 +21,6 @@ func _process(delta: float) -> void:
 	pass
 
 func init_events() -> void:
-	print(calendar_month.title)
 	calendar_day = calendar_month.days[calendar_day_num]
 
 	for e in calendar_day.events.keys():

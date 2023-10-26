@@ -4,6 +4,7 @@ class_name CalendarUI
 
 var calendar_year_num: int
 var calendar_month_num: int
+var using_joypad: bool
 @onready var month_title: Label = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/MonthTitle
 @onready var year_title: Label = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/YearTitle
 @onready var arrow_left: CalendarArrowUI = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/CalendarArrowUILeft
@@ -64,8 +65,6 @@ func generate_date_grid(month: Month, year: Year) -> void:
 		date_ui_inst.init_events()
 	
 	# populate DaysGrid with any days from the next month that show up in the last week row.
-	print(%DaysGrid.get_children().size())
-	
 	var remaining_days_to_fill: int = 42 - %DaysGrid.get_children().size()
 	
 	generate_date_grid_next_month(remaining_days_to_fill)
