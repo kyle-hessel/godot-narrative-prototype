@@ -18,10 +18,7 @@ func _ready():
 	pass
 
 func _process(delta: float) -> void:
-	if date_panel.has_focus():
-		date_number.modulate = "ee3e58"
-	else:
-		date_number.modulate = "ffffff"
+	pass
 
 func init_events() -> void:
 	calendar_day = calendar_month.days[calendar_day_num]
@@ -48,3 +45,9 @@ func _on_date_panel_gui_input(event: InputEvent):
 		date_panel.grab_focus()
 		print(calendar_month.title + " " + str(calendar_day_num + 1) + ", " + str(calendar_year.number))
 		GameManager.calendar_manager.print_date_events(calendar_day)
+
+func _on_date_panel_focus_entered():
+	date_number.modulate = "ee3e58"
+
+func _on_date_panel_focus_exited():
+	date_number.modulate = "ffffff"
