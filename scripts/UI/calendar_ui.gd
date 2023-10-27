@@ -17,7 +17,8 @@ signal show_mouse
 signal hide_mouse
 
 func _ready():
-	emit_signal("show_mouse")
+	if !using_joypad:
+		emit_signal("show_mouse")
 	
 	calendar_year_num = GameManager.calendar_manager.current_year_num
 	calendar_month_num = GameManager.calendar_manager.current_month_num
@@ -30,7 +31,8 @@ func _ready():
 	generate_date_grid(GameManager.calendar_manager.month, GameManager.calendar_manager.year)
 
 func _exit_tree():
-	emit_signal("hide_mouse")
+	if !using_joypad:
+		emit_signal("hide_mouse")
 
 # generates all days of the current month.
 func generate_date_grid(month: Month, year: Year) -> void:
