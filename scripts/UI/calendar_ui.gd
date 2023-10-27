@@ -11,6 +11,7 @@ var using_joypad: bool
 @onready var arrow_right: CalendarArrowUI = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/CalendarArrowUIRight
 
 var date_entry: PackedScene = preload("res://scenes/UI/date_ui.tscn")
+var focused_date_ui_inst: Control
 
 signal show_mouse
 signal hide_mouse
@@ -48,6 +49,8 @@ func generate_date_grid(month: Month, year: Year) -> void:
 			var month_fetch: Month = load(year_fetch.months[11].resource_path)
 			generate_date_grid_previous_month(month_fetch.days.size(), month_start_weekday)
 	
+	var current_month: bool = month == GameManager.calendar_manager.month
+	
 	# populate DaysGrid with all of the days of the current month.
 	for d in range(month.days.size()):
 		var date_ui_inst: Control = date_entry.instantiate()
@@ -58,10 +61,16 @@ func generate_date_grid(month: Month, year: Year) -> void:
 		date_ui_inst.calendar_day_num = d
 		date_ui_inst.calendar_year = year
 		date_ui_inst.calendar_month = month
-		if month == GameManager.calendar_manager.month:
+		date_ui_inst.left_shoulder_button.connect(_month_left)
+		date_ui_inst.right_shoulder_button.connect(_month_right)
+		
+		if current_month:
 			if d == current_day:
 				date_ui_inst.date_panel.grab_focus()
 				date_ui_inst.date_panel.modulate = "d6b247"
+		else:
+			if d == 0:
+				date_ui_inst.date_panel.grab_focus()
 		
 		date_ui_inst.init_events()
 	
@@ -83,6 +92,7 @@ func generate_date_grid_previous_month(previous_month_size: int, start_day: int)
 		date_ui_inst.calendar_day_num = month_day_pos
 		month_day_pos += 1
 		date_ui_inst.date_panel.modulate = "586ebcbe"
+		date_ui_inst.date_panel.set_focus_mode(Control.FOCUS_NONE)
 
 # generates any days from the next month that need to show up on the grid of the current month
 func generate_date_grid_next_month(day_count: int) -> void:
@@ -94,13 +104,12 @@ func generate_date_grid_next_month(day_count: int) -> void:
 		date_ui_inst.date_number.text = str(d + 1)
 		date_ui_inst.calendar_day_num = d
 		date_ui_inst.date_panel.modulate = "586ebcbe"
+		date_ui_inst.date_panel.set_focus_mode(Control.FOCUS_NONE)
 
 # shift back a month
 func _month_left() -> void:
 	# this if check avoids going backwards past the start of the academic calendar (august 2024).
 	if calendar_month_num > 7 || calendar_year_num > 0:
-		print("back in time!")
-		
 		# if in january, roll over to the year before (if we got this far, meaning we are in >=2025).
 		if calendar_month_num == 0:
 			calendar_year_num -= 1
@@ -119,8 +128,6 @@ func _month_left() -> void:
 func _month_right() -> void:
 	# this if check avoids going forwards past the end of the academic calendar (may 2028).
 	if calendar_month_num < 5 || calendar_year_num < 4:
-		print("forward in time!")
-		
 		# if in december, roll over into the next year.
 		if calendar_month_num == 11:
 			calendar_year_num += 1

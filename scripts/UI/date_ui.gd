@@ -8,6 +8,9 @@ class_name DateUI
 
 var event_indicator: PackedScene = preload("res://scenes/UI/date_ui_event_indicator.tscn")
 
+signal left_shoulder_button
+signal right_shoulder_button
+
 var calendar_day_num: int
 var calendar_year: Year
 var calendar_month: Month
@@ -45,6 +48,10 @@ func _on_date_panel_gui_input(event: InputEvent):
 		date_panel.grab_focus()
 		print(calendar_month.title + " " + str(calendar_day_num + 1) + ", " + str(calendar_year.number))
 		GameManager.calendar_manager.print_date_events(calendar_day)
+	elif event.is_action_pressed("target_toggle_left"):
+		emit_signal("left_shoulder_button")
+	elif event.is_action_pressed("target_toggle_right"):
+		emit_signal("right_shoulder_button")
 
 func _on_date_panel_focus_entered():
 	date_number.modulate = "ee3e58"
