@@ -60,11 +60,9 @@ func generate_date_grid(month: Month, year: Year) -> void:
 	for d in range(month.days.size()):
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
-		
 		date_ui_inst.in_current_month = true
 		date_ui_inst.date_number.text = str(d + 1)
 		date_ui_inst.calendar_day_num = d
-		date_ui_inst.grid_position = %DaysGrid.get_children().find(date_ui_inst)
 		date_ui_inst.calendar_year = year
 		date_ui_inst.calendar_month = month
 		date_ui_inst.left_shoulder_button.connect(_month_left)

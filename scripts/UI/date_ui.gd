@@ -13,7 +13,6 @@ signal right_shoulder_button
 signal weekday_change(grid_pos: int)
 
 var calendar_day_num: int
-var grid_position: int
 var calendar_year: Year
 var calendar_month: Month
 var calendar_day: Day
@@ -57,7 +56,7 @@ func _on_date_panel_gui_input(event: InputEvent):
 
 func _on_date_panel_focus_entered():
 	date_number.modulate = "ee3e58"
-	emit_signal("weekday_change", grid_position)
+	emit_signal("weekday_change", get_parent().get_children().find($"."))
 
 func _on_date_panel_focus_exited():
 	date_number.modulate = "ffffff"
