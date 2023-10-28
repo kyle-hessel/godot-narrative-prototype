@@ -10,8 +10,10 @@ var event_indicator: PackedScene = preload("res://scenes/UI/date_ui_event_indica
 
 signal left_shoulder_button
 signal right_shoulder_button
+signal weekday_change(grid_pos: int)
 
 var calendar_day_num: int
+var grid_position: int
 var calendar_year: Year
 var calendar_month: Month
 var calendar_day: Day
@@ -55,6 +57,7 @@ func _on_date_panel_gui_input(event: InputEvent):
 
 func _on_date_panel_focus_entered():
 	date_number.modulate = "ee3e58"
+	emit_signal("weekday_change", grid_position)
 
 func _on_date_panel_focus_exited():
 	date_number.modulate = "ffffff"

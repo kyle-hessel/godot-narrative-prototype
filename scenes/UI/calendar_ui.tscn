@@ -123,8 +123,7 @@ size_flags_stretch_ratio = 0.8
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-text = "T
-"
+text = "T"
 horizontal_alignment = 1
 
 [node name="DaySpacer3" type="Control" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/WeekDaysHBox"]

@@ -2,6 +2,8 @@ extends CanvasLayer
 
 class_name CalendarUI
 
+const GRID_SIZE: int = 42
+
 var calendar_year_num: int
 var calendar_month_num: int
 var using_joypad: bool
@@ -9,6 +11,7 @@ var using_joypad: bool
 @onready var year_title: Label = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/YearTitle
 @onready var arrow_left: CalendarArrowUI = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/CalendarArrowUILeft
 @onready var arrow_right: CalendarArrowUI = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/CalendarArrowUIRight
+@onready var weekdays_hbox: HBoxContainer = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/WeekDaysHBox
 
 var date_entry: PackedScene = preload("res://scenes/UI/date_ui.tscn")
 var focused_date_ui_inst: Control
@@ -61,10 +64,12 @@ func generate_date_grid(month: Month, year: Year) -> void:
 		date_ui_inst.in_current_month = true
 		date_ui_inst.date_number.text = str(d + 1)
 		date_ui_inst.calendar_day_num = d
+		date_ui_inst.grid_position = %DaysGrid.get_children().find(date_ui_inst)
 		date_ui_inst.calendar_year = year
 		date_ui_inst.calendar_month = month
 		date_ui_inst.left_shoulder_button.connect(_month_left)
 		date_ui_inst.right_shoulder_button.connect(_month_right)
+		date_ui_inst.weekday_change.connect(_highlight_weekday)
 		
 		if current_month:
 			if d == current_day:
@@ -151,3 +156,14 @@ func rebuild_calendar() -> void:
 	year_title.text = str(year_fetch.number)
 	month_title.text = month_fetch.title
 	generate_date_grid(month_fetch, year_fetch)
+
+func _highlight_weekday(grid_pos: int) -> void:
+	var weekday_number: int = (grid_pos % %DaysGrid.columns) # get a number between 1-7 for any day on the calendar.
+	# use a lambda to quickly fill an array of only the day labels, no spacers.
+	var weekdays_hbox_labels: Array[Node] = weekdays_hbox.get_children().filter(func(item: Node): return item is Label)
+	# set all labels back to white, except the active column, which is set to yellow.
+	for l in weekdays_hbox_labels.size():
+		if l == weekday_number:
+			weekdays_hbox_labels[l].modulate = "fad149"
+			continue
+		weekdays_hbox_labels[l].modulate = "ffffff"
