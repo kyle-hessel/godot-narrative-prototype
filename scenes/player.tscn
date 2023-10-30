@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdplgwr0kkrcr"]
+[gd_scene load_steps=12 format=3 uid="uid://cdplgwr0kkrcr"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_vbk4d"]
 [ext_resource type="Texture2D" uid="uid://dw4odbkkyov0u" path="res://assets/UI/Target_Reticle.png" id="2_3hnpp"]
 [ext_resource type="Shader" path="res://shaders/art_style/halftone.gdshader" id="2_cyob2"]
+[ext_resource type="PackedScene" uid="uid://b4fvlhowibkve" path="res://scenes/player_nodes/player_character_stats.tscn" id="4_oc7g4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ty4c4"]
 
@@ -87,6 +88,10 @@ offset_bottom = 40.0
 visible = false
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_3hnpp")
+
+[node name="PlayerData" type="Node" parent="."]
+
+[node name="PlayerCharacterStats" parent="PlayerData" instance=ExtResource("4_oc7g4")]
 
 [connection signal="body_entered" from="OverlapArea" to="." method="_on_overlap_area_body_entered"]
 [connection signal="body_exited" from="OverlapArea" to="." method="_on_overlap_area_body_exited"]

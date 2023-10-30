@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 class_name Player
 
+@onready var player_stats: PlayerCharacterStats = $PlayerData/PlayerCharacterStats
+
 @export var player_health_max: float = 50.0
 @export var player_health_current: float = player_health_max
 
