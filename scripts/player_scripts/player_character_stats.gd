@@ -41,3 +41,7 @@ enum ClassModifier {
 
 var player_class: PlayerClass = PlayerClass.RANGER
 var class_modifier: ClassModifier = ClassModifier.LONE_WOLF
+
+# outside of merely holding stats, functions relating to modifying stats 
+# based on external (battles, etc) or internal (leveling up, skill trees, etc)
+# factors could belong here, too.
