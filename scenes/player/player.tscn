@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_vbk4d"]
 [ext_resource type="Texture2D" uid="uid://dw4odbkkyov0u" path="res://assets/UI/Target_Reticle.png" id="2_3hnpp"]
 [ext_resource type="Shader" path="res://shaders/art_style/halftone.gdshader" id="2_cyob2"]
-[ext_resource type="PackedScene" uid="uid://b4fvlhowibkve" path="res://scenes/player_nodes/player_character_stats.tscn" id="4_oc7g4"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_character_stats.gd" id="4_a01c2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ty4c4"]
 
@@ -43,8 +43,10 @@ slide_on_slope = true
 [sub_resource type="SphereShape3D" id="SphereShape3D_u6bcy"]
 radius = 13.125
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_stats", "player_mesh")]
 script = ExtResource("1_vbk4d")
+player_stats = NodePath("PlayerData/PlayerCharacterStats")
+player_mesh = NodePath("MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -91,7 +93,8 @@ texture = ExtResource("2_3hnpp")
 
 [node name="PlayerData" type="Node" parent="."]
 
-[node name="PlayerCharacterStats" parent="PlayerData" instance=ExtResource("4_oc7g4")]
+[node name="PlayerCharacterStats" type="Node" parent="PlayerData"]
+script = ExtResource("4_a01c2")
 
 [connection signal="body_entered" from="OverlapArea" to="." method="_on_overlap_area_body_entered"]
 [connection signal="body_exited" from="OverlapArea" to="." method="_on_overlap_area_body_exited"]

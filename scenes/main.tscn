@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=12 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
-[ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player.tscn" id="1_tdgme"]
+[ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
 [ext_resource type="Shader" path="res://shaders/art_style/halftone.gdshader" id="2_bwlsd"]
 [ext_resource type="Shader" path="res://shaders/art_style/hq_outlines_pp.gdshader" id="3_cjaud"]
+[ext_resource type="PackedScene" uid="uid://6fyf2ih8xmud" path="res://scenes/NPC/npc_default.tscn" id="5_mxwrk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -68,6 +69,10 @@ material = SubResource("ShaderMaterial_avkuh")
 [node name="Player" parent="." instance=ExtResource("1_tdgme")]
 
 [node name="PostProcessOutlineShader" type="MeshInstance3D" parent="."]
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_nbesm")
 surface_material_override/0 = SubResource("ShaderMaterial_6cph7")
+
+[node name="NPCDefault" parent="." instance=ExtResource("5_mxwrk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.34717, 0, 0)

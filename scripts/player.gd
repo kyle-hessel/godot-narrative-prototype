@@ -2,12 +2,18 @@ extends CharacterBody3D
 
 class_name Player
 
-@onready var player_stats: PlayerCharacterStats = $PlayerData/PlayerCharacterStats
+@export_group("Assignables")
+@export var player_stats: PlayerCharacterStats
+@export var player_mesh: Node3D
+@export_group("")
 
+@export_group("Stats")
 @export var player_health_max: float = 50.0
 @export var player_health_current: float = player_health_max
+@export_group("")
 
 var player_speed_current: float = 0.0
+@export_group("Movement")
 @export var player_speed_walk_max: float = 6.0
 @export var player_speed_sprint_max: float = player_speed_walk_max * 2.0
 @export var player_jump_speed_modifier: float = 0.8
@@ -16,14 +22,23 @@ var player_speed_current: float = 0.0
 @export var player_decel_rate: float = 14.0
 @export var player_jump_decel_rate: float = 10.0
 @export var player_rotation_rate: float = 9.0
+
+@export var jump_velocity: float = 5.0
+@export var jump_velocity_multiplier: float = 1.25
+@export var root_motion_multiplier: float = 4.0
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var gravity_multiplier: float = 1.5
+@export_group("")
+
+@export_group("Controls")
 #@export var target_cam_bias_default: float = 0.3
 #@export var target_cam_bias_additive: float = 0.2
 #var target_cam_bias: float = target_cam_bias_default
 #@export var tracking_range: float = 6.0
 @export var cam_lerp_rate: float = 5.0
-@export var jump_velocity: float = 5.0
-@export var jump_velocity_multiplier: float = 1.25
-@export var root_motion_multiplier: float = 4.0
+@export var mouse_sensitivity: float = 2.5
+@export var joystick_sensitivity: float = 3.0
+@export_group("")
 
 var has_direction: bool = false
 var is_jumping: bool = false
@@ -32,19 +47,12 @@ var current_oneshot_anim: String
 var targeting: bool = false
 var tracking: bool = false
 
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-@export var gravity_multiplier: float = 1.5
-
-@onready var player_mesh: Node3D = $MeshInstance3D
 @onready var player_cam: Camera3D = $SpringArm3D/PlayerCam
 @onready var target_icon: Sprite2D = $UI/TargetingIcon
 
 var viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
 var viewport_height: int = ProjectSettings.get_setting("display/window/size/viewport_height")
 var viewport_wh: Vector2 = Vector2(viewport_width, viewport_height)
-
-@export var mouse_sensitivity: float = 2.5
-@export var joystick_sensitivity: float = 3.0
 
 var overlapping_objects: Array[Node3D]
 var targeted_object: Node3D = null
