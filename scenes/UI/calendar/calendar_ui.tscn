@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://cyxhch875vcai"]
 
-[ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="1_r46mo"]
-[ext_resource type="Script" path="res://scripts/UI/calendar_ui.gd" id="1_x5g1r"]
-[ext_resource type="PackedScene" uid="uid://bjxlplnjacyae" path="res://scenes/UI/calendar_arrow_ui.tscn" id="3_pt150"]
+[ext_resource type="Script" path="res://scripts/UI/calendar/calendar_ui.gd" id="1_8v63h"]
+[ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="2_pds66"]
+[ext_resource type="PackedScene" uid="uid://bjxlplnjacyae" path="res://scenes/UI/calendar/calendar_arrow_ui.tscn" id="3_6ibgu"]
 
 [node name="CalendarCanvas" type="CanvasLayer"]
-script = ExtResource("1_x5g1r")
+script = ExtResource("1_8v63h")
 
 [node name="CalendarOutsideMargin" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_r46mo")
+theme = ExtResource("2_pds66")
 theme_override_constants/margin_left = 160
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 160
@@ -44,7 +44,7 @@ layout_mode = 2
 [node name="TitleHBox" type="HBoxContainer" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox"]
 layout_mode = 2
 
-[node name="CalendarArrowUILeft" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox" instance=ExtResource("3_pt150")]
+[node name="CalendarArrowUILeft" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox" instance=ExtResource("3_6ibgu")]
 layout_mode = 2
 size_flags_horizontal = 6
 
@@ -79,7 +79,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.75
 
-[node name="CalendarArrowUIRight" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox" instance=ExtResource("3_pt150")]
+[node name="CalendarArrowUIRight" parent="CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox" instance=ExtResource("3_6ibgu")]
 layout_mode = 2
 size_flags_horizontal = 6
 

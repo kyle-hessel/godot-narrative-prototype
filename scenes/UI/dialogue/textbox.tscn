@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqqntbi11louj"]
+
+[ext_resource type="Theme" uid="uid://bajyg75abe8x3" path="res://assets/UI/dialogue_theme.tres" id="1_3p7vd"]
+[ext_resource type="Script" path="res://scripts/UI/dialogue/Textbox.cs" id="1_btt4j"]
+
+[node name="TextboxCanvas" type="CanvasLayer"]
+script = ExtResource("1_btt4j")
+
+[node name="TextboxMargin" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -695.0
+offset_top = -271.0
+offset_right = 696.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_3p7vd")
+
+[node name="TextboxPanel" type="PanelContainer" parent="TextboxMargin"]
+layout_mode = 2
+
+[node name="TextboxLabel" type="Label" parent="TextboxMargin/TextboxPanel"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
+one_shot = true
