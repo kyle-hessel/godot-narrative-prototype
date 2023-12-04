@@ -13,3 +13,9 @@ enum NPCType {
 	Converser = 3,
 	Other = 4
 }
+
+func _on_overlap_area_body_entered(body):
+	pass # Replace with function body.
+
+func _on_overlap_area_body_exited(body):
+	pass # Replace with function body.

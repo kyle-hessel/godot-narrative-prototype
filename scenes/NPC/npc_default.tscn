@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://6fyf2ih8xmud"]
+[gd_scene load_steps=8 format=3 uid="uid://6fyf2ih8xmud"]
 
 [ext_resource type="Shader" path="res://shaders/art_style/halftone.gdshader" id="1_eujii"]
 [ext_resource type="Script" path="res://scripts/npc_scripts/npc_base.gd" id="1_glxxy"]
@@ -20,6 +20,9 @@ shader_parameter/radius_weight = 2.0
 shader_parameter/shade_bias = 2.0
 shader_parameter/shade_amount = 0.7
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_b3y4l"]
+radius = 6.107
+
 [node name="NPCDefault" type="CharacterBody3D" node_paths=PackedStringArray("npc_mesh", "npc_stats")]
 script = ExtResource("1_glxxy")
 npc_mesh = NodePath("MeshInstance3D")
@@ -34,7 +37,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_51d81")
 surface_material_override/0 = SubResource("ShaderMaterial_l8ga0")
 
+[node name="OverlapArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OverlapArea"]
+shape = SubResource("SphereShape3D_b3y4l")
+
 [node name="NPCData" type="Node" parent="."]
 
 [node name="NPCStats" type="Node" parent="NPCData"]
 script = ExtResource("3_1xal6")
+
+[connection signal="body_entered" from="OverlapArea" to="." method="_on_overlap_area_body_entered"]
+[connection signal="body_exited" from="OverlapArea" to="." method="_on_overlap_area_body_exited"]
