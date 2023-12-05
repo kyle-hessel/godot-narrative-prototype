@@ -13,7 +13,7 @@ var using_joypad: bool
 @onready var arrow_right: CalendarArrowUI = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/TitleHBox/CalendarArrowUIRight
 @onready var weekdays_hbox: HBoxContainer = $CalendarOutsideMargin/CalendarContainer/CalendarInsideMargin/CalendarVBox/WeekDaysHBox
 
-var date_entry: PackedScene = preload("res://scenes/UI/calendar/date_ui.tscn")
+var date_entry: PackedScene = preload("res://scenes/UI/date_ui.tscn")
 var focused_date_ui_inst: Control
 
 signal show_mouse

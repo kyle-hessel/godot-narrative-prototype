@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6o3wq78p0aem"]
 
 [ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="1_aukxt"]
-[ext_resource type="Script" path="res://scripts/UI/calendar/date_ui.gd" id="2_s7jmp"]
+[ext_resource type="Script" path="res://scripts/UI/date_ui.gd" id="2_s7jmp"]
 
 [node name="DateUI" type="Control"]
 layout_mode = 3

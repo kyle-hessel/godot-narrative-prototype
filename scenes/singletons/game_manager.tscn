@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfaioau5aw5q6"]
+[gd_scene load_steps=4 format=3 uid="uid://bfaioau5aw5q6"]
 
 [ext_resource type="Script" path="res://scripts/managers/game_manager.gd" id="1_2f6hn"]
 [ext_resource type="PackedScene" uid="uid://c7iu0t1i7pqvh" path="res://scenes/singletons/calendar_manager.tscn" id="2_adhlp"]
 [ext_resource type="PackedScene" uid="uid://d3k363em4o76x" path="res://scenes/singletons/ui_manager.tscn" id="3_ijjof"]
-[ext_resource type="PackedScene" uid="uid://mhlag3q6h7a2" path="res://scenes/singletons/dialogue_manager.tscn" id="4_fxjl6"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_2f6hn")
@@ -11,7 +10,5 @@ script = ExtResource("1_2f6hn")
 [node name="CalendarManager" parent="." instance=ExtResource("2_adhlp")]
 
 [node name="UIManager" parent="." instance=ExtResource("3_ijjof")]
-
-[node name="DialogueManager" parent="." instance=ExtResource("4_fxjl6")]
 
 [connection signal="ready" from="CalendarManager" to="." method="_on_calendar_manager_ready"]

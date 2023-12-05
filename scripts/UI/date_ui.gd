@@ -6,7 +6,7 @@ class_name DateUI
 @onready var date_number: Label = $DateNumber
 @onready var events_grid: GridContainer = $DatePanel/DatePanelMargin/EventsGrid
 
-var event_indicator: PackedScene = preload("res://scenes/UI/calendar/date_ui_event_indicator.tscn")
+var event_indicator: PackedScene = preload("res://scenes/UI/date_ui_event_indicator.tscn")
 
 signal left_shoulder_button
 signal right_shoulder_button
