@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://di1j1qkdak1h5"]
+
+[ext_resource type="Script" path="res://scripts/managers/dialogue_manager.gd" id="1_l636m"]
+
+[node name="DialogueManager" type="Node"]
+script = ExtResource("1_l636m")

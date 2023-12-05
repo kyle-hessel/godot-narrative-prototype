@@ -3,7 +3,7 @@ extends Control
 class_name UIManager
 
 var ui_open: bool = false
-var calendar_ui := preload("res://scenes/UI/calendar_ui.tscn")
+var calendar_ui := preload("res://scenes/UI/calendar/calendar_ui.tscn")
 var calendar_ui_inst: CalendarUI
 var using_joypad: bool = false
 

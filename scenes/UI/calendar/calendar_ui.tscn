@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cyxhch875vcai"]
 
 [ext_resource type="Theme" uid="uid://b2s7haww6nd6t" path="res://assets/UI/calendar_theme.tres" id="1_r46mo"]
-[ext_resource type="Script" path="res://scripts/UI/calendar_ui.gd" id="1_x5g1r"]
-[ext_resource type="PackedScene" uid="uid://bjxlplnjacyae" path="res://scenes/UI/calendar_arrow_ui.tscn" id="3_pt150"]
+[ext_resource type="Script" path="res://scripts/UI/calendar/calendar_ui.gd" id="1_x5g1r"]
+[ext_resource type="PackedScene" uid="uid://bjxlplnjacyae" path="res://scenes/UI/calendar/calendar_arrow_ui.tscn" id="3_pt150"]
 
 [node name="CalendarCanvas" type="CanvasLayer"]
 script = ExtResource("1_x5g1r")

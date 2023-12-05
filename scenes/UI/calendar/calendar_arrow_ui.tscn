@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjxlplnjacyae"]
 
-[ext_resource type="Script" path="res://scripts/UI/calendar_arrow_ui.gd" id="1_1ktj7"]
+[ext_resource type="Script" path="res://scripts/UI/calendar/calendar_arrow_ui.gd" id="1_1ktj7"]
 [ext_resource type="Texture2D" uid="uid://clu2id2a758qa" path="res://icon.svg" id="1_kwcro"]
 
 [node name="CalendarArrowUI" type="Control"]

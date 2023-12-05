@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://co2ac08qcxsd"]
+
+[ext_resource type="Script" path="res://scripts/UI/dialogue/textbox.gd" id="1_y8qug"]
+
+[node name="TextboxCanvas" type="CanvasLayer"]
+script = ExtResource("1_y8qug")
+
+[node name="TextboxMargin" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextboxPanel" type="PanelContainer" parent="TextboxMargin"]
+layout_mode = 2
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
