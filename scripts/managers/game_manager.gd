@@ -5,7 +5,7 @@ extends Node
 @onready var dialogue_manager: DialogueManager = $DialogueManager
 
 func _ready():
-	dialogue_manager.Test()
+	pass
 
 func _on_calendar_manager_ready():
 	pass
