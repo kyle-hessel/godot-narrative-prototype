@@ -19,15 +19,14 @@ const test_dialogue: Array[String] = [
 	"What's poppin?",
 	"Ya like jazz?",
 	"brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaapppppppppppppppp!!!"
-]
+] # about 77 characters per string to keep it on 2 lines, given the current textbox size.
 
 func _on_overlap_area_body_entered(body: Node3D):
-	# sample dialogue trigger by an NPC.
-	GameManager.ui_manager.dialogue_manager.start_dialogue(test_dialogue)
+	if body is Player:
+		# sample dialogue trigger by an NPC.
+		GameManager.ui_manager.dialogue_manager.start_dialogue(test_dialogue)
 
 func _on_overlap_area_body_exited(body: Node3D):
-	# a hacky sample way to force-delete dialogue when roaming too far from an NPC.
-	var dlg_m: DialogueManager = GameManager.ui_manager.dialogue_manager
-	if dlg_m.is_dialogue_active:
-		dlg_m.current_line_index = 99 # overload to a value bigger than any array of dialogue strings ever ought to be
-		dlg_m.reload_textbox()
+	if body is Player:
+		# early-out of dialogue if any exists when player strays too far from an NPC.
+		GameManager.ui_manager.dialogue_early_out()
