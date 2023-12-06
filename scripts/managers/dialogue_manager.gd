@@ -14,8 +14,12 @@ var can_advance_line: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	# if the right key is pressed, there is an active dialogue, and there is a line to advance to, reload the textbox.
-	if (event.is_action_pressed("gui_select") && is_dialogue_active && can_advance_line):
-		reload_textbox()
+	if event.is_action_pressed("gui_select"):
+		if is_dialogue_active && can_advance_line:
+			reload_textbox()
+		# if the key is pressed early before the line can be advanced, display the rest of the line all at once.
+		elif is_dialogue_active && !can_advance_line:
+			textbox_inst.display_line()
 
 # starts a new dialogue if one isn't active by displaying a textbox with the given dialogue lines.
 func start_dialogue(lines: Array[String]) -> void:
@@ -38,7 +42,7 @@ func show_textbox() -> void:
 	textbox_inst.finished_displaying.connect(func(): can_advance_line = true)
 	add_child(textbox_inst)
 	# using the current line index (incremented using player input), decide which dialogue line to print from what was passed into the manager.
-	textbox_inst.display_text(dialogue_lines[current_line_index])
+	textbox_inst.begin_display(dialogue_lines[current_line_index])
 	# mark can_advance_line to false for now so that the line can't be skipped pre-emptively (modify later to print out all dialogue at once when skipping early).
 	can_advance_line = false
 
