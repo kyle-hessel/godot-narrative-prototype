@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 class_name Player
 
+#region Exported variables
 @export_group("Assignables")
 @export var player_stats: PlayerCharacterStats
 @export var player_mesh: Node3D
@@ -26,7 +27,6 @@ var player_speed_current: float = 0.0
 @export var jump_velocity: float = 5.0
 @export var jump_velocity_multiplier: float = 1.25
 @export var root_motion_multiplier: float = 4.0
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var gravity_multiplier: float = 1.5
 @export_group("")
 
@@ -39,6 +39,9 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var mouse_sensitivity: float = 2.5
 @export var joystick_sensitivity: float = 3.0
 @export_group("")
+#endregion
+
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var has_direction: bool = false
 var is_jumping: bool = false
@@ -83,6 +86,7 @@ enum PlayerMovementState {
 var movement_state: PlayerMovementState = PlayerMovementState.IDLE
 #var blending_movement_state: bool = false
 
+#region Built-in functions
 func _ready():
 	# capture mouse movement for camera navigation
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -114,7 +118,9 @@ func _input(event):
 		# handle what happens when the player presses different combat actions in combat.
 		# using 'event.' instead of 'Input.' for better input event buffering.
 		interpret_combat_action_handles(event)
+#endregion
 
+#region Player movement functions
 func rotate_player(delta: float) -> void:
 	# player mesh rotation relative to camera. Note: the entire Player never rotates: only the spring arm or the mesh.
 	if $MeshInstance3D.rotation.y != $SpringArm3D.rotation.y:
@@ -201,7 +207,9 @@ func stop_player_movement(delta: float) -> void:
 # determine how to move when applying root motion.
 func handle_root_motion(delta: float, rm_multiplier: float = root_motion_multiplier, lateral_only: bool = false) -> void:
 	pass
+#endregion
 
+#region Camera functions
 func rotate_cam_kb_m(event) -> void:
 	# mouse spring arm rotation
 	if (event is InputEventMouseMotion):
@@ -220,7 +228,9 @@ func rotate_cam_joypad(delta: float) -> void:
 	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_up_joystick") * -joystick_sensitivity * delta
 	$SpringArm3D.rotation.x -= Input.get_action_strength("camera_down_joystick") * joystick_sensitivity * delta
 	$SpringArm3D.rotation.x = clamp($SpringArm3D.rotation.x, -1.4, 0.3)
+#endregion
 
+#region Combat functions
 # translates button presses to appropriate assigned combat actions using value fetching from the combat_actions dictionary,
 # and sends this off to handle_combat_action to begin executing the appropriate action.
 func interpret_combat_action_handles(event) -> void:
@@ -267,7 +277,9 @@ func combat_action_crater() -> void:
 # name subject to change
 func combat_action_ult_explode() -> void:
 	print("ult: explode!")
+#endregion
 
+#region Object sorting/targeting functions
 # organize array of overlapping objects by distance, closest to farthest.
 func sort_objects_by_distance() -> void:
 	# makes use of a custom sorting lambda function to compare distances between points and the player, and sort lowest to highest!
@@ -412,7 +424,9 @@ func determine_target() -> void:
 							# if nothing succeeded, just fetch the nearest visible object. if this fails there may not be one.
 							targeted_object = objects_visibility_check(overlapping_objects_reversed)
 							break
+#endregion
 
+#region Overlap functions
 func _on_overlap_area_body_entered(body: Node3D):
 	# if this is the first overlapping object, auto-target it (make this a setting later to decide if this is default behavior).
 	if overlapping_objects.is_empty():
@@ -443,8 +457,9 @@ func _on_overlap_area_body_exited(body: Node3D):
 		targeted_object = overlapping_objects[0]
 		
 	#print(overlapping_objects)
+#endregion
 
-### HELPER FUNCTIONS
+#region Helper functions
 func tween_val(object: Node, property: NodePath, final_val: Variant, duration: float, trans_type: Tween.TransitionType = Tween.TRANS_LINEAR, ease_type: Tween.EaseType = Tween.EASE_IN_OUT, parallel: bool = true):
 	var tween: Tween = get_tree().create_tween()
 	tween.stop()
@@ -531,3 +546,4 @@ func find_relative_direction(from: Vector3, to: Vector3) -> String:
 		return "front"
 	else:
 		return "?"
+#endregion
