@@ -56,7 +56,7 @@ func _on_date_panel_gui_input(event: InputEvent):
 
 func _on_date_panel_focus_entered():
 	date_number.modulate = "ee3e58"
-	emit_signal("weekday_change", get_parent().get_children().find($"."))
+	emit_signal("weekday_change", get_parent().get_children().find($".")) # there has to be a better way to do this right
 
 func _on_date_panel_focus_exited():
 	date_number.modulate = "ffffff"

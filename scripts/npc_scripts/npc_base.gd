@@ -14,8 +14,14 @@ enum NPCType {
 	Other = 4
 }
 
+const test_dialogue: Array[String] = [
+	"Hey mang, what's poppin?",
+	"Ya like jazz?",
+	"So, what's the deal with game engines anyway, amiright!? *laugh track*"
+]
+
 func _on_overlap_area_body_entered(body):
-	pass # Replace with function body.
+	GameManager.ui_manager.dialogue_manager.start_dialogue(test_dialogue)
 
 func _on_overlap_area_body_exited(body):
 	pass # Replace with function body.

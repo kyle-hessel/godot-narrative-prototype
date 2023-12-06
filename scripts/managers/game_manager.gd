@@ -1,8 +1,9 @@
 extends Node
 
+# no class_name, as this is a singleton
+
 @onready var calendar_manager: CalendarManager = $CalendarManager
 @onready var ui_manager: UIManager = $UIManager
-@onready var dialogue_manager: DialogueManager = $DialogueManager
 
 func _ready():
 	pass

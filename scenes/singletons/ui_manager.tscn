@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3k363em4o76x"]
+[gd_scene load_steps=3 format=3 uid="uid://d3k363em4o76x"]
 
 [ext_resource type="Script" path="res://scripts/managers/ui_manager.gd" id="1_chv5k"]
+[ext_resource type="PackedScene" uid="uid://di1j1qkdak1h5" path="res://scenes/singletons/dialogue_manager.tscn" id="2_hytcn"]
 
 [node name="UIManager" type="Control"]
 layout_mode = 3
@@ -10,3 +11,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_chv5k")
+
+[node name="DialogueManager" parent="." instance=ExtResource("2_hytcn")]

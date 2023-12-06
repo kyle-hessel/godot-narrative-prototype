@@ -3,9 +3,12 @@ extends Control
 class_name UIManager
 
 var ui_open: bool = false
-var calendar_ui := preload("res://scenes/UI/calendar/calendar_ui.tscn")
-var calendar_ui_inst: CalendarUI
 var using_joypad: bool = false
+
+var calendar_ui: PackedScene = preload("res://scenes/UI/calendar/calendar_ui.tscn")
+var calendar_ui_inst: CalendarUI
+
+@onready var dialogue_manager: DialogueManager = $DialogueManager
 
 func _ready():
 	pass

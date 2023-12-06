@@ -44,6 +44,7 @@ slide_on_slope = true
 radius = 13.125
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_stats", "player_mesh")]
+collision_layer = 3
 script = ExtResource("1_vbk4d")
 player_stats = NodePath("PlayerData/PlayerCharacterStats")
 player_mesh = NodePath("MeshInstance3D")

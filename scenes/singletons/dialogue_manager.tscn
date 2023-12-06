@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/managers/dialogue_manager.gd" id="1_l636m"]
 
-[node name="DialogueManager" type="Node"]
+[node name="DialogueManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_l636m")
