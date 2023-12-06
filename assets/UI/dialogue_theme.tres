@@ -18,3 +18,5 @@ default_font = SubResource("SystemFont_1pjwv")
 Label/colors/font_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 Label/font_sizes/font_size = 48
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_qlvbu")
+RichTextLabel/colors/default_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+RichTextLabel/font_sizes/normal_font_size = 48

@@ -39,6 +39,7 @@ enabled=PackedStringArray()
 [file_customization]
 
 folder_colors={
+"res://addons/": "orange",
 "res://assets/": "teal",
 "res://scenes/": "blue",
 "res://scripts/": "pink",

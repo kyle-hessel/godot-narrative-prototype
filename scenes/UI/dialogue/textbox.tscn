@@ -23,9 +23,11 @@ theme = ExtResource("2_ut8ya")
 [node name="TextboxPanel" type="PanelContainer" parent="TextboxMargin"]
 layout_mode = 2
 
-[node name="DialogueLabel" type="Label" parent="TextboxMargin/TextboxPanel"]
+[node name="DialogueLabel" type="RichTextLabel" parent="TextboxMargin/TextboxPanel"]
 layout_mode = 2
-vertical_alignment = 1
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
 
 [node name="LetterDisplayTimer" type="Timer" parent="."]
 one_shot = true
