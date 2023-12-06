@@ -2,4 +2,4 @@ extends Resource
 
 class_name Dialogue
 
-@export var dialogue: Array[String]
+@export var lines: Array[String]

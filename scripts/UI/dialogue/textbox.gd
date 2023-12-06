@@ -4,7 +4,7 @@ class_name Textbox
 
 @onready var textbox_margin: MarginContainer = $TextboxMargin
 @onready var textbox_panel: PanelContainer = $TextboxMargin/TextboxPanel
-@onready var dialogue_label: RichTextLabel = $TextboxMargin/TextboxPanel/DialogueLabel # make this a richtextlabel!
+@onready var dialogue_label: RichTextLabel = $TextboxMargin/TextboxPanel/DialogueLabel
 @onready var letter_display_timer: Timer = $LetterDisplayTimer
 
 const MAX_WIDTH: int = 256
