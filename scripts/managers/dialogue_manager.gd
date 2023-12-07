@@ -4,10 +4,12 @@ extends Control
 class_name DialogueManager
 
 @onready var textbox: PackedScene = preload("res://scenes/UI/dialogue/textbox_default.tscn")
+@onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
 var textbox_inst: Textbox
+var textbox_response_inst: TextboxResponse
 
 var dialogue_lines: Array[String] = []
-var current_line_index: int = 0
+var line_index: int = 0
 
 var is_dialogue_active: bool = false
 var can_advance_line: bool = false
@@ -37,12 +39,12 @@ func start_dialogue(lines: Array[String]) -> void:
 func show_textbox() -> void:
 	textbox_inst = textbox.instantiate()
 	# for consistent naming behind the scenes, probably not necessary but could be useful.
-	textbox_inst.name = "TextboxLine" + str(current_line_index)
+	textbox_inst.name = "TextboxLine" + str(line_index)
 	# mark can_advance_line as true again once the textbox deems the current string as finished displaying, using this lamba function.
 	textbox_inst.finished_displaying.connect(func(): can_advance_line = true)
 	add_child(textbox_inst)
 	# using the current line index (incremented using player input), decide which dialogue line to print from what was passed into the manager.
-	textbox_inst.begin_display(dialogue_lines[current_line_index])
+	textbox_inst.begin_display(dialogue_lines[line_index])
 	# mark can_advance_line to false for now so that the line can't be skipped pre-emptively (modify later to print out all dialogue at once when skipping early).
 	can_advance_line = false
 
@@ -50,12 +52,12 @@ func show_textbox() -> void:
 func reload_textbox() -> void:
 	textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 	
-	current_line_index += 1
+	line_index += 1
 	# if there is no more dialogue, reset to defaults.
-	if current_line_index >= dialogue_lines.size():
+	if line_index >= dialogue_lines.size():
 		is_dialogue_active = false
 		can_advance_line = false
-		current_line_index = 0
+		line_index = 0
 		return
 	
 	show_textbox()

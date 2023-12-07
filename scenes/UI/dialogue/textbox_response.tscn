@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b71vm5sbs8ief" path="res://scenes/UI/dialogue/dialogue_label.tscn" id="3_rguuu"]
 
 [node name="TextboxCanvas" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_ophv7")
 
 [node name="TextboxMargin" type="MarginContainer" parent="."]
