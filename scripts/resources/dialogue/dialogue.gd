@@ -3,8 +3,7 @@ extends Resource
 class_name Dialogue
 
 @export var lines: Array[String]
-
-var dialogue_type: DialogueType = DialogueType.DEFAULT
+@export var dialogue_type: DialogueType = DialogueType.DEFAULT
 
 enum DialogueType {
 	DEFAULT = 0, # normal dialogue when an NPC talks to you

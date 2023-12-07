@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_llwy8"]
 script = ExtResource("2_y76um")
 lines = Array[String](["Why hello there!", "Only siths deal in absolutes.", "The archives are incomplete!"])
+dialogue_type = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o3qak"]
 

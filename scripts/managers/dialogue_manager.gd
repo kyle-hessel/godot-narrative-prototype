@@ -3,7 +3,7 @@ extends Control
 # a sub-manager for ui_manager that handles solely dialogue, since it specifically requires displaying string data to the screen in a chronological sequence.
 class_name DialogueManager
 
-@onready var textbox: PackedScene = preload("res://scenes/UI/dialogue/textbox.tscn")
+@onready var textbox: PackedScene = preload("res://scenes/UI/dialogue/textbox_default.tscn")
 var textbox_inst: Textbox
 
 var dialogue_lines: Array[String] = []

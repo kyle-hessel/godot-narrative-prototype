@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b71vm5sbs8ief"]
+
+[node name="DialogueLabel" type="RichTextLabel"]
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
