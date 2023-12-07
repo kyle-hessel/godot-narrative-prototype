@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=14 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
 [ext_resource type="Shader" path="res://shaders/art_style/halftone.gdshader" id="2_bwlsd"]
 [ext_resource type="Shader" path="res://shaders/art_style/hq_outlines_pp.gdshader" id="3_cjaud"]
 [ext_resource type="PackedScene" uid="uid://6fyf2ih8xmud" path="res://scenes/NPC/npc_default.tscn" id="5_mxwrk"]
+[ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="6_abhvg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -50,6 +51,10 @@ shader_parameter/grazing_fresnel_power = 5.0
 shader_parameter/grazing_angle_mask_power = 1.0
 shader_parameter/grazing_angle_modulation_factor = 50.0
 
+[sub_resource type="Resource" id="Resource_8mry7"]
+script = ExtResource("6_abhvg")
+lines = Array[String](["ayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy lmao"])
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p5pro")
 
@@ -81,3 +86,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.34717, 0, 0)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.20695, 0, -8.91832)
 npc_mesh = NodePath("../NPCDefault/MeshInstance3D")
 npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
+dialogue = SubResource("Resource_8mry7")
