@@ -26,7 +26,7 @@ enum NPCType {
 func _on_overlap_area_body_entered(body: Node3D):
 	if body is Player:
 		# sample dialogue trigger by an NPC.
-		GameManager.ui_manager.dialogue_manager.start_dialogue(dialogue.lines)
+		GameManager.ui_manager.dialogue_manager.start_dialogue(dialogue.lines, dialogue.dialogue_type)
 
 func _on_overlap_area_body_exited(body: Node3D):
 	if body is Player:
