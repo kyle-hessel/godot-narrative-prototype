@@ -2,12 +2,34 @@ extends Textbox
 
 class_name TextboxResponse
 
-var dialogue_labels: Array[RichTextLabel]
+var label_scene: PackedScene = preload("res://scenes/UI/dialogue/dialogue_label.tscn")
+var spacer_scene: PackedScene = preload("res://scenes/UI/dialogue/dialogue_spacer.tscn")
+@onready var textbox_vbox: VBoxContainer = $TextboxMargin/TextboxPanel/TextboxVbox
 
-# Called when the node enters the scene tree for the first time.
+var dialogue_labels: Array[RichTextLabel]
+var dialogues: Array[String]
+
 func _ready():
+	pass
 	dialogue_labels.append(dialogue_label) # append the first dialogue label (from Textbox) as we'll always have at least one.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
 	pass
+
+func begin_display_response(text_to_display: Array[String]) -> void:
+	dialogues = text_to_display
+	
+	var l: int = 1 # start at one as one dialogue label already exists.
+	while l < dialogues.size():
+		var label_inst: RichTextLabel = label_scene.instantiate()
+		textbox_vbox.add_child(spacer_scene.instantiate())
+		textbox_vbox.add_child(label_inst)
+		dialogue_labels.append(label_inst)
+		l += 1
+	
+	print(dialogue_labels.size())
+	print(dialogues.size())
+	# populate text for each RichTextLabel.
+	for d in dialogue_labels.size():
+		print(dialogues[d])
+		dialogue_labels[d].text = dialogues[d]

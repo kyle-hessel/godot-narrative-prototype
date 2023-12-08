@@ -82,9 +82,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_6cph7")
 
 [node name="NPCDefault" parent="." instance=ExtResource("5_mxwrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.34717, 0, 0)
+npc_type = null
 
 [node name="NPCDefault2" parent="." node_paths=PackedStringArray("npc_mesh", "npc_stats") instance=ExtResource("5_mxwrk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.20695, 0, -8.91832)
 npc_mesh = NodePath("../NPCDefault/MeshInstance3D")
+npc_type = null
 npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
 dialogue = SubResource("Resource_8mry7")

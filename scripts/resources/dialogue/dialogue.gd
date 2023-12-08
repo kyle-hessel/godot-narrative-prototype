@@ -4,6 +4,7 @@ class_name Dialogue
 
 @export var lines: Array[String]
 @export var dialogue_type: DialogueType = DialogueType.DEFAULT
+@export var next_dialogue: Dialogue
 
 enum DialogueType {
 	DEFAULT = 0, # normal dialogue when an NPC talks to you

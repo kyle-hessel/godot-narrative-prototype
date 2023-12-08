@@ -4,7 +4,7 @@ class_name Textbox
 
 @onready var textbox_margin: MarginContainer = $TextboxMargin
 @onready var textbox_panel: PanelContainer = $TextboxMargin/TextboxPanel
-@onready var dialogue_label: RichTextLabel = $TextboxMargin/TextboxPanel/DialogueLabel
+@onready var dialogue_label: RichTextLabel = $TextboxMargin/TextboxPanel/TextboxVbox/DialogueLabel
 @onready var letter_display_timer: Timer = $LetterDisplayTimer
 
 const MAX_WIDTH: int = 256
@@ -25,7 +25,7 @@ func _ready() -> void:
 	# each time the timer started by display_letter ends, said function is recursively called again by this lambda function.
 	letter_display_timer.timeout.connect(func(): display_letter())
 
-func begin_display(text_to_display: String) -> void:
+func begin_display_dialogue(text_to_display: String) -> void:
 	# fill the dialogue string with the passed in text, but don't apply it to the label itself yet.
 	dialogue = text_to_display
 	

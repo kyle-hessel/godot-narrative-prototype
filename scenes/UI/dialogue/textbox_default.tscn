@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://co2ac08qcxsd"]
 
 [ext_resource type="Script" path="res://scripts/UI/dialogue/textbox.gd" id="1_0jhph"]
-[ext_resource type="Theme" uid="uid://bdsl22n370u3a" path="res://assets/UI/dialogue_theme.tres" id="2_hqimb"]
+[ext_resource type="Theme" uid="uid://bdsl22n370u3a" path="res://assets/UI/dialogue/dialogue_theme.tres" id="2_hqimb"]
 [ext_resource type="PackedScene" uid="uid://b71vm5sbs8ief" path="res://scenes/UI/dialogue/dialogue_label.tscn" id="3_tb6no"]
 
 [node name="TextboxCanvas" type="CanvasLayer"]
@@ -24,7 +24,10 @@ theme = ExtResource("2_hqimb")
 [node name="TextboxPanel" type="PanelContainer" parent="TextboxMargin"]
 layout_mode = 2
 
-[node name="DialogueLabel" parent="TextboxMargin/TextboxPanel" instance=ExtResource("3_tb6no")]
+[node name="TextboxVbox" type="VBoxContainer" parent="TextboxMargin/TextboxPanel"]
+layout_mode = 2
+
+[node name="DialogueLabel" parent="TextboxMargin/TextboxPanel/TextboxVbox" instance=ExtResource("3_tb6no")]
 layout_mode = 2
 
 [node name="LetterDisplayTimer" type="Timer" parent="."]
