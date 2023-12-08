@@ -27,9 +27,6 @@ func begin_display_response(text_to_display: Array[String]) -> void:
 		dialogue_labels.append(label_inst)
 		l += 1
 	
-	print(dialogue_labels.size())
-	print(dialogues.size())
 	# populate text for each RichTextLabel.
 	for d in dialogue_labels.size():
-		print(dialogues[d])
 		dialogue_labels[d].text = dialogues[d]

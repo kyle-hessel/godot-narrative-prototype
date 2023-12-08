@@ -75,25 +75,36 @@ func show_textbox(dialogue_type: Dialogue.DialogueType) -> void:
 
 # deletes the current textbox, increments which dialogue string should be fed into the next textbox, and draws the next line with a new textbox if there is one.
 func reload_textbox() -> void:
-	# if the player has an active dialogue, destroy that when this function is called before destroying NPC dialogue.
-	if is_player_dialogue_active:
-		textbox_response_inst.queue_free()
-		is_player_dialogue_active = false
+	# if there isn't a next dialogue queued up or if it isn't a player response, destroy old textboxes as normal.
+	if current_dialogue.next_dialogue == null || current_dialogue.next_dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
+		# if the player has an active dialogue, destroy that when this function is called before destroying NPC dialogue.
+		if is_player_dialogue_active:
+			textbox_response_inst.queue_free()
+			is_player_dialogue_active = false
+		
+		# destroy NPC dialogue regardless, as it should still be displayed below the player dialogue.
+		textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 	
-	# always destroy NPC dialogue, as with or without a player response it needs to be advanced.
-	textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
+		if is_npc_dialogue_active:
+			line_index += 1
+			# if there is no more dialogue, reset to defaults.
+			if line_index >= npc_dialogue_lines.size():
+				is_npc_dialogue_active = false
+				can_advance_line = false
+				line_index = 0
+				return
 	
-	if is_npc_dialogue_active:
+		show_textbox(current_dialogue.dialogue_type)
+	
+	else:
 		line_index += 1
 		# if there is no more dialogue, reset to defaults.
 		if line_index >= npc_dialogue_lines.size():
 			is_npc_dialogue_active = false
 			can_advance_line = false
 			line_index = 0
-			
-			if current_dialogue.next_dialogue != null:
-				start_dialogue(current_dialogue.next_dialogue)
-			
-			return
-	
-	show_textbox(current_dialogue.dialogue_type)
+			# once NPC dialogue lines run out, just start the new dialogue chain.
+			start_dialogue(current_dialogue.next_dialogue)
+		else:
+			textbox_inst.queue_free()
+			show_textbox(current_dialogue.dialogue_type)
