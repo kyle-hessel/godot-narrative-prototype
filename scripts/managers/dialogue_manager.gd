@@ -79,6 +79,7 @@ func reload_textbox() -> void:
 	if current_dialogue.next_dialogue == null || current_dialogue.next_dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
 		# if the player has an active dialogue, destroy that when this function is called before destroying NPC dialogue.
 		if is_player_dialogue_active:
+			print("yo")
 			textbox_response_inst.queue_free()
 			is_player_dialogue_active = false
 		
@@ -93,9 +94,7 @@ func reload_textbox() -> void:
 				can_advance_line = false
 				line_index = 0
 				return
-	
-		show_textbox(current_dialogue.dialogue_type)
-	
+		
 	else:
 		line_index += 1
 		# if there is no more dialogue, reset to defaults.
