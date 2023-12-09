@@ -7,12 +7,12 @@
 
 [sub_resource type="Resource" id="Resource_pkgo1"]
 script = ExtResource("2_y76um")
-lines = Array[String](["What do you want?", "Who are you?"])
+dialogue_options = Array[Array]([["What do you want?", "Who are you?"]])
 dialogue_type = 1
 
 [sub_resource type="Resource" id="Resource_llwy8"]
 script = ExtResource("2_y76um")
-lines = Array[String](["Why hello there!", "Only siths deal in absolutes.", "The archives are incomplete!"])
+dialogue_options = Array[Array]([["Why hello there!", "Only siths deal in absolutes.", "The archives are incomplete!"]])
 dialogue_type = 0
 next_dialogue = SubResource("Resource_pkgo1")
 

@@ -7,7 +7,7 @@ var spacer_scene: PackedScene = preload("res://scenes/UI/dialogue/dialogue_space
 @onready var textbox_vbox: VBoxContainer = $TextboxMargin/TextboxPanel/TextboxVbox
 
 var dialogue_labels: Array[RichTextLabel]
-var dialogues: Array[String]
+var dialogues: Array
 
 func _ready():
 	pass
@@ -16,7 +16,7 @@ func _ready():
 func _process(delta: float):
 	pass
 
-func begin_display_response(text_to_display: Array[String]) -> void:
+func begin_display_response(text_to_display: Array) -> void:
 	dialogues = text_to_display
 	
 	var l: int = 1 # start at one as one dialogue label already exists.

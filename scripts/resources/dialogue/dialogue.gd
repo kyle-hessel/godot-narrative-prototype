@@ -2,7 +2,7 @@ extends Resource
 
 class_name Dialogue
 
-@export var lines: Array[String]
+@export var dialogue_options: Array[Array]
 @export var dialogue_type: DialogueType = DialogueType.DEFAULT
 @export var next_dialogue: Dialogue
 

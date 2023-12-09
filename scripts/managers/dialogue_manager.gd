@@ -8,8 +8,8 @@ class_name DialogueManager
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
 
-var npc_dialogue_lines: Array[String]
-var player_response_lines: Array[String]
+var npc_dialogue_lines: Array
+var player_response_lines: Array
 var current_dialogue: Dialogue
 var line_index: int = 0
 
@@ -40,14 +40,14 @@ func start_dialogue(dialogue: Dialogue) -> void:
 			return
 		
 		# overwrite pre-existing dialogue_lines with new lines that were passed to the dialogue manager.
-		npc_dialogue_lines = dialogue.lines
+		npc_dialogue_lines = dialogue.dialogue_options[0]
 		# mark dialogue as active once a textbox is shown so another can't be instantiated over the existing one.
 		is_npc_dialogue_active = true
 	else:
 		if is_player_dialogue_active:
 			return
 		
-		player_response_lines = dialogue.lines
+		player_response_lines = dialogue.dialogue_options[0]
 		is_player_dialogue_active = true
 	
 	show_textbox(dialogue.dialogue_type)
