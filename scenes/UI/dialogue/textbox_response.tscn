@@ -27,6 +27,8 @@ layout_mode = 2
 
 [node name="DialogueLabel" parent="TextboxMargin/TextboxPanel/TextboxVbox" instance=ExtResource("3_rguuu")]
 layout_mode = 2
+focus_mode = 2
+selection_enabled = true
 
 [node name="LetterDisplayTimer" type="Timer" parent="."]
 one_shot = true

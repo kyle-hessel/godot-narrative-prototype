@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://bdsl22n370u3a"]
 
-[ext_resource type="StyleBox" uid="uid://bqnk2p6s1wfon" path="res://assets/UI/dialogue/dialogue_style_box_flat.tres" id="1_v52mu"]
+[ext_resource type="StyleBox" uid="uid://bqnk2p6s1wfon" path="res://assets/UI/dialogue_style_box_flat.tres" id="1_v52mu"]
 
 [sub_resource type="SystemFont" id="SystemFont_1pjwv"]
 

@@ -45,6 +45,6 @@ func _gui_hide_mouse() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func dialogue_early_out() -> void:
-	if dialogue_manager.is_npc_dialogue_active:
+	if dialogue_manager.is_player_dialogue_active || dialogue_manager.is_npc_dialogue_active:
 		dialogue_manager.line_index = 99 # overload to a value bigger than any array of dialogue strings ever ought to be to force-delete.
-		dialogue_manager.reload_textbox()
+		dialogue_manager.destroy_textboxes()
