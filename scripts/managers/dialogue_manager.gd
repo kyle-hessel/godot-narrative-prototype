@@ -21,9 +21,9 @@ var can_advance_line: bool = false
 func _unhandled_input(event: InputEvent) -> void:
 	# if the right key is pressed, determine how to proceed through dialogue.
 	if event.is_action_pressed("gui_select"):
-		# if there's a player dialogue, select a choice and reload to delete.
+		# if there's a player dialogue, pass in the player choice and reload to continue on.
 		if is_player_dialogue_active:
-			reload_textbox()
+			reload_textbox(textbox_response_inst.player_selection)
 		# if there's an NPC dialogue, decide to reload OR display the rest of the line first.
 		elif is_npc_dialogue_active:
 			if can_advance_line:
@@ -75,40 +75,53 @@ func show_textbox(dialogue_type: Dialogue.DialogueType) -> void:
 		textbox_response_inst.begin_display_response(player_response_lines)
 
 # deletes the current textbox, increments which dialogue string should be fed into the next textbox, and draws the next line with a new textbox if there is one.
-func reload_textbox() -> void:
-	# if there isn't a next dialogue queued up or if it isn't a player response, destroy old textboxes as normal.
-	if current_dialogue.next_dialogue == null || current_dialogue.next_dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
+func reload_textbox(response_pos: int = 0) -> void:
+	# if there isn't a next dialogue queued up, destroy existing textboxes as normal.
+	if current_dialogue.next_dialogue == null:
 		# if the player has an active dialogue, destroy that when this function is called before destroying NPC dialogue.
 		if is_player_dialogue_active:
 			textbox_response_inst.queue_free()
 			is_player_dialogue_active = false
-			
-		# destroy NPC dialogue regardless, as it should still be displayed below the player dialogue.
+		
 		textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
-	
-		if is_npc_dialogue_active:
-			line_index += 1
-			# if there is no more dialogue, reset to defaults.
-			if line_index >= npc_dialogue_lines.size():
-				is_npc_dialogue_active = false
-				can_advance_line = false
-				line_index = 0
-				return
-	
-	# if there is a player response queued up, do the following instead.	
-	else:
 		line_index += 1
-		# once NPC dialogue lines run out, just start the new dialogue chain.
+		# if there is no more dialogue, reset to defaults.
 		if line_index >= npc_dialogue_lines.size():
 			is_npc_dialogue_active = false
 			can_advance_line = false
 			line_index = 0
-			
-			start_dialogue(current_dialogue.next_dialogue)
-		# otherwise, continue dialogue chain.
+			return
+		# otherwise, keep printing dialogue.
 		else:
-			textbox_inst.queue_free()
 			show_textbox(current_dialogue.dialogue_type)
+	
+	# if there is a dialogue queued up, determine what to do to transition to that dialogue depending on its type.
+	else:
+		match current_dialogue.next_dialogue.dialogue_type:
+			Dialogue.DialogueType.DEFAULT:
+				print("yoooo")
+			Dialogue.DialogueType.RESPONSE:
+				line_index += 1
+				# once NPC dialogue lines run out, just start the new dialogue chain.
+				if line_index >= npc_dialogue_lines.size():
+					is_npc_dialogue_active = false
+					can_advance_line = false
+					# don't reset line_index here, as we need that data if textbox_inst remains during a player response.
+					
+					start_dialogue(current_dialogue.next_dialogue)
+				# otherwise, continue dialogue chain.
+				else:
+					textbox_inst.queue_free()
+					show_textbox(current_dialogue.dialogue_type)
+			Dialogue.DialogueType.CALL:
+				pass
+			Dialogue.DialogueType.MESSAGE:
+				pass
+			Dialogue.DialogueType.SHOUT:
+				pass
+
+func advance_npc_dialogue() -> void:
+	pass
 
 func destroy_textboxes() -> void:
 	if is_player_dialogue_active:

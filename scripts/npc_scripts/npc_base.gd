@@ -16,13 +16,6 @@ enum NPCType {
 	Other = 4
 }
 
-## sample array of dialogue strings for an NPC.
-#const test_dialogue: Array[String] = [
-	#"What's poppin?",
-	#"Ya like jazz?",
-	#"brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaapppppppppppppppp!!!"
-#] # about 77 characters per string to keep it on 2 lines, given the current textbox size.
-
 func _on_overlap_area_body_entered(body: Node3D):
 	if body is Player:
 		# sample dialogue trigger by an NPC.
