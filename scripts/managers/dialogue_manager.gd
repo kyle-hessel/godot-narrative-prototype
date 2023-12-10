@@ -23,10 +23,10 @@ var can_advance_line: bool = false
 func _unhandled_input(event: InputEvent) -> void:
 	# if the right key is pressed, determine how to proceed through dialogue.
 	if event.is_action_pressed("gui_select"):
-		# if there's a player dialogue, pass in the player choice and reload to continue on.
+		# if there's a player dialogue, pass in the player choice (branch) and reload to continue on.
 		if is_player_dialogue_active:
 			reload_textbox(textbox_response_inst.player_selection)
-		# if there's an NPC dialogue, decide to reload OR display the rest of the line first.
+		# if there's an NPC dialogue, decide to reload with the correct branch OR display the rest of the line first.
 		elif is_npc_dialogue_active:
 			if can_advance_line:
 				reload_textbox(branch_index)
@@ -39,17 +39,16 @@ func start_dialogue(dialogue: Dialogue, response_pos: int = 0) -> void:
 	current_dialogue = dialogue
 	
 	if dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
-		print(response_pos)
 		# overwrite pre-existing dialogue_lines with new lines that were passed to the dialogue manager.
 		npc_dialogue_lines = dialogue.dialogue_options[response_pos]
-		branch_index = response_pos
 		# mark dialogue as active once a textbox is shown so another can't be instantiated over the existing one.
 		is_npc_dialogue_active = true
 	else:
-		print(response_pos)
 		player_response_lines = dialogue.dialogue_options[response_pos]
-		branch_index = response_pos
 		is_player_dialogue_active = true
+	
+	# cache the branch index for reload_textbox in _unhandled_input.
+	branch_index = response_pos
 	
 	show_textbox(dialogue.dialogue_type)
 
@@ -107,6 +106,10 @@ func reload_textbox(response_pos: int = 0) -> void:
 				if is_player_dialogue_active:
 					textbox_response_inst.queue_free()
 					is_player_dialogue_active = false
+					
+					# map position of player's response in a 2D array back to a 1D array and assign it to response_pos so that the NPC chooses the correct line of dialogue.
+					if current_dialogue.dialogue_options.size() > 1:
+						response_pos = return_player_response_pos_in_1d_array_format(response_pos)
 				
 				textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 				line_index = 0
@@ -137,6 +140,15 @@ func reload_textbox(response_pos: int = 0) -> void:
 				pass
 			Dialogue.DialogueType.SHOUT:
 				pass
+
+# break down 2D array of potential player responses from Dialogue's dialogue_options into a flat 1D array and convert the response position accordingly.
+func return_player_response_pos_in_1d_array_format(response_pos: int) -> int:
+	var temp_pos: int = 0
+	
+	for pos in range(branch_index):
+		temp_pos += current_dialogue.dialogue_options[pos].size()
+	
+	return temp_pos + response_pos
 
 func destroy_textboxes() -> void:
 	if is_player_dialogue_active:
