@@ -7,6 +7,7 @@ class_name DialogueManager
 @onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
+var participants: Array[Node3D]
 
 var npc_dialogue_lines: Array
 var player_response_lines: Array
@@ -107,6 +108,8 @@ func reload_textbox(response_pos: int = 0) -> void:
 				textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 				line_index = 0
 				
+				# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
+				participants[0].checkpoint_dialogue = current_dialogue.next_dialogue
 				start_dialogue(current_dialogue.next_dialogue, response_pos)
 				
 			Dialogue.DialogueType.RESPONSE:
