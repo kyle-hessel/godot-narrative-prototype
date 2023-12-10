@@ -10,6 +10,7 @@ var textbox_response_inst: TextboxResponse
 
 var npc_dialogue_lines: Array
 var player_response_lines: Array
+var player_selection: int
 var current_dialogue: Dialogue
 var line_index: int = 0
 

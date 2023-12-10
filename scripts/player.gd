@@ -93,7 +93,7 @@ func _ready():
 	$SpringArm3D.add_excluded_object(self)
 
 func _physics_process(delta: float) -> void:
-	if !GameManager.ui_manager.ui_open:
+	if !GameManager.ui_manager.ui_open && !GameManager.ui_manager.dialogue_manager.is_player_dialogue_active:
 		# only do the below movements if already in movement states 0-2.
 		if movement_state < 3:
 			calculate_player_lateral_movement(delta)

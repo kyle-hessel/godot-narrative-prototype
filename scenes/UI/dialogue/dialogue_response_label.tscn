@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://gpqos7hg0si1"]
+
+[ext_resource type="Theme" uid="uid://br181ppxwwvsi" path="res://assets/UI/dialogue/dialogue_response_theme.tres" id="1_vu4m6"]
+
+[node name="DialogueResponseLabel" type="RichTextLabel"]
+theme = ExtResource("1_vu4m6")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
