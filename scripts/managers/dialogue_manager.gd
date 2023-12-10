@@ -11,7 +11,8 @@ var participants: Array[Node3D]
 
 var npc_dialogue_lines: Array
 var player_response_lines: Array
-var player_selection: int
+var player_selection: int = 0
+var branch_index: int = 0
 var current_dialogue: Dialogue
 var line_index: int = 0
 
@@ -28,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		# if there's an NPC dialogue, decide to reload OR display the rest of the line first.
 		elif is_npc_dialogue_active:
 			if can_advance_line:
-				reload_textbox()
+				reload_textbox(branch_index)
 			# if the key is pressed early before the line can be advanced, display the rest of the line all at once.
 			else:
 				textbox_inst.display_line()
@@ -38,19 +39,16 @@ func start_dialogue(dialogue: Dialogue, response_pos: int = 0) -> void:
 	current_dialogue = dialogue
 	
 	if dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
-		if is_npc_dialogue_active:
-			return
-		
+		print(response_pos)
 		# overwrite pre-existing dialogue_lines with new lines that were passed to the dialogue manager.
 		npc_dialogue_lines = dialogue.dialogue_options[response_pos]
+		branch_index = response_pos
 		# mark dialogue as active once a textbox is shown so another can't be instantiated over the existing one.
 		is_npc_dialogue_active = true
-	
 	else:
-		if is_player_dialogue_active:
-			return
-		
-		player_response_lines = dialogue.dialogue_options[0]
+		print(response_pos)
+		player_response_lines = dialogue.dialogue_options[response_pos]
+		branch_index = response_pos
 		is_player_dialogue_active = true
 	
 	show_textbox(dialogue.dialogue_type)
@@ -92,6 +90,7 @@ func reload_textbox(response_pos: int = 0) -> void:
 			is_npc_dialogue_active = false
 			can_advance_line = false
 			line_index = 0
+			branch_index = 0
 			
 			# once dialogue is completely finished, clear participants array.
 			participants.clear()
@@ -115,6 +114,7 @@ func reload_textbox(response_pos: int = 0) -> void:
 				# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
 				participants[0].checkpoint_dialogue = current_dialogue.next_dialogue
 				participants[0].dialogue_branch_pos = response_pos
+				
 				start_dialogue(current_dialogue.next_dialogue, response_pos)
 				
 			Dialogue.DialogueType.RESPONSE:
@@ -123,9 +123,10 @@ func reload_textbox(response_pos: int = 0) -> void:
 				if line_index >= npc_dialogue_lines.size():
 					is_npc_dialogue_active = false
 					can_advance_line = false
-					# don't reset line_index here, as we need that data if textbox_inst remains during a player response.
+					# don't reset line_index here, as we need that data if textbox_inst remains during a player response in order to properly destroy textbox_inst after the fact.
+					# don't mark an NPC dialogue checkpoint during a player response, as they aren't speaking (going to try to ensure this isn't needed going forward).
 					
-					start_dialogue(current_dialogue.next_dialogue)
+					start_dialogue(current_dialogue.next_dialogue, response_pos)
 				# otherwise, continue dialogue chain.
 				else:
 					textbox_inst.queue_free()
@@ -145,8 +146,10 @@ func destroy_textboxes() -> void:
 		is_npc_dialogue_active = false
 		can_advance_line = false
 		line_index = 0
+		branch_index = 0
 	else:
 		textbox_inst.queue_free()
 		is_npc_dialogue_active = false
 		can_advance_line = false
 		line_index = 0
+		branch_index = 0

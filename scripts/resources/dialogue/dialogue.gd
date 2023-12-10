@@ -2,8 +2,8 @@ extends Resource
 
 class_name Dialogue
 
-@export var dialogue_options: Array[Array]
 @export var dialogue_type: DialogueType = DialogueType.DEFAULT
+@export var dialogue_options: Array[Array]
 @export var next_dialogue: Dialogue
 
 enum DialogueType {

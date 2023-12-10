@@ -7,19 +7,19 @@
 
 [sub_resource type="Resource" id="Resource_3tt43"]
 script = ExtResource("2_y76um")
-dialogue_options = Array[Array]([["What do you mean, what do I want?", "Do you know who I even am?"], ["I am him! I am that guy!"]])
 dialogue_type = 0
+dialogue_options = Array[Array]([["What do you mean, what do I want?", "Do you know who I even am?"], ["I am him! I am that guy!"]])
 
 [sub_resource type="Resource" id="Resource_pkgo1"]
 script = ExtResource("2_y76um")
-dialogue_options = Array[Array]([["What do you want?", "Who are you?"]])
 dialogue_type = 1
+dialogue_options = Array[Array]([["What do you want?", "Who are you?"]])
 next_dialogue = SubResource("Resource_3tt43")
 
 [sub_resource type="Resource" id="Resource_llwy8"]
 script = ExtResource("2_y76um")
-dialogue_options = Array[Array]([["Why hello there!", "Only siths deal in absolutes.", "The archives are incomplete!"]])
 dialogue_type = 0
+dialogue_options = Array[Array]([["Why hello there!", "Only siths deal in absolutes.", "The archives are incomplete!"]])
 next_dialogue = SubResource("Resource_pkgo1")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o3qak"]

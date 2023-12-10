@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=21 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -53,19 +53,48 @@ shader_parameter/grazing_angle_modulation_factor = 50.0
 
 [sub_resource type="Resource" id="Resource_r7tgl"]
 script = ExtResource("6_abhvg")
-dialogue_options = Array[Array]([["ayo"]])
 dialogue_type = 1
+dialogue_options = Array[Array]([["ayo"]])
 
 [sub_resource type="Resource" id="Resource_8mry7"]
 script = ExtResource("6_abhvg")
-dialogue_options = Array[Array]([["hurdurrrrrrrrr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "uh oh, stinky"]])
 dialogue_type = 0
+dialogue_options = Array[Array]([["hurdurrrrrrrrr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "uh oh, stinky"]])
 next_dialogue = SubResource("Resource_r7tgl")
 
 [sub_resource type="Resource" id="Resource_ihope"]
 script = ExtResource("6_abhvg")
-dialogue_options = Array[Array]([["you got the shit?", "... are you a cop?"]])
 dialogue_type = 0
+dialogue_options = Array[Array]([["you got the shit?", "... are you a cop?"]])
+
+[sub_resource type="Resource" id="Resource_uh11h"]
+script = ExtResource("6_abhvg")
+dialogue_type = 1
+dialogue_options = Array[Array]([["I can hear you loud and clear.", "Sorry, I forgot my hearing aide."], ["Why, I'm me. Who else?", "I don't know who I am either."], ["Okay Robert, anything else you'd like to share?", "I'll just call you Dick."]])
+
+[sub_resource type="Resource" id="Resource_udx68"]
+script = ExtResource("6_abhvg")
+dialogue_type = 0
+dialogue_options = Array[Array]([["Yeah, what's that you were gonna tell me?", "No seriously, I'm waiting.", "Hello? Can you even hear me?"], ["I really don't, actually.", "I don't even know who you are."], ["And my middle name is Robert. Thanks for sharing."]])
+next_dialogue = SubResource("Resource_uh11h")
+
+[sub_resource type="Resource" id="Resource_afdeg"]
+script = ExtResource("6_abhvg")
+dialogue_type = 1
+dialogue_options = Array[Array]([["Let me tell you something, pal.", "Do you even know what I'm about?", "Danger is my middle name, man."]])
+next_dialogue = SubResource("Resource_udx68")
+
+[sub_resource type="Resource" id="Resource_3cqax"]
+script = ExtResource("6_abhvg")
+dialogue_type = 0
+dialogue_options = Array[Array]([["... Just kidding."]])
+next_dialogue = SubResource("Resource_afdeg")
+
+[sub_resource type="Resource" id="Resource_geav3"]
+script = ExtResource("6_abhvg")
+dialogue_type = 0
+dialogue_options = Array[Array]([["I have nothing to say to you."]])
+next_dialogue = SubResource("Resource_3cqax")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p5pro")
@@ -105,3 +134,9 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10.614
 npc_mesh = NodePath("../NPCDefault/MeshInstance3D")
 npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
 dialogue = SubResource("Resource_ihope")
+
+[node name="NPCDefault4" parent="." node_paths=PackedStringArray("npc_mesh", "npc_stats") instance=ExtResource("5_mxwrk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.41926, 0, 14.2561)
+npc_mesh = NodePath("../NPCDefault/MeshInstance3D")
+npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
+dialogue = SubResource("Resource_geav3")
