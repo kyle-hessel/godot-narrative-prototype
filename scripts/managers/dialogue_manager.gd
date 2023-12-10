@@ -92,6 +92,10 @@ func reload_textbox(response_pos: int = 0) -> void:
 			is_npc_dialogue_active = false
 			can_advance_line = false
 			line_index = 0
+			
+			# once dialogue is completely finished, clear participants array.
+			participants.clear()
+			
 			return
 		# otherwise, keep printing dialogue.
 		else:
@@ -110,6 +114,7 @@ func reload_textbox(response_pos: int = 0) -> void:
 				
 				# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
 				participants[0].checkpoint_dialogue = current_dialogue.next_dialogue
+				participants[0].dialogue_branch_pos = response_pos
 				start_dialogue(current_dialogue.next_dialogue, response_pos)
 				
 			Dialogue.DialogueType.RESPONSE:

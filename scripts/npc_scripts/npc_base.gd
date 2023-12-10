@@ -10,6 +10,7 @@ class_name NPCBase
 
 @export var dialogue: Dialogue
 var checkpoint_dialogue: Dialogue
+var dialogue_branch_pos: int = 0
 
 enum NPCType {
 	Combatant = 0,
@@ -27,7 +28,7 @@ func _on_overlap_area_body_entered(body: Node3D):
 		# sample dialogue trigger by an NPC.
 		GameManager.ui_manager.dialogue_manager.participants.append(self) # always make the dialogue initiator the first participant.
 		GameManager.ui_manager.dialogue_manager.participants.append(body) # always make the player the second participant (?)
-		GameManager.ui_manager.dialogue_manager.start_dialogue(checkpoint_dialogue)
+		GameManager.ui_manager.dialogue_manager.start_dialogue(checkpoint_dialogue, dialogue_branch_pos)
 
 func _on_overlap_area_body_exited(body: Node3D):
 	if body is Player:
