@@ -33,7 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				textbox_inst.display_line()
 
 # starts a new dialogue if one isn't active by displaying a textbox with the given dialogue lines.
-func start_dialogue(dialogue: Dialogue) -> void:
+func start_dialogue(dialogue: Dialogue, response_pos: int = 0) -> void:
 	current_dialogue = dialogue
 	
 	if dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
@@ -41,9 +41,10 @@ func start_dialogue(dialogue: Dialogue) -> void:
 			return
 		
 		# overwrite pre-existing dialogue_lines with new lines that were passed to the dialogue manager.
-		npc_dialogue_lines = dialogue.dialogue_options[0]
+		npc_dialogue_lines = dialogue.dialogue_options[response_pos]
 		# mark dialogue as active once a textbox is shown so another can't be instantiated over the existing one.
 		is_npc_dialogue_active = true
+	
 	else:
 		if is_player_dialogue_active:
 			return
@@ -99,7 +100,15 @@ func reload_textbox(response_pos: int = 0) -> void:
 	else:
 		match current_dialogue.next_dialogue.dialogue_type:
 			Dialogue.DialogueType.DEFAULT:
-				print("yoooo")
+				if is_player_dialogue_active:
+					textbox_response_inst.queue_free()
+					is_player_dialogue_active = false
+				
+				textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
+				line_index = 0
+				
+				start_dialogue(current_dialogue.next_dialogue, response_pos)
+				
 			Dialogue.DialogueType.RESPONSE:
 				line_index += 1
 				# once NPC dialogue lines run out, just start the new dialogue chain.
@@ -119,9 +128,6 @@ func reload_textbox(response_pos: int = 0) -> void:
 				pass
 			Dialogue.DialogueType.SHOUT:
 				pass
-
-func advance_npc_dialogue() -> void:
-	pass
 
 func destroy_textboxes() -> void:
 	if is_player_dialogue_active:
