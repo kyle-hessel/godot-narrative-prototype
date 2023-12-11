@@ -31,4 +31,3 @@ focus_mode = 2
 selection_enabled = true
 
 [node name="LetterDisplayTimer" type="Timer" parent="."]
-one_shot = true

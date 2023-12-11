@@ -5,6 +5,7 @@ class_name DialogueManager
 
 @onready var textbox: PackedScene = preload("res://scenes/UI/dialogue/textbox_default.tscn")
 @onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
+
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
 var participants: Array[Node3D]

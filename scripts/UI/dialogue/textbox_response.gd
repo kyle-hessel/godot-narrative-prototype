@@ -52,6 +52,6 @@ func select_response(event: InputEvent) -> void:
 # color the text for every possible response, taking into account which is currently selected by the player.
 func color_text_field_at_pos(pos: int) -> void:
 	if pos == player_selection:
-		dialogue_labels[pos].text = "[highlight_color color=#417fc2 char=a]" + dialogues[pos] + "[/highlight_color]"
+		dialogue_labels[pos].text = "[highlight_color color=#417fc2]" + dialogues[pos] + "[/highlight_color]"
 	else:
 		dialogue_labels[pos].text = "[highlight_color color=#ffffff]" + dialogues[pos] + "[/highlight_color]"

@@ -6,6 +6,3 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l636m")
-
-[node name="DialogueFlushTimer" type="Timer" parent="."]
-one_shot = true
