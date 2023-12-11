@@ -8,7 +8,8 @@ class_name DialogueManager
 
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
-var participants: Array[Node3D]
+var participants = {}
+var dialogue_initiator: String
 
 var npc_dialogue_lines: Array
 var player_response_lines: Array
@@ -37,8 +38,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				textbox_inst.display_line()
 
+func initiate_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
+	dialogue_initiator = dialogue.speaker
+	continue_dialogue(dialogue, dialogue_index)
+
 # starts a new dialogue if one isn't active by displaying a textbox with the given dialogue lines.
-func start_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
+func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 	current_dialogue = dialogue
 	
 	if dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
@@ -94,7 +99,7 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 			line_index = 0
 			branch_index = 0
 			
-			# once dialogue is completely finished, clear participants array.
+			# once dialogue is completely finished, clear participants dictionary.
 			participants.clear()
 			
 			return
@@ -119,10 +124,10 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 				line_index = 0
 				
 				# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
-				participants[0].checkpoint_dialogue = current_dialogue.next_dialogue
-				participants[0].dialogue_branch_pos = dialogue_index
+				participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
+				participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
 				
-				start_dialogue(current_dialogue.next_dialogue, dialogue_index)
+				continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
 				
 			Dialogue.DialogueType.RESPONSE:
 				line_index += 1
@@ -136,7 +141,7 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 					# realign dialogue_index depending on what the upcoming player dialogues contain.
 					dialogue_index = realign_player_dialogue_index(dialogue_index)
 					
-					start_dialogue(current_dialogue.next_dialogue, dialogue_index)
+					continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
 					
 				# otherwise, continue dialogue chain.
 				else:

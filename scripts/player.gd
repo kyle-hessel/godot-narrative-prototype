@@ -6,6 +6,7 @@ class_name Player
 @export_group("Assignables")
 @export var player_stats: PlayerCharacterStats
 @export var player_mesh: Node3D
+@export var player_name: String = "Player"
 @export_group("")
 
 @export_group("Stats")
