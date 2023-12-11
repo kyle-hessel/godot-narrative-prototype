@@ -111,7 +111,7 @@ next_dialogue = SubResource("Resource_afdeg")
 [sub_resource type="Resource" id="Resource_geav3"]
 script = ExtResource("6_abhvg")
 dialogue_type = 0
-dialogue_options = Array[Array]([["I have nothing to say to you."]])
+dialogue_options = Array[Array]([["I have [b]nothing[/b] to say to you."]])
 next_dialogue = SubResource("Resource_3cqax")
 
 [node name="Main" type="Node3D"]

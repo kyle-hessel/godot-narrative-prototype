@@ -24,28 +24,34 @@ func _ready() -> void:
 	# ARBITRARY wraps per-letter, WORD wraps, well, per-word.
 	dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	
-	# each time the timer started by display_letter ends, said function is recursively called again by this lambda function.
-	#letter_display_timer.timeout.connect(func(): display_letter())
-	
+	# install the reveal effect.
 	dialogue_label.install_effect(text_reveal_effect)
 	
+	# loop over any RichTextEffects.
 	for e in dialogue_label.custom_effects.size():
+		# if the effect is our reveal effect, act on it.
 		if dialogue_label.custom_effects[e] is RichTextEffectReveal:
+			# reset reveal_pos any time a new textbox is spawned.
 			dialogue_label.custom_effects[e].reveal_pos = 0
+			# increment the reveal effect in RichTextEffectReveal using the timer in this scene.
 			letter_display_timer.timeout.connect(dialogue_label.custom_effects[e]._on_letter_display_timer_timeout)
+			# also increment our letter index with this lambda function.
 			letter_display_timer.timeout.connect(func(): 
 				letter_index += 1
+				# once the letter index is equal or greater than the length of the dialogue, finish displaying.
 				if letter_index >= dialogue.length():
 					display_line()
 			)
+			# show all text at once in RichTextEffectReveal by connecting a function there to this signal.
 			finished_displaying.connect(dialogue_label.custom_effects[e]._on_signal_show_entire_line)
 
+# pass in dialogue, start the display timer, and add the [reveal] tag to the displayed text.
 func begin_display_dialogue(text_to_display: String) -> void:
 	dialogue = text_to_display
 	letter_display_timer.start()
 	dialogue_label.text = "[reveal]" + dialogue + "[/reveal]"
 
-# this function overrides displaying each letter and jumps to displaying the entire dialogue string.
+# this function deems the entire dialogue line as displayed, meaning we can move onto the next line on the next key press.
 func display_line() -> void:
 	letter_display_timer.stop()
 	finished_displaying.emit()
