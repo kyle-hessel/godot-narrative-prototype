@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=24 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -67,10 +67,22 @@ script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["you got the shit?", "... are you a cop?"]])
 
+[sub_resource type="Resource" id="Resource_1whd8"]
+script = ExtResource("6_abhvg")
+dialogue_type = 0
+dialogue_options = Array[Array]([["Seeya!"]])
+
+[sub_resource type="Resource" id="Resource_mytm4"]
+script = ExtResource("6_abhvg")
+dialogue_type = 1
+dialogue_options = Array[Array]([["On that note, I will see you later."]])
+next_dialogue = SubResource("Resource_1whd8")
+
 [sub_resource type="Resource" id="Resource_gbw8k"]
 script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["Good good, that's good."], ["Oh, well that's a shame.", "Here, have mine! Oh wait, I can't hear you."], ["How would I know who you are?", "What do you think I am, some kind of wizard?", "The nerve of some people."], ["Ah, yet another main character with no memories. Splendid."], ["Sure. There is quite a lot, actually:", "I am the heir to the great throne of Hooplah!", "I am also ambidextrous!", "Now please, let me join your party!"], ["Why sure, my friends call me that."]])
+next_dialogue = SubResource("Resource_mytm4")
 
 [sub_resource type="Resource" id="Resource_uh11h"]
 script = ExtResource("6_abhvg")

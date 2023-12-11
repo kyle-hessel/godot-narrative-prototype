@@ -20,7 +20,7 @@ var punctuation_time: float = 0.2
 
 func _ready() -> void:
 	# ARBITRARY wraps per-letter, WORD wraps, well, per-word.
-	dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	
 	# each time the timer started by display_letter ends, said function is recursively called again by this lambda function.
 	letter_display_timer.timeout.connect(func(): display_letter())
