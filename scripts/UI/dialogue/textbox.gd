@@ -16,9 +16,9 @@ signal finished_displaying
 var dialogue: String = ""
 var letter_index: int = 0
 
-var letter_time: float = 0.03
-var space_time: float = 0.06
-var punctuation_time: float = 0.2
+@export var letter_time: float = 0.03
+@export var space_time: float = 0.06
+@export var punctuation_time: float = 0.2
 
 func _ready() -> void:
 	# ARBITRARY wraps per-letter, WORD wraps, well, per-word.
@@ -35,45 +35,37 @@ func _ready() -> void:
 			dialogue_label.custom_effects[e].reveal_pos = 0
 			# increment the reveal effect in RichTextEffectReveal using the timer in this scene.
 			letter_display_timer.timeout.connect(dialogue_label.custom_effects[e]._on_letter_display_timer_timeout)
-			# also increment our letter index with this lambda function.
-			letter_display_timer.timeout.connect(func(): 
-				letter_index += 1
-				# once the letter index is equal or greater than the length of the dialogue, finish displaying.
-				if letter_index >= dialogue.length():
-					display_line()
-			)
+			# also increment our letter index (for character monitoring) and restart our timer every time it ends.
+			letter_display_timer.timeout.connect(increment_letter)
 			# show all text at once in RichTextEffectReveal by connecting a function there to this signal.
 			finished_displaying.connect(dialogue_label.custom_effects[e]._on_signal_show_entire_line)
 
 # pass in dialogue, start the display timer, and add the [reveal] tag to the displayed text.
 func begin_display_dialogue(text_to_display: String) -> void:
 	dialogue = text_to_display
-	letter_display_timer.start()
+	letter_display_timer.start(letter_time)
 	dialogue_label.text = "[reveal]" + dialogue + "[/reveal]"
+
+# increments the letter by determining how long the timer should be and restarting it, which will modify the RichTextEffectReveal in turn.
+func increment_letter() -> void:
+	letter_index += 1
+	# once the letter index is equal or greater than the length of the dialogue, finish displaying.
+	if letter_index >= dialogue.length():
+		display_line()
+		return
+	
+	# determine the speed between character print-outs using a timer, and vary said timer's speed depending on punctuation, etc.
+	match dialogue[letter_index]:
+		"!", ".", ",", "?" when (letter_index < dialogue.length()):
+			letter_display_timer.start(punctuation_time)
+		"!", ".", ",", "?" when (letter_index >= dialogue.length()):
+			letter_display_timer.start(punctuation_time * 2.0)
+		" ":
+			letter_display_timer.start(space_time)
+		_:
+			letter_display_timer.start(letter_time)
 
 # this function deems the entire dialogue line as displayed, meaning we can move onto the next line on the next key press.
 func display_line() -> void:
 	letter_display_timer.stop()
 	finished_displaying.emit()
-
-## default dialogue display behavior.
-#func display_letter() -> void:
-	## one by one, add each letter from the dialogue to the label each time this function is called.
-	#dialogue_label.text += dialogue[letter_index]
-	#
-	## increment to the next letter, and if at the end of the dialogue, notify dialogue_manager and return early.
-	#letter_index += 1
-	#if letter_index >= dialogue.length():
-		#finished_displaying.emit()
-		#return
-	#
-	## determine the speed between character print-outs using a timer, and vary said timer's speed depending on punctuation, etc.
-	#match dialogue[letter_index]:
-		#"!", ".", ",", "?" when (letter_index < dialogue.length()):
-			#letter_display_timer.start(punctuation_time)
-		#"!", ".", ",", "?" when (letter_index >= dialogue.length()):
-			#letter_display_timer.start(punctuation_time * 2.0)
-		#" ":
-			#letter_display_timer.start(space_time)
-		#_:
-			#letter_display_timer.start(letter_time)
