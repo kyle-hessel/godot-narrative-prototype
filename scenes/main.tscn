@@ -56,12 +56,14 @@ script = ExtResource("6_abhvg")
 dialogue_type = 1
 dialogue_options = Array[Array]([["ayo"]])
 speaker = "Player"
+event = ""
 
 [sub_resource type="Resource" id="Resource_8mry7"]
 script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["hurdurrrrrrrrr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "uh oh, stinky"]])
 speaker = ""
+event = ""
 next_dialogue = SubResource("Resource_r7tgl")
 
 [sub_resource type="Resource" id="Resource_ihope"]
@@ -69,18 +71,21 @@ script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["you got the shit?", "... are you a cop?"]])
 speaker = ""
+event = ""
 
 [sub_resource type="Resource" id="Resource_1whd8"]
 script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["Seeya!"]])
 speaker = "Bingus"
+event = ""
 
 [sub_resource type="Resource" id="Resource_mytm4"]
 script = ExtResource("6_abhvg")
 dialogue_type = 1
 dialogue_options = Array[Array]([["On that note, I will see you later."]])
 speaker = "Player"
+event = ""
 next_dialogue = SubResource("Resource_1whd8")
 
 [sub_resource type="Resource" id="Resource_gbw8k"]
@@ -88,6 +93,7 @@ script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["Good good, that's good."], ["Oh, well that's a shame.", "Here, have mine! Oh wait, I can't hear you."], ["How would I know who you are?", "What do you think I am, some kind of wizard?", "The nerve of some people."], ["Ah, yet another main character with no memories. Splendid."], ["Sure. There is quite a lot, actually:", "I am the heir to the great throne of Hooplah!", "I am also ambidextrous!", "Now please, let me join your party!"], ["Why sure, my friends call me that."]])
 speaker = "Bingus"
+event = ""
 next_dialogue = SubResource("Resource_mytm4")
 
 [sub_resource type="Resource" id="Resource_uh11h"]
@@ -95,6 +101,7 @@ script = ExtResource("6_abhvg")
 dialogue_type = 1
 dialogue_options = Array[Array]([["I can hear you loud and clear.", "Sorry, I forgot my hearing aide."], ["Why, I'm me. Who else?", "I don't know who I am either."], ["Okay Robert, anything else you'd like to share?", "I'll just call you Dick."]])
 speaker = "Player"
+event = ""
 next_dialogue = SubResource("Resource_gbw8k")
 
 [sub_resource type="Resource" id="Resource_udx68"]
@@ -102,6 +109,7 @@ script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["Yeah, what's that you were gonna tell me?", "No seriously, I'm waiting.", "Hello? Can you even hear me?"], ["I really don't, actually.", "I don't even know who you are."], ["And my middle name is Robert. Thanks for sharing."]])
 speaker = "Bingus"
+event = ""
 next_dialogue = SubResource("Resource_uh11h")
 
 [sub_resource type="Resource" id="Resource_afdeg"]
@@ -109,6 +117,7 @@ script = ExtResource("6_abhvg")
 dialogue_type = 1
 dialogue_options = Array[Array]([["Let me tell you something, pal.", "Do you even know what I'm about?", "Danger is my middle name, man."]])
 speaker = "Player"
+event = ""
 next_dialogue = SubResource("Resource_udx68")
 
 [sub_resource type="Resource" id="Resource_3cqax"]
@@ -116,6 +125,7 @@ script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["... Just kidding."]])
 speaker = "Bingus"
+event = ""
 next_dialogue = SubResource("Resource_afdeg")
 
 [sub_resource type="Resource" id="Resource_geav3"]
@@ -123,6 +133,7 @@ script = ExtResource("6_abhvg")
 dialogue_type = 0
 dialogue_options = Array[Array]([["I have [b]nothing[/b] to say to you."]])
 speaker = ""
+event = ""
 next_dialogue = SubResource("Resource_3cqax")
 
 [node name="Main" type="Node3D"]
