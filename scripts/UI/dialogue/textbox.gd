@@ -28,7 +28,7 @@ func _ready() -> void:
 	dialogue_label.install_effect(text_reveal_effect)
 	
 	# loop over any RichTextEffects.
-	for e in dialogue_label.custom_effects.size():
+	for e: int in dialogue_label.custom_effects.size():
 		# if the effect is our reveal effect, act on it.
 		if dialogue_label.custom_effects[e] is RichTextEffectReveal:
 			# reset reveal_pos any time a new textbox is spawned.

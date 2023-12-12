@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 func init_events() -> void:
 	calendar_day = calendar_month.days[calendar_day_num]
 
-	for e in calendar_day.events.keys():
+	for e: String in calendar_day.events.keys():
 		var event_indicator_inst: Control = event_indicator.instantiate()
 		events_grid.add_child(event_indicator_inst)
 		

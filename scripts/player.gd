@@ -289,7 +289,7 @@ func sort_objects_by_distance() -> void:
 
 # returns the first valid candidate for targeting if visiblity checks pass, if there is one.
 func objects_visibility_check(obj_array: Array[Node3D]) -> Node3D:
-	for object in obj_array:
+	for object: Node3D in obj_array:
 		var half_height: float = object.collision_shape.shape.height * 0.5
 		var target_pos: Vector3 = Vector3(object.position.x, object.position.y + half_height, object.position.z)
 		
@@ -347,7 +347,7 @@ func determine_target() -> void:
 				# check if next potential candidate is non-existent (out of bounds). If not, do the below check.
 				if !(obj_index + 1 > overlapping_objects.size() - 1):
 					# determine the next object to target that is further than the one we started with.
-					for obj in overlapping_objects:
+					for obj: Node3D in overlapping_objects:
 						# skip array indexes lower (closer) than our initial object, inclusive.
 						var current_index: int = overlapping_objects.find(obj)
 						if current_index <= obj_index:
@@ -367,7 +367,7 @@ func determine_target() -> void:
 				# if the next candidate was out of bounds, wrap back to the front of the array.
 				else:
 					# do similar checks to above to find the lowest indexed object that meets requirements.
-					for obj in overlapping_objects:
+					for obj: Node3D in overlapping_objects:
 						# simply start at the beginning of the array, since we wrapped around.
 						if object_visibility_check(obj) == true:
 							# if everything succeeded, retarget to the given object and break out.
@@ -395,7 +395,7 @@ func determine_target() -> void:
 				# check if next potential candidate is non-existent. If not, do the below check.
 				if !(obj_index + 1 > overlapping_objects_reversed.size() - 1):
 					# determine the next object to target that is further than the one we started with.
-					for obj in overlapping_objects_reversed:
+					for obj: Node3D in overlapping_objects_reversed:
 						# skip array indexes lower (farther) than our initial object, inclusive.
 						var current_index: int = overlapping_objects_reversed.find(obj)
 						if current_index <= obj_index:
@@ -415,7 +415,7 @@ func determine_target() -> void:
 				# if the next candidate was out of bounds, wrap back to the front of the array.
 				else:
 					# do similar checks to above to find the lowest indexed object that meets requirements.
-					for obj in overlapping_objects_reversed:
+					for obj: Node3D in overlapping_objects_reversed:
 						# simply start at the beginning of the array, since we wrapped around.
 						if object_visibility_check(obj) == true:
 							# if everything succeeded, retarget to the given object and break out.

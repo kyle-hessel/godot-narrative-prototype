@@ -178,7 +178,7 @@ func realign_player_dialogue_index(dialogue_index: int) -> int:
 func return_dialogue_index_in_1d_array_format(dialogue_index: int) -> int:
 	var temp_pos: int = 0
 	
-	for pos in range(branch_index):
+	for pos: int in range(branch_index):
 		temp_pos += current_dialogue.dialogue_options[pos].size()
 	
 	return temp_pos + dialogue_index

@@ -57,7 +57,7 @@ func generate_date_grid(month: Month, year: Year) -> void:
 	var current_month: bool = month == GameManager.calendar_manager.month
 	
 	# populate DaysGrid with all of the days of the current month.
-	for d in range(month.days.size()):
+	for d: int in range(month.days.size()):
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
 		date_ui_inst.in_current_month = true
@@ -88,7 +88,7 @@ func generate_date_grid(month: Month, year: Year) -> void:
 func generate_date_grid_previous_month(previous_month_size: int, start_day: int) -> void:
 	var month_day_pos: int = previous_month_size - start_day
 	
-	for d in range(start_day):
+	for d: int in range(start_day):
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
 		
@@ -101,7 +101,7 @@ func generate_date_grid_previous_month(previous_month_size: int, start_day: int)
 
 # generates any days from the next month that need to show up on the grid of the current month
 func generate_date_grid_next_month(day_count: int) -> void:
-	for d in range(day_count):
+	for d: int in range(day_count):
 		var date_ui_inst: Control = date_entry.instantiate()
 		%DaysGrid.add_child(date_ui_inst)
 		
@@ -123,7 +123,7 @@ func _month_left() -> void:
 		else:
 			calendar_month_num -= 1
 		
-		for c in %DaysGrid.get_children():
+		for c: Control in %DaysGrid.get_children():
 			%DaysGrid.remove_child(c)
 			c.queue_free()
 		
@@ -141,7 +141,7 @@ func _month_right() -> void:
 		else:
 			calendar_month_num += 1
 		
-		for c in %DaysGrid.get_children():
+		for c: Control in %DaysGrid.get_children():
 			%DaysGrid.remove_child(c)
 			c.queue_free()
 		

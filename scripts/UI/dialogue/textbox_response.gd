@@ -31,7 +31,7 @@ func begin_display_response(text_to_display: Array) -> void:
 		l += 1
 		
 	# ensure each RichTextLabel contains the proper effects and populate text for each of them with effects included.
-	for d in dialogue_labels.size():
+	for d: int in dialogue_labels.size():
 		dialogue_labels[d].install_effect(text_color_effect)
 		color_text_field_at_pos(d)
 
@@ -40,13 +40,13 @@ func select_response(event: InputEvent) -> void:
 		if player_selection > 0:
 			player_selection -= 1
 			# refresh dialogue response fields
-			for d in dialogue_labels.size():
+			for d: int in dialogue_labels.size():
 				color_text_field_at_pos(d)
 	elif event.is_action_pressed("ui_down"):	
 		if player_selection < dialogue_labels.size() - 1:
 			player_selection += 1
 			# refresh dialogue response fields
-			for d in dialogue_labels.size():
+			for d: int in dialogue_labels.size():
 				color_text_field_at_pos(d)
 
 # color the text for every possible response, taking into account which is currently selected by the player.
