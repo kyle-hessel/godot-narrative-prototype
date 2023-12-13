@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=27 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://6fyf2ih8xmud" path="res://scenes/NPC/npc_default.tscn" id="5_mxwrk"]
 [ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="6_abhvg"]
 [ext_resource type="PackedScene" uid="uid://camgpbk1kmmg8" path="res://scenes/systems/cutscene.tscn" id="7_m1f43"]
+[ext_resource type="Script" path="res://scripts/resources/events/event.gd" id="8_es22j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -126,6 +127,11 @@ dialogue_options = Array[Array]([["I have [b]nothing[/b] to say to you."]])
 speaker = ""
 next_dialogue = SubResource("Resource_3cqax")
 
+[sub_resource type="Resource" id="Resource_mhvpe"]
+script = ExtResource("8_es22j")
+event_name = "test_event"
+actions = {}
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p5pro")
 
@@ -176,6 +182,7 @@ npc_name = "Bingus"
 npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
 dialogue = SubResource("Resource_geav3")
 
-[node name="Cutscene" parent="." instance=ExtResource("7_m1f43")]
+[node name="Cutscene_test" parent="." instance=ExtResource("7_m1f43")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1107, 7.15256e-07, 10.5188)
 cutscene_name = "Test"
+events = Array[ExtResource("8_es22j")]([SubResource("Resource_mhvpe")])
