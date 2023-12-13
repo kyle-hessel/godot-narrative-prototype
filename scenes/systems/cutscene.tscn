@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://camgpbk1kmmg8"]
+
+[ext_resource type="Script" path="res://scripts/systems/cutscene.gd" id="1_7niiy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_307n8"]
+radius = 10.0
+
+[node name="Cutscene" type="Node3D"]
+script = ExtResource("1_7niiy")
+
+[node name="CutsceneArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CutsceneArea"]
+shape = SubResource("SphereShape3D_307n8")
