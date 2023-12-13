@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=25 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://shaders/art_style/hq_outlines_pp.gdshader" id="3_cjaud"]
 [ext_resource type="PackedScene" uid="uid://6fyf2ih8xmud" path="res://scenes/NPC/npc_default.tscn" id="5_mxwrk"]
 [ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="6_abhvg"]
+[ext_resource type="PackedScene" uid="uid://camgpbk1kmmg8" path="res://scenes/systems/cutscene.tscn" id="7_m1f43"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -136,9 +137,9 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="GroundTest" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.78566, -0.5, 0)
 use_collision = true
-size = Vector3(27.2138, 1, 30.9952)
+size = Vector3(40.7851, 1, 30.9952)
 material = SubResource("ShaderMaterial_avkuh")
 
 [node name="Player" parent="." instance=ExtResource("1_tdgme")]
@@ -174,3 +175,7 @@ npc_mesh = NodePath("../NPCDefault/MeshInstance3D")
 npc_name = "Bingus"
 npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
 dialogue = SubResource("Resource_geav3")
+
+[node name="Cutscene" parent="." instance=ExtResource("7_m1f43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1107, 7.15256e-07, 10.5188)
+cutscene_name = "Test"

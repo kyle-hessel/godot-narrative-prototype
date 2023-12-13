@@ -15,3 +15,5 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CutsceneArea"]
 shape = SubResource("SphereShape3D_307n8")
+
+[connection signal="body_entered" from="CutsceneArea" to="." method="_on_cutscene_area_body_entered"]
