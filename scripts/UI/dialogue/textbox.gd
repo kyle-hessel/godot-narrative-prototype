@@ -56,10 +56,12 @@ func increment_letter() -> void:
 	
 	# determine the speed between character print-outs using a timer, and vary said timer's speed depending on punctuation, etc.
 	match dialogue[letter_index]:
-		"!", ".", ",", "?" when (letter_index < dialogue.length()):
+		"!", ".", ",", "?" when (letter_index < dialogue.length() - 2):
 			letter_display_timer.start(punctuation_time)
-		"!", ".", ",", "?" when (letter_index >= dialogue.length()):
-			letter_display_timer.start(punctuation_time * 2.0)
+			print('yo')
+		"!", ".", ",", "?" when (letter_index == dialogue.length() - 2):
+			letter_display_timer.start(punctuation_time * 3.0)
+			print('ayo')
 		" ":
 			letter_display_timer.start(space_time)
 		_:

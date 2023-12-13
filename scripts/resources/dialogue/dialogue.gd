@@ -5,7 +5,6 @@ class_name Dialogue
 @export var dialogue_type: DialogueType = DialogueType.DEFAULT
 @export var dialogue_options: Array[Array]
 @export var speaker: String
-@export var event: String
 @export var next_dialogue: Dialogue
 
 enum DialogueType {
