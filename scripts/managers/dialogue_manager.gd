@@ -8,15 +8,8 @@ class_name DialogueManager
 
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
-var participants = {}
+var participants: Dictionary = {}
 var dialogue_initiator: String
-
-var events = {}
-#var event_history = {} # would make more sense in the save system than here.
-
-#enum EventOutcome {
-	#
-#}
 
 var npc_dialogue_lines: Array
 var player_response_lines: Array

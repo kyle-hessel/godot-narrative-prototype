@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="Cutscene" load_steps=2 format=3 uid="uid://dtk3qih1rciha"]
-
-[ext_resource type="Script" path="res://scripts/resources/events/cutscene.gd" id="1_r0k7e"]
-
-[resource]
-script = ExtResource("1_r0k7e")
-events = Array[Resource("res://scripts/resources/events/event.gd")]([])
