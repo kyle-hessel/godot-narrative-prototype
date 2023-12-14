@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://634a33vhexl"]
+
+[ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="1_3ntqs"]
+[ext_resource type="Script" path="res://scripts/resources/events/event.gd" id="1_ibxm5"]
+
+[resource]
+script = ExtResource("1_ibxm5")
+event_name = "test_event"
+actions = {
+"move": ExtResource("1_3ntqs")
+}

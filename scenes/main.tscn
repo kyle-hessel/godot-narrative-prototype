@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=29 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://6fyf2ih8xmud" path="res://scenes/NPC/npc_default.tscn" id="5_mxwrk"]
 [ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="6_abhvg"]
 [ext_resource type="PackedScene" uid="uid://camgpbk1kmmg8" path="res://scenes/systems/cutscene.tscn" id="7_m1f43"]
-[ext_resource type="Script" path="res://scripts/resources/events/event.gd" id="8_es22j"]
+[ext_resource type="Resource" uid="uid://634a33vhexl" path="res://assets/cutscenes/samples/test_event.tres" id="8_ml683"]
+[ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="9_n4uco"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -127,10 +128,26 @@ dialogue_options = Array[Array]([["I have [b]nothing[/b] to say to you."]])
 speaker = ""
 next_dialogue = SubResource("Resource_3cqax")
 
-[sub_resource type="Resource" id="Resource_mhvpe"]
-script = ExtResource("8_es22j")
-event_name = "test_event"
-actions = {}
+[sub_resource type="Animation" id="Animation_mcyon"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../NPCDefault4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.41926, 0, 14.2561)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_05cm0"]
+_data = {
+"RESET": SubResource("Animation_mcyon"),
+"test_cutscene_movement": ExtResource("9_n4uco")
+}
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p5pro")
@@ -185,4 +202,17 @@ dialogue = SubResource("Resource_geav3")
 [node name="Cutscene_test" parent="." instance=ExtResource("7_m1f43")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1107, 7.15256e-07, 10.5188)
 cutscene_name = "Test"
-events = Array[ExtResource("8_es22j")]([SubResource("Resource_mhvpe")])
+cameras = {
+"main": NodePath("test_cam1")
+}
+events = Array[Resource("res://scripts/resources/events/event.gd")]([ExtResource("8_ml683")])
+
+[node name="CutsceneAnimationPlayer" parent="Cutscene_test" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_05cm0")
+}
+
+[node name="test_cam1" type="Camera3D" parent="Cutscene_test"]
+transform = Transform3D(-0.833153, 0.193526, -0.518077, 0, 0.936776, 0.349929, 0.553043, 0.291545, -0.780478, -4.70309, 4.95066, -6.82881)
+
+[editable path="Cutscene_test"]
