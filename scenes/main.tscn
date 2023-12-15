@@ -203,6 +203,7 @@ dialogue = SubResource("Resource_geav3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1107, 7.15256e-07, 10.5188)
 cutscene_name = "Test"
 cameras = {
+"back": NodePath("test_cam2"),
 "main": NodePath("test_cam1")
 }
 events = Array[Resource("res://scripts/resources/events/event.gd")]([ExtResource("8_ml683")])
@@ -214,5 +215,8 @@ libraries = {
 
 [node name="test_cam1" type="Camera3D" parent="Cutscene_test"]
 transform = Transform3D(-0.833153, 0.193526, -0.518077, 0, 0.936776, 0.349929, 0.553043, 0.291545, -0.780478, -4.70309, 4.95066, -6.82881)
+
+[node name="test_cam2" type="Camera3D" parent="Cutscene_test"]
+transform = Transform3D(1, 0, 0, 0, 0.95873, 0.284317, 0, -0.284317, 0.95873, 0, 5.9228, 10.6772)
 
 [editable path="Cutscene_test"]
