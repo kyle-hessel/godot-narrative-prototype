@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Event" load_steps=6 format=3 uid="uid://634a33vhexl"]
+[gd_resource type="Resource" script_class="Event" load_steps=8 format=3 uid="uid://634a33vhexl"]
 
 [ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="1_3ntqs"]
 [ext_resource type="Script" path="res://scripts/resources/events/action.gd" id="1_cwyjp"]
 [ext_resource type="Script" path="res://scripts/resources/events/event.gd" id="1_ibxm5"]
+[ext_resource type="Animation" uid="uid://b8rqimwu3b4t4" path="res://assets/cutscenes/samples/test_cutscene_movement2.res" id="3_j8hod"]
 
 [sub_resource type="Resource" id="Resource_fhaim"]
 script = ExtResource("1_cwyjp")
@@ -16,7 +17,13 @@ action = {
 NodePath("test_cam2"): null
 }
 
+[sub_resource type="Resource" id="Resource_h8adr"]
+script = ExtResource("1_cwyjp")
+action = {
+ExtResource("3_j8hod"): null
+}
+
 [resource]
 script = ExtResource("1_ibxm5")
 event_name = "test_event"
-actions = Array[ExtResource("1_cwyjp")]([SubResource("Resource_fhaim"), SubResource("Resource_yagaw")])
+actions = Array[ExtResource("1_cwyjp")]([SubResource("Resource_fhaim"), SubResource("Resource_yagaw"), SubResource("Resource_h8adr")])
