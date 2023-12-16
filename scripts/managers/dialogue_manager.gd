@@ -6,6 +6,8 @@ class_name DialogueManager
 @onready var textbox: PackedScene = preload("res://scenes/UI/dialogue/textbox_default.tscn")
 @onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
 
+signal dialogue_complete
+
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
 var participants: Dictionary = {}
@@ -102,6 +104,7 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 			# once dialogue is completely finished, clear participants dictionary.
 			participants.clear()
 			
+			dialogue_complete.emit()
 			return
 		# otherwise, keep printing dialogue.
 		else:

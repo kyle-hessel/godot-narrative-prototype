@@ -11,6 +11,7 @@ class_name Cutscene
 
 var event_index: int = 0
 var action_index: int = 0
+var dialogue_index: int = 0 # only used when dialogue is present
 
 # send a signal when the cutscene finishes to send to the save system.
 # the save system will then determine on boot which cutscenes should be monitoring for a cutscene trigger.
@@ -24,6 +25,8 @@ func _ready() -> void:
 	anim_player.animation_finished.connect(func(anim_name: StringName): increment_action())
 	cutscene_finished.connect(func(): event_index = -1)
 	event_finished.connect(func(): action_index = 0)
+	
+	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(func(): increment_action())
 
 func switch_camera(cam_name: String) -> void:
 	pass
@@ -53,7 +56,6 @@ func continue_event() -> void:
 		continue_cutscene()
 
 func play_action(action: Action) -> void:
-	print(action)
 	var action_context = action.action.keys()[0]
 	if action_context is Animation:
 		var anim_str: StringName = anim_player.find_animation(action_context)
@@ -66,7 +68,7 @@ func play_action(action: Action) -> void:
 	elif action_context is AnimationLibrary:
 		pass
 	elif action_context is Dialogue:
-		pass
+		GameManager.ui_manager.dialogue_manager.initiate_dialogue(action_context, dialogue_index)
 	elif action_context is String: # Callables?
 		pass
 	elif action_context is Array[String]: # Chain of callables?

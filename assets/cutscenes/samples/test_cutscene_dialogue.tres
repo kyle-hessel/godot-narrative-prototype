@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://dv33ge1ngtp71"]
+
+[ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="1_2oolt"]
+
+[resource]
+script = ExtResource("1_2oolt")
+dialogue_type = 0
+dialogue_options = Array[Array]([["ayo!!"]])
+speaker = "Bingus"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=37 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -12,6 +12,7 @@
 [ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="9_n4uco"]
 [ext_resource type="Script" path="res://scripts/resources/events/action.gd" id="9_yl1fs"]
 [ext_resource type="Animation" uid="uid://b8rqimwu3b4t4" path="res://assets/cutscenes/samples/test_cutscene_movement2.res" id="10_gx7as"]
+[ext_resource type="Resource" uid="uid://dv33ge1ngtp71" path="res://assets/cutscenes/samples/test_cutscene_dialogue.tres" id="10_un2a7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -137,10 +138,22 @@ action = {
 NodePath("test_cam1"): null
 }
 
+[sub_resource type="Resource" id="Resource_duu5p"]
+script = ExtResource("9_yl1fs")
+action = {
+ExtResource("10_un2a7"): null
+}
+
+[sub_resource type="Resource" id="Resource_qoht0"]
+script = ExtResource("9_yl1fs")
+action = {
+ExtResource("9_n4uco"): null
+}
+
 [sub_resource type="Resource" id="Resource_vpfo6"]
 script = ExtResource("9_73i67")
 event_name = "test_event2"
-actions = Array[ExtResource("9_yl1fs")]([SubResource("Resource_8tqq1")])
+actions = Array[ExtResource("9_yl1fs")]([SubResource("Resource_8tqq1"), SubResource("Resource_duu5p"), SubResource("Resource_qoht0")])
 
 [sub_resource type="Animation" id="Animation_mcyon"]
 length = 0.001
