@@ -2,8 +2,10 @@ extends Node3D
 
 class_name EventsManager
 
-@export var events: Array[Event]
-@export var cutscenes: Array[Cutscene]
+var events: Array[Event]
+var cutscenes: Array[Cutscene]
+
+var in_cutscene: bool = false
 
 func register_event(event: Event) -> void:
 	pass

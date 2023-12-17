@@ -8,6 +8,7 @@ class_name Cutscene
 @export var cameras: Dictionary = {}
 @export var events: Array[Event]
 @export var participants: Dictionary = {}
+@export var is_replayable: bool = false
 
 var event_index: int = 0
 var action_index: int = 0
@@ -22,30 +23,38 @@ func _ready() -> void:
 	GameManager.events_manager.register_cutscene(self)
 	
 	# signal connections for continuing cutscenes, and finishing events and cutscenes
-	anim_player.animation_finished.connect(func(anim_name: StringName): increment_action())
-	cutscene_finished.connect(func(): event_index = -1)
+	anim_player.animation_finished.connect(func(anim_name: StringName): increment_action()) # this lambda is a weird hack
+	cutscene_finished.connect(end_cutscene)
 	event_finished.connect(func(): action_index = 0)
 	
-	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(func(): increment_action())
+	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(increment_action)
 
 func switch_camera(cam_name: String) -> void:
 	pass
 
-func _on_cutscene_area_body_entered(body):
-	start_cutscene()
+func _on_cutscene_area_body_entered(body: Node3D):
+	if body is Player:
+		start_cutscene()
 
 func start_cutscene() -> void:
+	GameManager.events_manager.in_cutscene = true
 	# fetches the node from an assigned NodePath.
 	get_node(cameras["main"]).current = true
 	continue_cutscene()
 
 func continue_cutscene() -> void:
-	if event_index < events.size() && event_index > -1:
+	if event_index < events.size():
 		continue_event()
-	elif event_index < 0: # this means the cutscene has already been played before
-		pass
 	else:
 		cutscene_finished.emit()
+
+func end_cutscene() -> void:
+	GameManager.events_manager.in_cutscene = false
+	get_node(participants["Player"]).player_cam.current = true
+	if is_replayable:
+		event_index = 0
+	else:
+		queue_free()
 
 func continue_event() -> void:
 	if action_index < events[event_index].actions.size():

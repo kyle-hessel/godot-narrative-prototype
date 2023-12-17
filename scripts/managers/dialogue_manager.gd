@@ -126,9 +126,11 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 				textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 				line_index = 0
 				
-				# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
-				participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
-				participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
+				# only do the below if not in a cutscene.
+				if GameManager.events_manager.in_cutscene == false:
+					# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
+					participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
+					participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
 				
 				continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
 				
