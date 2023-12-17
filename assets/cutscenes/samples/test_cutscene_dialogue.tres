@@ -1,9 +1,23 @@
-[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://dv33ge1ngtp71"]
+[gd_resource type="Resource" script_class="Dialogue" load_steps=4 format=3 uid="uid://dv33ge1ngtp71"]
 
 [ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="1_2oolt"]
+
+[sub_resource type="Resource" id="Resource_48vic"]
+script = ExtResource("1_2oolt")
+dialogue_type = 0
+dialogue_options = Array[Array]([["sounds pretty boring.", "want to hang out?"], ["fair enough, fair enough.", "I too am far too busy.", "but such is life."]])
+speaker = "Bingus"
+
+[sub_resource type="Resource" id="Resource_3a8ml"]
+script = ExtResource("1_2oolt")
+dialogue_type = 1
+dialogue_options = Array[Array]([["not much, all in all.", "more than you know, pal."]])
+speaker = "Player"
+next_dialogue = SubResource("Resource_48vic")
 
 [resource]
 script = ExtResource("1_2oolt")
 dialogue_type = 0
-dialogue_options = Array[Array]([["ayo!!"]])
+dialogue_options = Array[Array]([["ayo!!", "what's poppin jimbo?"]])
 speaker = "Bingus"
+next_dialogue = SubResource("Resource_3a8ml")

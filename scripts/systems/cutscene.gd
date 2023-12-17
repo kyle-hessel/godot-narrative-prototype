@@ -68,6 +68,9 @@ func play_action(action: Action) -> void:
 	elif action_context is AnimationLibrary:
 		pass
 	elif action_context is Dialogue:
+		# pass in all cutscene particiants as dialogue participants and initiate dialogue.
+		for p in participants.keys():
+			GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
 		GameManager.ui_manager.dialogue_manager.initiate_dialogue(action_context, dialogue_index)
 	elif action_context is String: # Callables?
 		pass

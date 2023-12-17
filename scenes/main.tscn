@@ -235,6 +235,10 @@ cameras = {
 "main": NodePath("test_cam1")
 }
 events = Array[ExtResource("9_73i67")]([ExtResource("8_ml683"), SubResource("Resource_vpfo6")])
+participants = {
+"Bingus": NodePath("../NPCDefault4"),
+"Player": NodePath("../Player")
+}
 
 [node name="CutsceneAnimationPlayer" parent="Cutscene_test" index="1"]
 libraries = {
