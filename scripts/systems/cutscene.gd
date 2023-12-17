@@ -61,9 +61,13 @@ func play_action(action: Action) -> void:
 		var anim_str: StringName = anim_player.find_animation(action_context)
 		if anim_str != "":
 			anim_player.play(anim_str)
-			# extra information could be appended, such as animation speed, etc.
-			if action.action[action_context] != null:
-				pass
+			# Array position 0 of the action dictionary value is always the name of the node the animation is acting on. 
+			# Array position 1 is always the animation to play on that node itself (its own AnimationPlayer).
+			# any additional information appended after can be for animation speed, etc.
+			# this is so that signals can be tied to said node for playing their own animations (e.g. a walk cycle).
+			if action.action[action_context] is Array:
+				var node_to_animate: Node3D = get_node(participants[action.action[action_context][0]])
+				node_to_animate.play_animation(action.action[action_context][1], action_context.length)
 		
 	elif action_context is AnimationLibrary:
 		pass

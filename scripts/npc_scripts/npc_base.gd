@@ -26,6 +26,11 @@ func _ready() -> void:
 		checkpoint_dialogue = dialogue
 		dialogue.speaker = npc_name
 
+func play_animation(anim_name: String, duration: float = 0.0) -> void:
+	# if the animation is marked loopable on its data, duration is used to determine how long to loop it for.
+	# otherwise, duration is ignored.
+	print(anim_name + ": " + str(duration))
+
 func _on_overlap_area_body_entered(body: Node3D):
 	if body is Player && dialogue != null:
 		# sample dialogue trigger by an NPC.

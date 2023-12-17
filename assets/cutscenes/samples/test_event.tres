@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_fhaim"]
 script = ExtResource("1_cwyjp")
 action = {
-ExtResource("1_3ntqs"): null
+ExtResource("1_3ntqs"): ["Bingus", "walk"]
 }
 
 [sub_resource type="Resource" id="Resource_yagaw"]
@@ -20,7 +20,7 @@ NodePath("test_cam2"): null
 [sub_resource type="Resource" id="Resource_h8adr"]
 script = ExtResource("1_cwyjp")
 action = {
-ExtResource("3_j8hod"): null
+ExtResource("3_j8hod"): ["Bingus", "run"]
 }
 
 [resource]

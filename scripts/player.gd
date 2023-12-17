@@ -210,6 +210,11 @@ func handle_root_motion(delta: float, rm_multiplier: float = root_motion_multipl
 	pass
 #endregion
 
+func play_animation(anim_name: String, duration: float = 0.0) -> void:
+	# if the animation is marked loopable on its data, duration is used to determine how long to loop it for.
+	# otherwise, duration is ignored.
+	print(anim_name + ": " + str(duration))
+
 #region Camera functions
 func rotate_cam_kb_m(event) -> void:
 	# mouse spring arm rotation

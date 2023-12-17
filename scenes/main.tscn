@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=38 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -147,7 +147,7 @@ ExtResource("10_un2a7"): null
 [sub_resource type="Resource" id="Resource_qoht0"]
 script = ExtResource("9_yl1fs")
 action = {
-ExtResource("9_n4uco"): null
+ExtResource("9_n4uco"): ["Bingus", "jump"]
 }
 
 [sub_resource type="Resource" id="Resource_vpfo6"]
@@ -170,9 +170,13 @@ tracks/0/keys = {
 "values": [Vector3(2.41926, 0, 14.2561)]
 }
 
+[sub_resource type="Animation" id="Animation_dkyry"]
+resource_name = "new_animation"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_05cm0"]
 _data = {
 "RESET": SubResource("Animation_mcyon"),
+"new_animation": SubResource("Animation_dkyry"),
 "test_cutscene_movement": ExtResource("9_n4uco"),
 "test_cutscene_movement2": ExtResource("10_gx7as")
 }
