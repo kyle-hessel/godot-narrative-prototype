@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=39 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -138,10 +138,27 @@ action = {
 NodePath("test_cam1"): null
 }
 
+[sub_resource type="Animation" id="Animation_fynym"]
+resource_name = "test_anim3"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(18.1025, 0, 1.68168), Vector3(12.6411, 0, 13.5546)]
+}
+
 [sub_resource type="Resource" id="Resource_duu5p"]
 script = ExtResource("9_yl1fs")
 action = {
-ExtResource("10_un2a7"): null
+ExtResource("10_un2a7"): null,
+SubResource("Animation_fynym"): null
 }
 
 [sub_resource type="Resource" id="Resource_qoht0"]
@@ -169,6 +186,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(2.41926, 0, 14.2561)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_dkyry"]
 resource_name = "new_animation"
@@ -177,6 +206,7 @@ resource_name = "new_animation"
 _data = {
 "RESET": SubResource("Animation_mcyon"),
 "new_animation": SubResource("Animation_dkyry"),
+"test_anim3": SubResource("Animation_fynym"),
 "test_cutscene_movement": ExtResource("9_n4uco"),
 "test_cutscene_movement2": ExtResource("10_gx7as")
 }

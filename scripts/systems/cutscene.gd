@@ -65,44 +65,44 @@ func continue_event() -> void:
 		continue_cutscene()
 
 func play_action(action: Action) -> void:
-	var action_context = action.action.keys()[0]
-	if action_context is Animation:
-		var anim_str: StringName = anim_player.find_animation(action_context)
-		if anim_str != "":
-			anim_player.play(anim_str)
-			# Array position 0 of the action dictionary value is always the name of the node the animation is acting on. 
-			# Array position 1 is always the animation to play on that node itself (its own AnimationPlayer).
-			# any additional information appended after can be for animation speed, etc.
-			# this is so that signals can be tied to said node for playing their own animations (e.g. a walk cycle).
-			if action.action[action_context] is Array:
-				var node_to_animate: Node3D = get_node(participants[action.action[action_context][0]])
-				node_to_animate.play_animation(action.action[action_context][1], action_context.length)
-		
-	elif action_context is AnimationLibrary:
-		pass
-	elif action_context is Dialogue:
-		# pass in all cutscene particiants as dialogue participants and initiate dialogue.
-		for p in participants.keys():
-			GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
-		GameManager.ui_manager.dialogue_manager.initiate_dialogue(action_context, dialogue_index)
-	elif action_context is String: # Callables?
-		pass
-	elif action_context is Array[String]: # Chain of callables?
-		pass
-	elif action_context is NodePath:
-		var node = get_node(action_context)
-		if node is Camera3D:
-			get_node(action_context).current = true
-			# different potential camera movement
-			# one potential way to switch cameras AND animate.
-			# could just keep this up in the above Animation check
-			# instead, and see what object is in the anim track?
-			if action.action[action_context] is Animation:
-				pass
+	for action_context in action.action.keys():
+		if action_context is Animation:
+			var anim_str: StringName = anim_player.find_animation(action_context)
+			if anim_str != "":
+				anim_player.play(anim_str)
+				# Array position 0 of the action dictionary value is always the name of the node the animation is acting on. 
+				# Array position 1 is always the animation to play on that node itself (its own AnimationPlayer).
+				# any additional information appended after can be for animation speed, etc.
+				# this is so that signals can be tied to said node for playing their own animations (e.g. a walk cycle).
+				if action.action[action_context] is Array:
+					var node_to_animate: Node3D = get_node(participants[action.action[action_context][0]])
+					node_to_animate.play_animation(action.action[action_context][1], action_context.length)
 			
-			increment_action()
-	else:
-		pass
+		elif action_context is AnimationLibrary:
+			pass
+		elif action_context is Dialogue:
+			# pass in all cutscene particiants as dialogue participants and initiate dialogue.
+			for p in participants.keys():
+				GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
+			GameManager.ui_manager.dialogue_manager.initiate_dialogue(action_context, dialogue_index)
+		elif action_context is String: # Callables?
+			pass
+		elif action_context is Array[String]: # Chain of callables?
+			pass
+		elif action_context is NodePath:
+			var node = get_node(action_context)
+			if node is Camera3D:
+				get_node(action_context).current = true
+				# different potential camera movement
+				# one potential way to switch cameras AND animate.
+				# could just keep this up in the above Animation check
+				# instead, and see what object is in the anim track?
+				if action.action[action_context] is Animation:
+					pass
+				
+				increment_action()
+		else:
+			pass
 
 func increment_action() -> void:
 	action_index += 1
