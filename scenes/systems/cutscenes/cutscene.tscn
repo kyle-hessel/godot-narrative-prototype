@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://camgpbk1kmmg8"]
 
-[ext_resource type="Script" path="res://scripts/systems/cutscene.gd" id="1_7niiy"]
+[ext_resource type="Script" path="res://scripts/systems/cutscenes/cutscene.gd" id="1_7niiy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_307n8"]
 radius = 10.0

@@ -10,8 +10,10 @@ class_name Cutscene
 @export var participants: Dictionary = {}
 @export var is_replayable: bool = false
 
+var action_contexts: Array
 var event_index: int = 0
 var action_index: int = 0
+var action_context_index: int = 0
 var dialogue_index: int = 0 # only used when dialogue is present
 
 # send a signal when the cutscene finishes to send to the save system.
@@ -65,7 +67,8 @@ func continue_event() -> void:
 		continue_cutscene()
 
 func play_action(action: Action) -> void:
-	for action_context in action.action.keys():
+	action_contexts = action.action.keys()
+	for action_context in action_contexts:
 		if action_context is Animation:
 			var anim_str: StringName = anim_player.find_animation(action_context)
 			if anim_str != "":
@@ -89,6 +92,7 @@ func play_action(action: Action) -> void:
 			pass
 		elif action_context is Array[String]: # Chain of callables?
 			pass
+		# run a specific function or task on a specific node
 		elif action_context is NodePath:
 			var node = get_node(action_context)
 			if node is Camera3D:
@@ -105,5 +109,12 @@ func play_action(action: Action) -> void:
 			pass
 
 func increment_action() -> void:
-	action_index += 1
-	continue_event()
+	action_context_index += 1
+	print("action context pos: " + str(action_context_index))
+	print("action context size: " + str(action_contexts.size()))
+	if action_context_index < action_contexts.size():
+		return
+	else:
+		action_context_index = 0
+		action_index += 1
+		continue_event()
