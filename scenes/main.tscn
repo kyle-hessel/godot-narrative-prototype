@@ -164,6 +164,7 @@ SubResource("Animation_fynym"): null
 [sub_resource type="Resource" id="Resource_qoht0"]
 script = ExtResource("9_yl1fs")
 action = {
+NodePath("../Player"): "combat_action_crater",
 ExtResource("9_n4uco"): ["Bingus", "jump"]
 }
 

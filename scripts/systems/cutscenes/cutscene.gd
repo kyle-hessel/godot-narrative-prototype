@@ -95,25 +95,28 @@ func play_action(action: Action) -> void:
 		# run a specific function or task on a specific node
 		elif action_context is NodePath:
 			var node = get_node(action_context)
+			# if the node is a camera, mark as active and decide what else to do.
 			if node is Camera3D:
-				get_node(action_context).current = true
-				# different potential camera movement
-				# one potential way to switch cameras AND animate.
-				# could just keep this up in the above Animation check
-				# instead, and see what object is in the anim track?
+				node.current = true
 				if action.action[action_context] is Animation:
 					pass
 				
 				increment_action()
+			# if the node is a player OR NPC (temporary, will be more granular later), execute a Callable.
+			elif node is Player || node is NPCBase:
+				# The key is a node, and the value is a method name, which we serialize by binding to a Callable and calling.
+				Callable(node, action.action[action_context]).call()
+				
+				increment_action()
 		else:
 			pass
-
+			
 func increment_action() -> void:
+	# if not all action contexts for the given action have completed yet, just increment action_context_index and early out.
 	action_context_index += 1
-	print("action context pos: " + str(action_context_index))
-	print("action context size: " + str(action_contexts.size()))
 	if action_context_index < action_contexts.size():
 		return
+	# if all action contexts for the given action have completed, move onto the next action in this event.
 	else:
 		action_context_index = 0
 		action_index += 1
