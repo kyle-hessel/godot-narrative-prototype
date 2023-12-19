@@ -744,24 +744,24 @@ days = Array[ExtResource("3_4gypd")]([SubResource("Resource_1invq"), SubResource
 [sub_resource type="Resource" id="Resource_x8jm4"]
 script = ExtResource("3_8yevr")
 number = 2025
-months = Array[ExtResource("4_eoh72")]([SubResource("Resource_0vhfi"), SubResource("Resource_5f64d"), SubResource("Resource_yhylt"), null, null, null, null, null, null, null, null, null])
+months = [SubResource("Resource_0vhfi"), SubResource("Resource_5f64d"), SubResource("Resource_yhylt"), null, null, null, null, null, null, null, null, null]
 
 [sub_resource type="Resource" id="Resource_jvg12"]
 script = ExtResource("3_8yevr")
 number = 2026
-months = Array[ExtResource("4_eoh72")]([null, null, null, null, null, null, null, null, null, null, null, null])
+months = [null, null, null, null, null, null, null, null, null, null, null, null]
 
 [sub_resource type="Resource" id="Resource_gw65p"]
 script = ExtResource("3_8yevr")
 number = 2027
-months = Array[ExtResource("4_eoh72")]([null, null, null, null, null, null, null, null, null, null, null, null])
+months = [null, null, null, null, null, null, null, null, null, null, null, null]
 
 [sub_resource type="Resource" id="Resource_6xd1e"]
 script = ExtResource("3_8yevr")
 number = 2028
-months = Array[ExtResource("4_eoh72")]([null, null, null, null, null, null, null, null, null, null, null, null])
+months = [null, null, null, null, null, null, null, null, null, null, null, null]
 
 [resource]
 script = ExtResource("1_5qqbi")
 title = "Altitude University Academic Calendar"
-years = Array[ExtResource("3_8yevr")]([ExtResource("2_tur1x"), SubResource("Resource_x8jm4"), SubResource("Resource_jvg12"), SubResource("Resource_gw65p"), SubResource("Resource_6xd1e")])
+years = [ExtResource("2_tur1x"), SubResource("Resource_x8jm4"), SubResource("Resource_jvg12"), SubResource("Resource_gw65p"), SubResource("Resource_6xd1e")]

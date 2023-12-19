@@ -79,6 +79,7 @@ func play_action(action: Action) -> void:
 				# this is so that signals can be tied to said node for playing their own animations (e.g. a walk cycle).
 				if action.action[action_context] is Array:
 					var node_to_animate: Node3D = get_node(participants[action.action[action_context][0]])
+					# this function, play_animation, has to be defined on the node.
 					node_to_animate.play_animation(action.action[action_context][1], action_context.length)
 			
 		elif action_context is AnimationLibrary:
@@ -88,11 +89,7 @@ func play_action(action: Action) -> void:
 			for p in participants.keys():
 				GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
 			GameManager.ui_manager.dialogue_manager.initiate_dialogue(action_context, dialogue_index)
-		elif action_context is String: # Callables?
-			pass
-		elif action_context is Array[String]: # Chain of callables?
-			pass
-		# run a specific function or task on a specific node
+		# run a specific function on a specific node
 		elif action_context is NodePath:
 			var node = get_node(action_context)
 			# if the node is a camera, mark as active and decide what else to do.
@@ -108,6 +105,12 @@ func play_action(action: Action) -> void:
 				Callable(node, action.action[action_context]).call()
 				
 				increment_action()
+			
+			# for inserting a pause between moments.
+			elif node is Timer:
+				node.start(action.action[action_context])
+				node.timeout.connect(increment_action)
+			
 		else:
 			pass
 			

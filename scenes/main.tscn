@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=40 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -161,6 +161,12 @@ ExtResource("10_un2a7"): null,
 SubResource("Animation_fynym"): null
 }
 
+[sub_resource type="Resource" id="Resource_myck6"]
+script = ExtResource("9_yl1fs")
+action = {
+NodePath("PauseTimer"): 3
+}
+
 [sub_resource type="Resource" id="Resource_qoht0"]
 script = ExtResource("9_yl1fs")
 action = {
@@ -171,7 +177,7 @@ ExtResource("9_n4uco"): ["Bingus", "jump"]
 [sub_resource type="Resource" id="Resource_vpfo6"]
 script = ExtResource("9_73i67")
 event_name = "test_event2"
-actions = Array[ExtResource("9_yl1fs")]([SubResource("Resource_8tqq1"), SubResource("Resource_duu5p"), SubResource("Resource_qoht0")])
+actions = Array[ExtResource("9_yl1fs")]([SubResource("Resource_8tqq1"), SubResource("Resource_duu5p"), SubResource("Resource_myck6"), SubResource("Resource_qoht0")])
 
 [sub_resource type="Animation" id="Animation_mcyon"]
 length = 0.001
