@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://derbil8eh3sma"]
+[gd_scene load_steps=24 format=3 uid="uid://derbil8eh3sma"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_p5pro"]
 [ext_resource type="PackedScene" uid="uid://cdplgwr0kkrcr" path="res://scenes/player/player.tscn" id="1_tdgme"]
@@ -6,13 +6,6 @@
 [ext_resource type="Shader" path="res://shaders/art_style/hq_outlines_pp.gdshader" id="3_cjaud"]
 [ext_resource type="PackedScene" uid="uid://6fyf2ih8xmud" path="res://scenes/NPC/npc_default.tscn" id="5_mxwrk"]
 [ext_resource type="Script" path="res://scripts/resources/dialogue/dialogue.gd" id="6_abhvg"]
-[ext_resource type="PackedScene" uid="uid://camgpbk1kmmg8" path="res://scenes/systems/cutscenes/cutscene.tscn" id="7_m1f43"]
-[ext_resource type="Resource" uid="uid://634a33vhexl" path="res://assets/cutscenes/samples/test_event.tres" id="8_ml683"]
-[ext_resource type="Script" path="res://scripts/resources/events/event.gd" id="9_73i67"]
-[ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="9_n4uco"]
-[ext_resource type="Script" path="res://scripts/resources/events/action.gd" id="9_yl1fs"]
-[ext_resource type="Animation" uid="uid://b8rqimwu3b4t4" path="res://assets/cutscenes/samples/test_cutscene_movement2.res" id="10_gx7as"]
-[ext_resource type="Resource" uid="uid://dv33ge1ngtp71" path="res://assets/cutscenes/samples/test_cutscene_dialogue.tres" id="10_un2a7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fwa2y"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -132,92 +125,6 @@ dialogue_options = Array[Array]([["I have [b]nothing[/b] to say to you."]])
 speaker = ""
 next_dialogue = SubResource("Resource_3cqax")
 
-[sub_resource type="Resource" id="Resource_8tqq1"]
-script = ExtResource("9_yl1fs")
-action = {
-NodePath("test_cam1"): null
-}
-
-[sub_resource type="Animation" id="Animation_fynym"]
-resource_name = "test_anim3"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Player:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(18.1025, 0, 1.68168), Vector3(12.6411, 0, 13.5546)]
-}
-
-[sub_resource type="Resource" id="Resource_duu5p"]
-script = ExtResource("9_yl1fs")
-action = {
-ExtResource("10_un2a7"): null,
-SubResource("Animation_fynym"): null
-}
-
-[sub_resource type="Resource" id="Resource_myck6"]
-script = ExtResource("9_yl1fs")
-action = {
-NodePath("PauseTimer"): 3
-}
-
-[sub_resource type="Resource" id="Resource_qoht0"]
-script = ExtResource("9_yl1fs")
-action = {
-NodePath("../Player"): "combat_action_crater",
-ExtResource("9_n4uco"): ["Bingus", "jump"]
-}
-
-[sub_resource type="Resource" id="Resource_vpfo6"]
-script = ExtResource("9_73i67")
-event_name = "test_event2"
-actions = Array[ExtResource("9_yl1fs")]([SubResource("Resource_8tqq1"), SubResource("Resource_duu5p"), SubResource("Resource_myck6"), SubResource("Resource_qoht0")])
-
-[sub_resource type="Animation" id="Animation_mcyon"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../NPCDefault4:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(2.41926, 0, 14.2561)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Player:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_dkyry"]
-resource_name = "new_animation"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_05cm0"]
-_data = {
-"RESET": SubResource("Animation_mcyon"),
-"new_animation": SubResource("Animation_dkyry"),
-"test_anim3": SubResource("Animation_fynym"),
-"test_cutscene_movement": ExtResource("9_n4uco"),
-"test_cutscene_movement2": ExtResource("10_gx7as")
-}
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p5pro")
 
@@ -266,29 +173,3 @@ npc_mesh = NodePath("../NPCDefault/MeshInstance3D")
 npc_name = "Bingus"
 npc_stats = NodePath("../NPCDefault/NPCData/NPCStats")
 dialogue = SubResource("Resource_geav3")
-
-[node name="Cutscene_test" parent="." instance=ExtResource("7_m1f43")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1107, 7.15256e-07, 10.5188)
-cutscene_name = "Test"
-cameras = {
-"back": NodePath("test_cam2"),
-"main": NodePath("test_cam1")
-}
-events = Array[ExtResource("9_73i67")]([ExtResource("8_ml683"), SubResource("Resource_vpfo6")])
-participants = {
-"Bingus": NodePath("../NPCDefault4"),
-"Player": NodePath("../Player")
-}
-
-[node name="CutsceneAnimationPlayer" parent="Cutscene_test" index="1"]
-libraries = {
-"": SubResource("AnimationLibrary_05cm0")
-}
-
-[node name="test_cam1" type="Camera3D" parent="Cutscene_test"]
-transform = Transform3D(-0.833153, 0.193526, -0.518077, 0, 0.936776, 0.349929, 0.553043, 0.291545, -0.780478, -4.70309, 4.95066, -6.82881)
-
-[node name="test_cam2" type="Camera3D" parent="Cutscene_test"]
-transform = Transform3D(1, 0, 0, 0, 0.95873, 0.284317, 0, -0.284317, 0.95873, 0, 5.9228, 10.6772)
-
-[editable path="Cutscene_test"]
