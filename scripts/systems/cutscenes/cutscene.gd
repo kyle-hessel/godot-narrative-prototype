@@ -10,6 +10,8 @@ class_name Cutscene
 @export var participants: Dictionary = {}
 @export var is_replayable: bool = false
 
+var cutscene_active: bool = false
+
 var action_contexts: Array
 var event_index: int = 0
 var action_index: int = 0
@@ -30,7 +32,7 @@ func _ready() -> void:
 	event_finished.connect(func(): action_index = 0)
 	
 	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(func():
-		if GameManager.events_manager.in_cutscene:
+		if cutscene_active:
 			increment_action()
 	)
 
@@ -42,7 +44,8 @@ func _on_cutscene_area_body_entered(body: Node3D):
 		start_cutscene()
 
 func start_cutscene() -> void:
-	GameManager.events_manager.in_cutscene = true
+	cutscene_active = true
+	GameManager.events_manager.in_cutscene = cutscene_active
 	# fetches the node from an assigned NodePath.
 	get_node(cameras["main"]).current = true
 	continue_cutscene()
@@ -54,7 +57,8 @@ func continue_cutscene() -> void:
 		cutscene_finished.emit()
 
 func end_cutscene() -> void:
-	GameManager.events_manager.in_cutscene = false
+	cutscene_active = false
+	GameManager.events_manager.in_cutscene = cutscene_active
 	get_node(participants["Player"]).player_cam.current = true
 	if is_replayable:
 		event_index = 0
