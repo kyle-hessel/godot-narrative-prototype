@@ -72,15 +72,31 @@ func play_action(action: Action) -> void:
 		if action_context is Animation:
 			var anim_str: StringName = anim_player.find_animation(action_context)
 			if anim_str != "":
-				anim_player.play(anim_str)
-				# Array position 0 of the action dictionary value is always the name of the node the animation is acting on. 
-				# Array position 1 is always the animation to play on that node itself (its own AnimationPlayer).
+				# array position 0 of the action dictionary value is always the name of the node the animation is acting on.
+				# array position 1 is an Array of values pertaining to the animation data: 
+				#			0 is the node property to animate (e.g. position).
+				#			1 is the track_idx on the Animation that animates said property.
+				# array position 2 is always the animation to play on that node itself (its own AnimationPlayer).
 				# any additional information appended after can be for animation speed, etc.
 				# this is so that signals can be tied to said node for playing their own animations (e.g. a walk cycle).
 				if action.action[action_context] is Array:
-					var node_to_animate: Node3D = get_node(participants[action.action[action_context][0]])
-					# this function, play_animation, has to be defined on the node.
-					node_to_animate.play_animation(action.action[action_context][1], action_context.length)
+					var action_context_value: Array = action.action[action_context]
+					# retrieve a node path from the participants array using the name tagged to this animation action.
+					var node_path: NodePath = participants[action_context_value[0]]
+					
+					# append the property to the node path to create the property path.
+					var property_path: String = str(node_path) + ":" + action_context_value[1][0]
+					# set the correct property on the correct track for this animation to ensure the right character is animated.
+					action_context.track_set_path(action_context_value[1][1], NodePath(property_path)) # 0 won't always work here, will have to add a way to specify a track_index.
+					
+					# if an action is specified to play on the node's own AnimationPlayer, call the function to play it.
+					if action_context_value[2] != "":
+						var node_to_animate: Node3D = get_node(node_path)
+						# this function, play_animation, has to be defined on the node.
+						node_to_animate.play_animation(action_context_value[2], action_context.length)
+				
+				# play the animation. if the matching value is blank (not an Array), the animation will just play with default values.
+				anim_player.play(anim_str)
 			
 		elif action_context is AnimationLibrary:
 			pass

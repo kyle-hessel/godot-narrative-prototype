@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Event" load_steps=8 format=3 uid="uid://634a33vhexl"]
+[gd_resource type="Resource" script_class="Event" load_steps=9 format=3 uid="uid://634a33vhexl"]
 
 [ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="1_3ntqs"]
 [ext_resource type="Script" path="res://scripts/resources/events/action.gd" id="1_cwyjp"]
@@ -8,7 +8,13 @@
 [sub_resource type="Resource" id="Resource_fhaim"]
 script = ExtResource("1_cwyjp")
 action = {
-ExtResource("1_3ntqs"): ["Bingus", "walk"]
+ExtResource("1_3ntqs"): ["Bingus", ["position", 0], "walk"]
+}
+
+[sub_resource type="Resource" id="Resource_xi2h4"]
+script = ExtResource("1_cwyjp")
+action = {
+ExtResource("1_3ntqs"): ["Player", ["position", 0], "run"]
 }
 
 [sub_resource type="Resource" id="Resource_yagaw"]
@@ -20,10 +26,10 @@ NodePath("test_cam2"): null
 [sub_resource type="Resource" id="Resource_h8adr"]
 script = ExtResource("1_cwyjp")
 action = {
-ExtResource("3_j8hod"): ["Bingus", "run"]
+ExtResource("3_j8hod"): ["Bingus", ["position", 0], "run"]
 }
 
 [resource]
 script = ExtResource("1_ibxm5")
 event_name = "test_event"
-actions = Array[ExtResource("1_cwyjp")]([SubResource("Resource_fhaim"), SubResource("Resource_yagaw"), SubResource("Resource_h8adr")])
+actions = Array[ExtResource("1_cwyjp")]([SubResource("Resource_fhaim"), SubResource("Resource_xi2h4"), SubResource("Resource_yagaw"), SubResource("Resource_h8adr")])
