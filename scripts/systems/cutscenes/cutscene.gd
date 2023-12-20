@@ -29,7 +29,10 @@ func _ready() -> void:
 	cutscene_finished.connect(end_cutscene)
 	event_finished.connect(func(): action_index = 0)
 	
-	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(increment_action)
+	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(func():
+		if GameManager.events_manager.in_cutscene:
+			increment_action()
+	)
 
 func switch_camera(cam_name: String) -> void:
 	pass

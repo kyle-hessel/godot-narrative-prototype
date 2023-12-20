@@ -434,35 +434,37 @@ func determine_target() -> void:
 
 #region Overlap functions
 func _on_overlap_area_body_entered(body: Node3D):
-	# if this is the first overlapping object, auto-target it (make this a setting later to decide if this is default behavior).
-	if overlapping_objects.is_empty():
-		overlapping_objects.push_back(body)
-		targeted_object = body
+	if !(body is NPCBase): # TEMPORARY
+		# if this is the first overlapping object, auto-target it (make this a setting later to decide if this is default behavior).
+		if overlapping_objects.is_empty():
+			overlapping_objects.push_back(body)
+			targeted_object = body
+			
+			targeting = true
+			target_icon.visible = true
+		# if we already have other overlapping objects, just add it to the array.
+		else:
+			overlapping_objects.push_back(body)
 		
-		targeting = true
-		target_icon.visible = true
-	# if we already have other overlapping objects, just add it to the array.
-	else:
-		overlapping_objects.push_back(body)
-	
-	#print(overlapping_objects)
+		#print(overlapping_objects)
 
 func _on_overlap_area_body_exited(body: Node3D):
-	# remove any body that leaves.
-	body.hit_received = false
-	overlapping_objects.erase(body)
-	
-	# if there's no more overlapping objects, drop targeting.
-	if overlapping_objects.is_empty():
-		targeting = false
-		target_icon.visible = false
-		targeted_object = null
-	# if there's remaining overlapping objects, find the new nearest target and target it (make this a setting later to decide if this is default behavior).
-	else:
-		sort_objects_by_distance()
-		targeted_object = overlapping_objects[0]
+	if !(body is NPCBase): # TEMPORARY
+		# remove any body that leaves.
+		body.hit_received = false
+		overlapping_objects.erase(body)
 		
-	#print(overlapping_objects)
+		# if there's no more overlapping objects, drop targeting.
+		if overlapping_objects.is_empty():
+			targeting = false
+			target_icon.visible = false
+			targeted_object = null
+		# if there's remaining overlapping objects, find the new nearest target and target it (make this a setting later to decide if this is default behavior).
+		else:
+			sort_objects_by_distance()
+			targeted_object = overlapping_objects[0]
+			
+		#print(overlapping_objects)
 #endregion
 
 #region Helper functions
