@@ -107,6 +107,20 @@ func play_action(action: Action) -> void:
 			
 		elif action_context is AnimationLibrary:
 			pass
+		elif action_context is String:
+			if action.action[action_context] is Dictionary:
+				# -> String -> Dictionary (key: String, value: Dialogue)
+				# or... Array[String] (char names to look for) and then Array[Dialogues]
+				# .. to check assigned names of? If one is found do one, if both is found use another metric,
+				# .. just as friendship status (with whom)?
+				
+				pass
+		elif action_context is Array:
+			# alternatively, an array of Dialogues: iterate through each and check the name,
+			# .. and then see if this name is present in the participants dictionary. If so,
+			# .. and if that's the only one, choose that Dialogue. If multiple participants
+			# .. that have a Dialogue are present, use a factor such as friendship to determine.
+				pass
 		elif action_context is Dialogue:
 			# pass in all cutscene particiants as dialogue participants and initiate dialogue.
 			for p in participants.keys():
@@ -128,7 +142,6 @@ func play_action(action: Action) -> void:
 				Callable(node, action.action[action_context]).call()
 				
 				increment_action()
-			
 			# for inserting a pause between moments.
 			elif node is Timer:
 				node.start(action.action[action_context])

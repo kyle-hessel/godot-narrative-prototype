@@ -110,6 +110,7 @@ participants = {
 "Bingus": NodePath("../NPCDefault4"),
 "Player": NodePath("../Player")
 }
+is_replayable = null
 
 [node name="CutsceneArea" type="Area3D" parent="."]
 collision_layer = 0
