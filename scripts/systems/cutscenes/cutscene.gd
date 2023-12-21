@@ -107,20 +107,31 @@ func play_action(action: Action) -> void:
 			
 		elif action_context is AnimationLibrary:
 			pass
-		elif action_context is String:
-			if action.action[action_context] is Dictionary:
-				# -> String -> Dictionary (key: String, value: Dialogue)
-				# or... Array[String] (char names to look for) and then Array[Dialogues]
-				# .. to check assigned names of? If one is found do one, if both is found use another metric,
-				# .. just as friendship status (with whom)?
-				
-				pass
 		elif action_context is Array:
-			# alternatively, an array of Dialogues: iterate through each and check the name,
-			# .. and then see if this name is present in the participants dictionary. If so,
-			# .. and if that's the only one, choose that Dialogue. If multiple participants
-			# .. that have a Dialogue are present, use a factor such as friendship to determine.
-				pass
+			# if there is an array of Dialogues, determine which one to initiate depending on who is in the cutscene.
+			# this is for divergent cutscene dialogue scenarios based on who the player chooses for their party, etc.
+			if action_context[0] is Dialogue:
+				var present_speakers: int = 0
+				var dlg: Dialogue
+				# determine if more than one participant has a dialogue in this array that they are a speaker for.
+				# if so, stop overwriting dlg past 1 and keep count of how many.
+				for dialogue: Dialogue in action_context:
+					if participants.has(dialogue.speaker):
+						if present_speakers < 1: # technically just a slight optimization
+							dlg = dialogue
+						present_speakers += 1
+				
+				# if there is more than one speaker present, use another metric, such as friendship level, to determine who speaks.
+				if present_speakers > 1:
+					pass
+				# if there's only one speaker in the party that has a dialogue for this given action, have them speak.
+				elif present_speakers == 1:
+					for p in participants.keys():
+						GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
+					GameManager.ui_manager.dialogue_manager.initiate_dialogue(dlg, dialogue_index)
+				else:
+					print("No speakers present for the given dialogues.")
+			
 		elif action_context is Dialogue:
 			# pass in all cutscene particiants as dialogue participants and initiate dialogue.
 			for p in participants.keys():
