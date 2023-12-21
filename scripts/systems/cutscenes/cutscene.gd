@@ -36,6 +36,7 @@ func _ready() -> void:
 			increment_action()
 	)
 
+# TODO: decide if this function is warranted or not.
 func switch_camera(cam_name: String) -> void:
 	pass
 
@@ -123,6 +124,7 @@ func play_action(action: Action) -> void:
 				
 				# if there is more than one speaker present, use another metric, such as friendship level, to determine who speaks.
 				if present_speakers > 1:
+					# TODO: write this after adding friendship system.
 					pass
 				# if there's only one speaker in the party that has a dialogue for this given action, have them speak.
 				elif present_speakers == 1:
@@ -143,6 +145,8 @@ func play_action(action: Action) -> void:
 			# if the node is a camera, mark as active and decide what else to do.
 			if node is Camera3D:
 				node.current = true
+				# TODO: build on this: anim system for camera actions specifically? might not be necessary - if so, remove.
+				# the better solution may just be to animate a camera and run camera actions separately in parallel w/ a bundled action.
 				if action.action[action_context] is Animation:
 					pass
 				
