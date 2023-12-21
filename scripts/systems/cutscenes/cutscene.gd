@@ -133,7 +133,13 @@ func play_action(action: Action) -> void:
 					GameManager.ui_manager.dialogue_manager.initiate_dialogue(dlg, dialogue_index)
 				else:
 					print("No speakers present for the given dialogues.")
-			
+		
+		# Sub-action dialogue triggers: Make the value for the Dialogue key an array of Actions: sub-actions!
+		# Then, connect a signal for triggering them from dialogue manager to this script (be careful as its a singleton).
+		# Dialogue lines can have a tag or trigger of sorts appended to determine if this signal is fired.
+		# And thus, mid-dialogue sub-action triggers! This can be used in conjunction with
+		# running actions in parallel under the hood, but is the only way to get granular control of triggering actions during
+		# specific lines of dialogue.
 		elif action_context is Dialogue:
 			# pass in all cutscene particiants as dialogue participants and initiate dialogue.
 			for p in participants.keys():
