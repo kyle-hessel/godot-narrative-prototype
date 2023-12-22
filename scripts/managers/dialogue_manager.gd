@@ -7,6 +7,7 @@ class_name DialogueManager
 @onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
 
 signal dialogue_complete
+signal dialogue_trigger
 
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse

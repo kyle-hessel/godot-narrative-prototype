@@ -18,6 +18,6 @@ next_dialogue = SubResource("Resource_48vic")
 [resource]
 script = ExtResource("1_2oolt")
 dialogue_type = 0
-dialogue_options = Array[Array]([["ayo!!", "what's poppin jimbo?"]])
+dialogue_options = Array[Array]([["ayo!!", "[trig]w[/trig]hat's poppin jimbo?"]])
 speaker = "Bingus"
 next_dialogue = SubResource("Resource_3a8ml")

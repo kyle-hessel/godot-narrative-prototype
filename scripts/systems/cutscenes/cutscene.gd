@@ -4,6 +4,8 @@ class_name Cutscene
 
 @onready var anim_player: AnimationPlayer = $CutsceneAnimationPlayer
 
+var dlg_manager: DialogueManager = GameManager.ui_manager.dialogue_manager
+
 @export var cutscene_name: String
 @export var cameras: Dictionary = {}
 @export var events: Array[Event]
@@ -31,10 +33,16 @@ func _ready() -> void:
 	cutscene_finished.connect(end_cutscene)
 	event_finished.connect(func(): action_index = 0)
 	
-	GameManager.ui_manager.dialogue_manager.dialogue_complete.connect(func():
+	dlg_manager.dialogue_complete.connect(func():
 		if cutscene_active:
 			increment_action()
 	)
+	dlg_manager.dialogue_trigger.connect(handle_dialogue_trigger)
+
+func handle_dialogue_trigger() -> void:
+	if cutscene_active:
+		print("hello there!")
+		#dlg_manager.dialogue_trigger.disconnect(handle_dialogue_trigger)
 
 # TODO: decide if this function is warranted or not.
 func switch_camera(cam_name: String) -> void:
@@ -129,8 +137,8 @@ func play_action(action: Action) -> void:
 				# if there's only one speaker in the party that has a dialogue for this given action, have them speak.
 				elif present_speakers == 1:
 					for p in participants.keys():
-						GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
-					GameManager.ui_manager.dialogue_manager.initiate_dialogue(dlg, dialogue_index)
+						dlg_manager.participants[p] = get_node(participants[p])
+					dlg_manager.initiate_dialogue(dlg, dialogue_index)
 				else:
 					print("No speakers present for the given dialogues.")
 		
@@ -143,8 +151,10 @@ func play_action(action: Action) -> void:
 		elif action_context is Dialogue:
 			# pass in all cutscene particiants as dialogue participants and initiate dialogue.
 			for p in participants.keys():
-				GameManager.ui_manager.dialogue_manager.participants[p] = get_node(participants[p])
-			GameManager.ui_manager.dialogue_manager.initiate_dialogue(action_context, dialogue_index)
+				dlg_manager.participants[p] = get_node(participants[p])
+			dlg_manager.initiate_dialogue(action_context, dialogue_index)
+			
+			
 		# run a specific function on a specific node
 		elif action_context is NodePath:
 			var node = get_node(action_context)

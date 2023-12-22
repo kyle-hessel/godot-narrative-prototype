@@ -8,6 +8,7 @@ class_name Textbox
 @onready var letter_display_timer: Timer = $LetterDisplayTimer
 
 var text_reveal_effect: RichTextEffect = preload("res://assets/UI/dialogue/text/dialogue_label_reveal.tres")
+var dlg_trigger_effect: RichTextEffect = preload("res://assets/UI/dialogue/text/dialogue_label_trigger.tres")
 
 const MAX_WIDTH: int = 256
 
@@ -24,8 +25,9 @@ func _ready() -> void:
 	# ARBITRARY wraps per-letter, WORD wraps, well, per-word.
 	dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	
-	# install the reveal effect.
+	# install the reveal and trigger effects.
 	dialogue_label.install_effect(text_reveal_effect)
+	dialogue_label.install_effect(dlg_trigger_effect)
 	
 	# loop over any RichTextEffects.
 	for e: int in dialogue_label.custom_effects.size():
