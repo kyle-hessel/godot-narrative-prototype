@@ -14,11 +14,13 @@ var current_action_context
 @export var is_replayable: bool = false
 
 var cutscene_active: bool = false
-var subaction_active: bool = false
+var subactions_active: bool = false
 
 var action_contexts: Array
+var subaction_contexts: Array
 var event_index: int = 0
 var action_index: int = 0
+var subaction_index: int = 0
 var action_context_index: int = 0
 var subaction_context_index: int = 0
 var dialogue_index: int = 0 # only used when dialogue is present
@@ -41,7 +43,7 @@ func _ready() -> void:
 		if cutscene_active:
 			increment_action()
 	)
-	dlg_manager.dialogue_trigger.connect(trigger_subaction)
+	dlg_manager.dialogue_trigger.connect(trigger_subactions)
 
 func _on_cutscene_area_body_entered(body: Node3D):
 	if body is Player:
@@ -77,53 +79,76 @@ func continue_event() -> void:
 		event_finished.emit()
 		continue_cutscene()
 
-func play_action(action: Action) -> void:
-	if subaction_active:
+func continue_subactions() -> void:
+	print("b")
+	var current_action_dictionary: Dictionary = events[event_index].actions[action_index].action
+	for action_context in current_action_dictionary.keys():
+		print("c")
+		if current_action_dictionary[current_action_context] is Array:
+			print("d")
+			if subaction_index < current_action_dictionary[current_action_context].size():
+				play_action(current_action_dictionary[current_action_context][subaction_index], true)
+			else:
+				subaction_index += 1
+				subactions_finished.emit()
+
+func play_action(action: Action, is_subaction: bool = false) -> void:
+	if subactions_active && !is_subaction:
 		await subactions_finished
 	
-	action_contexts = action.action.keys()
+	if is_subaction:
+		subaction_contexts = action.action.keys()
+		
+		for subaction_context in subaction_contexts:
+			apply_action_context(action, subaction_context)
+	else:
+		action_contexts = action.action.keys()
 	
-	for action_context in action_contexts:
-		current_action_context = action_context
-		
-		if action_context is Animation:
-			handle_anim_action(action, action_context)
-		elif action_context is AnimationLibrary:
-			pass
-		elif action_context is Array:
-			handle_array_action(action_context)
-		
-		# Sub-action dialogue triggers: Make the value for the Dialogue key an array of Actions: sub-actions!
-		# Then, connect a signal for triggering them from dialogue manager to this script (be careful as its a singleton).
-		# Dialogue lines can have a tag or trigger of sorts appended to determine if this signal is fired.
-		# And thus, mid-dialogue sub-action triggers! This can be used in conjunction with
-		# running actions in parallel under the hood, but is the only way to get granular control of triggering actions during
-		# specific lines of dialogue.
-		elif action_context is Dialogue:
-			handle_dialogue_action(action_context, dialogue_index)
+		for action_context in action_contexts:
+			current_action_context = action_context
 			
-		# run a specific task or function on a specific node
-		elif action_context is NodePath:
-			handle_nodepath_action(action, action_context)
-			
-		else:
-			pass
+			apply_action_context(action, action_context)
+
+func apply_action_context(action: Action, action_context) -> void:
+	if action_context is Animation:
+		handle_anim_action(action, action_context)
+	elif action_context is AnimationLibrary:
+		pass
+	elif action_context is Array:
+		handle_array_action(action_context)
+	elif action_context is Dialogue:
+		handle_dialogue_action(action_context, dialogue_index)
+	# run a specific task or function on a specific node
+	elif action_context is NodePath:
+		handle_nodepath_action(action, action_context)
+	else:
+		pass
 
 func increment_action() -> void:
-	# if not all action contexts for the given action have completed yet, just increment action_context_index and early out.
-	action_context_index += 1
-	if action_context_index < action_contexts.size():
-		return
-	# if all action contexts for the given action have completed, move onto the next action in this event.
+	if !subactions_active:
+		# if not all action contexts for the given action have completed yet, just increment action_context_index and early out.
+		action_context_index += 1
+		if action_context_index < action_contexts.size():
+			return
+		# if all action contexts for the given action have completed, move onto the next action in this event.
+		else:
+			action_context_index = 0
+			action_index += 1
+			continue_event()
 	else:
-		action_context_index = 0
-		action_index += 1
-		continue_event()
+		subaction_context_index += 1
+		if subaction_context_index < subaction_contexts.size():
+			return
+		else:
+			subaction_context_index = 0
+			subaction_index += 1
+			continue_subactions()
 
-func trigger_subaction() -> void:
+func trigger_subactions() -> void:
+	print("a")
 	if cutscene_active:
-		print("hello there!")
-		subaction_active = true
+		subactions_active = true
+		continue_subactions()
 
 #region action context handles
 func handle_anim_action(action: Action, action_context: Animation) -> void:
