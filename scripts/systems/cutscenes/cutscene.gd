@@ -27,6 +27,7 @@ var dialogue_index: int = 0 # only used when dialogue is present
 # the save system will then determine on boot which cutscenes should be monitoring for a cutscene trigger.
 signal cutscene_finished
 signal event_finished
+signal subactions_finished
 
 func _ready() -> void:
 	GameManager.events_manager.register_cutscene(self)
@@ -77,6 +78,9 @@ func continue_event() -> void:
 		continue_cutscene()
 
 func play_action(action: Action) -> void:
+	if subaction_active:
+		await subactions_finished
+	
 	action_contexts = action.action.keys()
 	
 	for action_context in action_contexts:
