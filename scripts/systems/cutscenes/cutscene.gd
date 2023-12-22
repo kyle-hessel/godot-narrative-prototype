@@ -103,6 +103,7 @@ func play_action(action: Action, is_subaction: bool = false) -> void:
 	if subactions_active && !is_subaction:
 		await subactions_finished
 	
+	# FIXME: make sub-actions work with parallel actions.
 	if is_subaction:
 		subaction_contexts = action.action.keys()
 		
