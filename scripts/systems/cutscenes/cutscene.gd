@@ -44,6 +44,7 @@ func _ready() -> void:
 			increment_action()
 	)
 	dlg_manager.dialogue_trigger.connect(trigger_subactions)
+	subactions_finished.connect(func(): print("subaction complete dude!111!"))
 
 func _on_cutscene_area_body_entered(body: Node3D):
 	if body is Player:
@@ -71,6 +72,12 @@ func end_cutscene() -> void:
 	else:
 		queue_free()
 
+func end_subactions() -> void:
+	subactions_finished.emit()
+	subactions_active = false
+	subaction_index = 0
+	subaction_context_index = 0
+
 func continue_event() -> void:
 	if action_index < events[event_index].actions.size():
 		play_action(events[event_index].actions[action_index])
@@ -82,15 +89,15 @@ func continue_event() -> void:
 func continue_subactions() -> void:
 	print("b")
 	var current_action_dictionary: Dictionary = events[event_index].actions[action_index].action
-	for action_context in current_action_dictionary.keys():
-		print("c")
-		if current_action_dictionary[current_action_context] is Array:
+	#for action_context in current_action_dictionary.keys():
+		#print("c")
+	if current_action_dictionary[current_action_context] is Array:
+		if subaction_index < current_action_dictionary[current_action_context].size():
 			print("d")
-			if subaction_index < current_action_dictionary[current_action_context].size():
-				play_action(current_action_dictionary[current_action_context][subaction_index], true)
-			else:
-				subaction_index += 1
-				subactions_finished.emit()
+			#print(action_context)
+			play_action(current_action_dictionary[current_action_context][subaction_index], true)
+		else:
+			end_subactions()
 
 func play_action(action: Action, is_subaction: bool = false) -> void:
 	if subactions_active && !is_subaction:
