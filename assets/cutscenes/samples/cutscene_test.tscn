@@ -128,7 +128,8 @@ script = ExtResource("1_nim2p")
 cutscene_name = "Test"
 cameras = {
 "back": NodePath("test_cam2"),
-"main": NodePath("test_cam1")
+"main": NodePath("test_cam1"),
+"other": NodePath("test_cam3")
 }
 events = Array[ExtResource("6_kh8j3")]([ExtResource("2_d3qfx"), SubResource("Resource_vpfo6")])
 participants = {
@@ -158,5 +159,8 @@ transform = Transform3D(-0.833153, 0.193526, -0.518077, 0, 0.936776, 0.349929, 0
 
 [node name="test_cam2" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.95873, 0.284317, 0, -0.284317, 0.95873, 0, 5.9228, 10.6772)
+
+[node name="test_cam3" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10.2693, 1.0094, 0)
 
 [connection signal="body_entered" from="CutsceneArea" to="." method="_on_cutscene_area_body_entered"]

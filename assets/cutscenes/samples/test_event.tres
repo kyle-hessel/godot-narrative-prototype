@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://634a33vhexl"]
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://634a33vhexl"]
 
 [ext_resource type="Animation" uid="uid://pjyvmucl8i7y" path="res://assets/cutscenes/samples/test_cutscene_movement.res" id="1_3ntqs"]
 [ext_resource type="Script" path="res://scripts/resources/events/action.gd" id="1_cwyjp"]
@@ -33,13 +33,20 @@ ExtResource("3_j8hod"): ["Bingus", ["position", 0], "run"]
 [sub_resource type="Resource" id="Resource_ney6s"]
 script = ExtResource("1_cwyjp")
 action = {
+NodePath("test_cam3"): null,
 ExtResource("1_3ntqs"): ["Bingus", ["position", 0], "walk"]
+}
+
+[sub_resource type="Resource" id="Resource_kodf8"]
+script = ExtResource("1_cwyjp")
+action = {
+NodePath("test_cam1"): null
 }
 
 [sub_resource type="Resource" id="Resource_jp4wv"]
 script = ExtResource("1_cwyjp")
 action = {
-ExtResource("4_pk1dk"): [SubResource("Resource_ney6s")]
+ExtResource("4_pk1dk"): [SubResource("Resource_ney6s"), SubResource("Resource_kodf8")]
 }
 
 [resource]
