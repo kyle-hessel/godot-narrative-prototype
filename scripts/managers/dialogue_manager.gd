@@ -7,7 +7,6 @@ class_name DialogueManager
 @onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
 
 signal dialogue_complete
-signal dialogue_trigger
 
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
@@ -20,6 +19,7 @@ var player_selection: int = 0
 # branch_index is used to track which player response branch is chosen (based on NPC dialogue branches) due to how the data is structured.
 # if dialogue_index is the index of the actual dialogue in the nested array, branch_index is the index of which dialogues to choose from in the outer array.
 var branch_index: int = 0
+var branch_ended: bool = false
 var current_dialogue: Dialogue
 var line_index: int = 0
 
@@ -44,6 +44,19 @@ func _unhandled_input(event: InputEvent) -> void:
 func initiate_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 	dialogue_initiator = dialogue.speaker
 	continue_dialogue(dialogue, dialogue_index)
+
+func end_dialogue() -> void:
+	# The five below lines may be redundant.
+	is_npc_dialogue_active = false
+	is_player_dialogue_active = false
+	can_advance_line = false
+	line_index = 0
+	branch_index = 0
+	
+	# once dialogue is completely finished, clear participants dictionary.
+	participants.clear()
+	
+	dialogue_complete.emit()
 
 # starts a new dialogue if one isn't active by displaying a textbox with the given dialogue lines.
 func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
@@ -97,15 +110,7 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 		line_index += 1
 		# if there is no more dialogue, reset to defaults.
 		if line_index >= npc_dialogue_lines.size():
-			is_npc_dialogue_active = false
-			can_advance_line = false
-			line_index = 0
-			branch_index = 0
-			
-			# once dialogue is completely finished, clear participants dictionary.
-			participants.clear()
-			
-			dialogue_complete.emit()
+			end_dialogue()
 			return
 		# otherwise, keep printing dialogue.
 		else:
@@ -113,52 +118,57 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 	
 	# if there is a dialogue queued up, determine what to do to transition to that dialogue depending on its type.
 	else:
-		match current_dialogue.next_dialogue.dialogue_type:
-			Dialogue.DialogueType.DEFAULT:
-				# if the next dialogue is an NPC default dialogue and the current dialogue is a player response, then do the following:
-				if is_player_dialogue_active:
-					# delete the player textbox and mark player dialogue as inactive.
-					textbox_response_inst.queue_free()
-					is_player_dialogue_active = false
+		# for branches that resolve earlier than the length of the entire dialogue.
+		if branch_ended:
+			textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
+			end_dialogue()
+		else:
+			match current_dialogue.next_dialogue.dialogue_type:
+				Dialogue.DialogueType.DEFAULT:
+					# if the next dialogue is an NPC default dialogue and the current dialogue is a player response, then do the following:
+					if is_player_dialogue_active:
+						# delete the player textbox and mark player dialogue as inactive.
+						textbox_response_inst.queue_free()
+						is_player_dialogue_active = false
+						
+						# realign dialogue_index to align 1D array of NPC dialogues with 1D array of potential player responses.
+						dialogue_index = realign_npc_dialogue_index(dialogue_index)
 					
-					# realign dialogue_index to align 1D array of NPC dialogues with 1D array of potential player responses.
-					dialogue_index = realign_npc_dialogue_index(dialogue_index)
-				
-				textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
-				line_index = 0
-				
-				# only do the below if not in a cutscene.
-				if GameManager.events_manager.in_cutscene == false:
-					# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
-					participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
-					participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
-				
-				continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
-				
-			Dialogue.DialogueType.RESPONSE:
-				line_index += 1
-				# once NPC dialogue lines run out, just start the new dialogue chain.
-				if line_index >= npc_dialogue_lines.size():
-					is_npc_dialogue_active = false
-					can_advance_line = false
-					# don't reset line_index here, as we need that data if textbox_inst remains during a player response in order to properly destroy textbox_inst after the fact.
-					# don't mark an NPC dialogue checkpoint during a player response, as they aren't speaking (going to try to ensure this isn't needed going forward).
+					textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
+					line_index = 0
 					
-					# realign dialogue_index depending on what the upcoming player dialogues contain.
-					dialogue_index = realign_player_dialogue_index(dialogue_index)
+					# only do the below if not in a cutscene.
+					if GameManager.events_manager.in_cutscene == false:
+						# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
+						participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
+						participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
 					
 					continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
 					
-				# otherwise, continue dialogue chain.
-				else:
-					textbox_inst.queue_free()
-					show_textbox(current_dialogue.dialogue_type)
-			Dialogue.DialogueType.CALL:
-				pass
-			Dialogue.DialogueType.MESSAGE:
-				pass
-			Dialogue.DialogueType.SHOUT:
-				pass
+				Dialogue.DialogueType.RESPONSE:
+					line_index += 1
+					# once NPC dialogue lines run out, just start the new dialogue chain.
+					if line_index >= npc_dialogue_lines.size():
+						is_npc_dialogue_active = false
+						can_advance_line = false
+						# don't reset line_index here, as we need that data if textbox_inst remains during a player response in order to properly destroy textbox_inst after the fact.
+						# don't mark an NPC dialogue checkpoint during a player response, as they aren't speaking (going to try to ensure this isn't needed going forward).
+						
+						# realign dialogue_index depending on what the upcoming player dialogues contain.
+						dialogue_index = realign_player_dialogue_index(dialogue_index)
+						
+						continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
+						
+					# otherwise, continue dialogue chain.
+					else:
+						textbox_inst.queue_free()
+						show_textbox(current_dialogue.dialogue_type)
+				Dialogue.DialogueType.CALL:
+					pass
+				Dialogue.DialogueType.MESSAGE:
+					pass
+				Dialogue.DialogueType.SHOUT:
+					pass
 
 #region Dialogue & textbox helper functions
 func realign_npc_dialogue_index(dialogue_index: int) -> int:
