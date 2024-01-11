@@ -72,6 +72,7 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 		is_player_dialogue_active = true
 	
 	# cache the branch index for reload_textbox in _unhandled_input.
+	# TODO: This is the line that needs to be modified for variable branch lengths to work.
 	branch_index = dialogue_index
 	
 	show_textbox(dialogue.dialogue_type)
