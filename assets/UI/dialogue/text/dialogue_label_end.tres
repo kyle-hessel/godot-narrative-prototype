@@ -1,0 +1,6 @@
+[gd_resource type="RichTextEffect" script_class="RichTextEffectEnd" load_steps=2 format=3 uid="uid://uk67ov2pn1o6"]
+
+[ext_resource type="Script" path="res://scripts/UI/dialogue/text/dialogue_label_end.gd" id="1_4f3qa"]
+
+[resource]
+script = ExtResource("1_4f3qa")

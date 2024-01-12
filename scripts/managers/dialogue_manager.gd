@@ -7,6 +7,8 @@ class_name DialogueManager
 @onready var textbox_response: PackedScene = preload("res://scenes/UI/dialogue/textbox_response.tscn")
 
 signal dialogue_complete
+signal dialogue_trigger
+signal end_branch
 
 var textbox_inst: Textbox
 var textbox_response_inst: TextboxResponse
@@ -19,6 +21,7 @@ var player_selection: int = 0
 # branch_index is used to track which player response branch is chosen (based on NPC dialogue branches) due to how the data is structured.
 # if dialogue_index is the index of the actual dialogue in the nested array, branch_index is the index of which dialogues to choose from in the outer array.
 var branch_index: int = 0
+var branch_offset: int = 0
 var branch_ended: bool = false
 var current_dialogue: Dialogue
 var line_index: int = 0
@@ -26,6 +29,13 @@ var line_index: int = 0
 var is_npc_dialogue_active: bool = false
 var is_player_dialogue_active: bool = false
 var can_advance_line: bool = false
+
+func _ready():
+	end_branch.connect(
+		func():
+			branch_offset -= 1
+			branch_ended = true
+	)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# if the right key is pressed, determine how to proceed through dialogue.
@@ -73,7 +83,10 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 	
 	# cache the branch index for reload_textbox in _unhandled_input.
 	# TODO: This is the line that needs to be modified for variable branch lengths to work.
-	branch_index = dialogue_index
+	if dialogue_index + branch_offset <= 0: # branch_offset is always negative.
+		branch_index = 0
+	else:
+		branch_index = dialogue_index + branch_offset
 	
 	show_textbox(dialogue.dialogue_type)
 

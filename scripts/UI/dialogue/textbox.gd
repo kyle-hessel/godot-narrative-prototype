@@ -9,6 +9,7 @@ class_name Textbox
 
 var text_reveal_effect: RichTextEffect = preload("res://assets/UI/dialogue/text/dialogue_label_reveal.tres")
 var dlg_trigger_effect: RichTextEffect = preload("res://assets/UI/dialogue/text/dialogue_label_trigger.tres")
+var dlg_end_effect: RichTextEffect = preload("res://assets/UI/dialogue/text/dialogue_label_end.tres")
 
 const MAX_WIDTH: int = 256
 
@@ -28,6 +29,7 @@ func _ready() -> void:
 	# install the reveal and trigger effects.
 	dialogue_label.install_effect(text_reveal_effect)
 	dialogue_label.install_effect(dlg_trigger_effect)
+	dialogue_label.install_effect(dlg_end_effect)
 	
 	# loop over any RichTextEffects.
 	for e: int in dialogue_label.custom_effects.size():
