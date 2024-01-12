@@ -21,8 +21,6 @@ var player_selection: int = 0
 # branch_index is used to track which player response branch is chosen (based on NPC dialogue branches) due to how the data is structured.
 # if dialogue_index is the index of the actual dialogue in the nested array, branch_index is the index of which dialogues to choose from in the outer array.
 var branch_index: int = 0
-var branch_offset: int = 0
-var branch_split: int = 0
 var branch_ended: bool = false
 var current_dialogue: Dialogue
 var line_index: int = 0
@@ -32,15 +30,7 @@ var is_player_dialogue_active: bool = false
 var can_advance_line: bool = false
 
 func _ready():
-	end_branch.connect(
-		func():
-			# FIXME: This is the opposite place to where these two below lines are needed.
-			# What I need to do is check if the dialogue array size changed with every new dialogue, then do the below there.
-			branch_split = branch_index
-			branch_offset += 1
-			
-			branch_ended = true
-	)
+	end_branch.connect(func(): branch_ended = true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# if the right key is pressed, determine how to proceed through dialogue.
@@ -74,7 +64,7 @@ func end_dialogue() -> void:
 	dialogue_complete.emit()
 
 # starts a new dialogue if one isn't active by displaying a textbox with the given dialogue lines.
-func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
+func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0, ending_branch_positions: Array[int] = []) -> void:
 	current_dialogue = dialogue
 	
 	if dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
@@ -86,17 +76,21 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 		player_response_lines = dialogue.dialogue_options[dialogue_index]
 		is_player_dialogue_active = true
 	
-	# cache the branch index for reload_textbox in _unhandled_input and decide how to offset it based on which dialogue branches have already ended.
-	branch_index = recalculate_branch_pos(dialogue_index)
+	# if no branches ended on this dialogue, just pass on dialogue_index to branch_index.
+	if ending_branch_positions.is_empty():
+		branch_index = dialogue_index
+	# if branches did end, use the ending_branch_positions array to determine how to offset.
+	else:
+		branch_index = recalculate_branch_pos(dialogue_index, ending_branch_positions)
 	
 	show_textbox(dialogue.dialogue_type)
 
-func recalculate_branch_pos(dlg_index: int) -> int:
-	# cache the branch index for reload_textbox in _unhandled_input and decide how to offset it based on which dialogue branches have already ended.
-	if dlg_index >= branch_split:
-		return dlg_index - branch_offset
-	else:
-		return dlg_index
+# determine how much to offset the dialogue index by, based on how many branches collapsed.
+func recalculate_branch_pos(dlg_index: int, ending_branch_positions: Array[int]) -> int:
+	for pos: int in ending_branch_positions:
+		if dlg_index > pos:
+			dlg_index -= 1
+	return dlg_index
 
 # determine if an NPC dialogue box or a player response box is going to be shown.
 func show_textbox(dialogue_type: Dialogue.DialogueType) -> void:
@@ -145,6 +139,13 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 			textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 			end_dialogue()
 		else:
+			# determine which branches ended on this dialogue to offset branch_index later, once continue_dialogue is called.
+			var ending_branches: Array[int]
+			
+			for options_pos: int in current_dialogue.dialogue_options.size():
+				if current_dialogue.dialogue_options[options_pos][0].contains("[end]") == true:
+					ending_branches.append(options_pos)
+			
 			match current_dialogue.next_dialogue.dialogue_type:
 				Dialogue.DialogueType.DEFAULT:
 					# if the next dialogue is an NPC default dialogue and the current dialogue is a player response, then do the following:
@@ -165,7 +166,7 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 						participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
 						participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
 					
-					continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
+					continue_dialogue(current_dialogue.next_dialogue, dialogue_index, ending_branches)
 					
 				Dialogue.DialogueType.RESPONSE:
 					line_index += 1
@@ -179,7 +180,7 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 						# realign dialogue_index depending on what the upcoming player dialogues contain.
 						dialogue_index = realign_player_dialogue_index(dialogue_index)
 						
-						continue_dialogue(current_dialogue.next_dialogue, dialogue_index)
+						continue_dialogue(current_dialogue.next_dialogue, dialogue_index, ending_branches)
 						
 					# otherwise, continue dialogue chain.
 					else:
