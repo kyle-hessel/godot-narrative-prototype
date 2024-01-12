@@ -87,12 +87,16 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 		is_player_dialogue_active = true
 	
 	# cache the branch index for reload_textbox in _unhandled_input and decide how to offset it based on which dialogue branches have already ended.
-	if dialogue_index >= branch_split:
-		branch_index = dialogue_index - branch_offset
-	else:
-		branch_index = dialogue_index
+	branch_index = recalculate_branch_pos(dialogue_index)
 	
 	show_textbox(dialogue.dialogue_type)
+
+func recalculate_branch_pos(dlg_index: int) -> int:
+	# cache the branch index for reload_textbox in _unhandled_input and decide how to offset it based on which dialogue branches have already ended.
+	if dlg_index >= branch_split:
+		return dlg_index - branch_offset
+	else:
+		return dlg_index
 
 # determine if an NPC dialogue box or a player response box is going to be shown.
 func show_textbox(dialogue_type: Dialogue.DialogueType) -> void:
