@@ -22,6 +22,7 @@ var player_selection: int = 0
 # if dialogue_index is the index of the actual dialogue in the nested array, branch_index is the index of which dialogues to choose from in the outer array.
 var branch_index: int = 0
 var branch_offset: int = 0
+var branch_split: int = 0
 var branch_ended: bool = false
 var current_dialogue: Dialogue
 var line_index: int = 0
@@ -33,7 +34,11 @@ var can_advance_line: bool = false
 func _ready():
 	end_branch.connect(
 		func():
-			branch_offset -= 1
+			# FIXME: This is the opposite place to where these two below lines are needed.
+			# What I need to do is check if the dialogue array size changed with every new dialogue, then do the below there.
+			branch_split = branch_index
+			branch_offset += 1
+			
 			branch_ended = true
 	)
 
@@ -81,12 +86,11 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0) -> void:
 		player_response_lines = dialogue.dialogue_options[dialogue_index]
 		is_player_dialogue_active = true
 	
-	# cache the branch index for reload_textbox in _unhandled_input.
-	# TODO: This is the line that needs to be modified for variable branch lengths to work.
-	if dialogue_index + branch_offset <= 0: # branch_offset is always negative.
-		branch_index = 0
+	# cache the branch index for reload_textbox in _unhandled_input and decide how to offset it based on which dialogue branches have already ended.
+	if dialogue_index >= branch_split:
+		branch_index = dialogue_index - branch_offset
 	else:
-		branch_index = dialogue_index + branch_offset
+		branch_index = dialogue_index
 	
 	show_textbox(dialogue.dialogue_type)
 
