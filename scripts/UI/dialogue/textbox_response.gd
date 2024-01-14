@@ -33,6 +33,7 @@ func begin_display_response(text_to_display: Array) -> void:
 	# ensure each RichTextLabel contains the proper effects and populate text for each of them with effects included.
 	for d: int in dialogue_labels.size():
 		dialogue_labels[d].install_effect(text_color_effect)
+		dialogue_labels[d].install_effect(dlg_end_effect)
 		color_text_field_at_pos(d)
 
 func select_response(event: InputEvent) -> void:
