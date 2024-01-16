@@ -94,7 +94,6 @@ func recalculate_branch_pos(dlg_index: int, ending_branch_positions: Array[int])
 	var original_dlg_index: int = dlg_index
 	for pos: int in ending_branch_positions:
 		if original_dlg_index > pos:
-			print("offset")
 			dlg_index -= 1
 	return dlg_index
 
@@ -138,40 +137,40 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 		else:
 			show_textbox(current_dialogue.dialogue_type)
 	
-	# if there is a dialogue queued up, determine what to do to transition to that dialogue depending on its type.
+	# if there is a dialogue queued up, collapse any branches and determine what to do to transition to that dialogue depending on its type.
 	else:
+		# for branches that resolve earlier than the length of the entire dialogue.
 		if is_npc_dialogue_active:
 			if current_dialogue.dialogue_options[dialogue_index][0].contains("[end]") == true:
 				branch_ended = true
 		elif is_player_dialogue_active:
 			if current_dialogue.dialogue_options[branch_index][dialogue_index].contains("[end]") == true:
 				branch_ended = true
-		# for branches that resolve earlier than the length of the entire dialogue.
+				
+		# if we are on a branch that ended early, then early out!
 		if branch_ended:
-			print("its joever")
 			textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
 			if is_player_dialogue_active:
 				textbox_response_inst.queue_free()
 			end_dialogue()
 			return
 		else:
-			# determine which branches ended on this dialogue to offset branch_index later, once continue_dialogue is called.
+			# determine which inactive branches ended on this dialogue to offset dialogue_index later, once continue_dialogue is called.
 			var ending_branches: Array[int]
 			if is_npc_dialogue_active:
-				print("ayy lmao")
 				for options_pos: int in current_dialogue.dialogue_options.size():
 					if current_dialogue.dialogue_options[options_pos][0].contains("[end]") == true:
 						ending_branches.append(options_pos)
 			elif is_player_dialogue_active:
-				print("yyaaaa oaml")
 				var pos_tally: int = 0
 				for options_pos: Array in current_dialogue.dialogue_options:
 					for lines_pos: int in options_pos.size():
-						pos_tally += 1
 						if options_pos[lines_pos].contains("[end]") == true:
-							ending_branches.append(pos_tally - 1)
+							ending_branches.append(pos_tally)
+						pos_tally += 1
 			print("ending branches: " + str(ending_branches.size()))
 			
+			# now, transition to the next dialogue.
 			match current_dialogue.next_dialogue.dialogue_type:
 				Dialogue.DialogueType.DEFAULT:
 					# if the next dialogue is an NPC default dialogue and the current dialogue is a player response, then do the following:
