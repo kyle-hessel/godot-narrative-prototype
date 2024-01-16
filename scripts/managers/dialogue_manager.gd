@@ -30,7 +30,7 @@ var is_player_dialogue_active: bool = false
 var can_advance_line: bool = false
 
 func _ready():
-	end_branch.connect(func(): branch_ended = true)
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	# if the right key is pressed, determine how to proceed through dialogue.
@@ -65,6 +65,14 @@ func end_dialogue() -> void:
 
 # starts a new dialogue if one isn't active by displaying a textbox with the given dialogue lines.
 func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0, ending_branch_positions: Array[int] = []) -> void:
+	# if branches did end, use the ending_branch_positions array to determine how to offset dialogue_index.
+	if !ending_branch_positions.is_empty():
+		dialogue_index = recalculate_branch_pos(dialogue_index, ending_branch_positions)
+	print(ending_branch_positions)
+	
+	if GameManager.events_manager.in_cutscene == false:
+		participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
+	
 	current_dialogue = dialogue
 	
 	if dialogue.dialogue_type != Dialogue.DialogueType.RESPONSE:
@@ -76,19 +84,17 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0, ending_branc
 		player_response_lines = dialogue.dialogue_options[dialogue_index]
 		is_player_dialogue_active = true
 	
-	# if no branches ended on this dialogue, just pass on dialogue_index to branch_index.
-	if ending_branch_positions.is_empty():
-		branch_index = dialogue_index
-	# if branches did end, use the ending_branch_positions array to determine how to offset.
-	else:
-		branch_index = recalculate_branch_pos(dialogue_index, ending_branch_positions)
+	# cache the branch index for reload_textbox in _unhandled_input.
+	branch_index = dialogue_index
 	
 	show_textbox(dialogue.dialogue_type)
 
 # determine how much to offset the dialogue index by, based on how many branches collapsed.
 func recalculate_branch_pos(dlg_index: int, ending_branch_positions: Array[int]) -> int:
+	var original_dlg_index: int = dlg_index
 	for pos: int in ending_branch_positions:
-		if dlg_index > pos:
+		if original_dlg_index > pos:
+			print("offset")
 			dlg_index -= 1
 	return dlg_index
 
@@ -134,17 +140,37 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 	
 	# if there is a dialogue queued up, determine what to do to transition to that dialogue depending on its type.
 	else:
+		if is_npc_dialogue_active:
+			if current_dialogue.dialogue_options[dialogue_index][0].contains("[end]") == true:
+				branch_ended = true
+		elif is_player_dialogue_active:
+			if current_dialogue.dialogue_options[branch_index][dialogue_index].contains("[end]") == true:
+				branch_ended = true
 		# for branches that resolve earlier than the length of the entire dialogue.
 		if branch_ended:
+			print("its joever")
 			textbox_inst.queue_free() # could add a function here instead that plays an animation before queue_free.
+			if is_player_dialogue_active:
+				textbox_response_inst.queue_free()
 			end_dialogue()
+			return
 		else:
 			# determine which branches ended on this dialogue to offset branch_index later, once continue_dialogue is called.
 			var ending_branches: Array[int]
-			
-			for options_pos: int in current_dialogue.dialogue_options.size():
-				if current_dialogue.dialogue_options[options_pos][0].contains("[end]") == true:
-					ending_branches.append(options_pos)
+			if is_npc_dialogue_active:
+				print("ayy lmao")
+				for options_pos: int in current_dialogue.dialogue_options.size():
+					if current_dialogue.dialogue_options[options_pos][0].contains("[end]") == true:
+						ending_branches.append(options_pos)
+			elif is_player_dialogue_active:
+				print("yyaaaa oaml")
+				var pos_tally: int = 0
+				for options_pos: Array in current_dialogue.dialogue_options:
+					for lines_pos: int in options_pos.size():
+						pos_tally += 1
+						if options_pos[lines_pos].contains("[end]") == true:
+							ending_branches.append(pos_tally - 1)
+			print("ending branches: " + str(ending_branches.size()))
 			
 			match current_dialogue.next_dialogue.dialogue_type:
 				Dialogue.DialogueType.DEFAULT:
@@ -164,7 +190,6 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 					if GameManager.events_manager.in_cutscene == false:
 						# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
 						participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
-						participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
 					
 					continue_dialogue(current_dialogue.next_dialogue, dialogue_index, ending_branches)
 					
