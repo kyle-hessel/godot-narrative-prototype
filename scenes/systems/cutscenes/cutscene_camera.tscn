@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://clymdujufofay"]
-
-[ext_resource type="Script" path="res://scripts/systems/cutscenes/cutscene_camera.gd" id="1_ve7d5"]
-
-[node name="CutsceneCamera" type="Camera3D"]
-script = ExtResource("1_ve7d5")

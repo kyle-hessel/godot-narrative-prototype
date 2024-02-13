@@ -34,15 +34,15 @@ func play_animation(anim_name: String, duration: float = 0.0) -> void:
 func _on_overlap_area_body_entered(body: Node3D):
 	if body is Player:
 		# sample dialogue trigger by an NPC.
-		if GameManager.events_manager.in_cutscene == false && dialogue != null:
-			trigger_dialogue_with_character(body)
+		#if GameManager.events_manager.in_cutscene == false && dialogue != null:
+		trigger_dialogue_with_character(body)
 
 func _on_overlap_area_body_exited(body: Node3D):
 	if body is Player:
-		if GameManager.events_manager.in_cutscene == false && dialogue != null:
-			# early-out of dialogue if any exists when player strays too far from an NPC.
-			GameManager.ui_manager.dialogue_early_out()
-			GameManager.ui_manager.dialogue_manager.participants.clear()
+		#if GameManager.events_manager.in_cutscene == false && dialogue != null:
+		# early-out of dialogue if any exists when player strays too far from an NPC.
+		GameManager.ui_manager.dialogue_early_out()
+		GameManager.ui_manager.dialogue_manager.participants.clear()
 
 func trigger_dialogue_with_character(character: Node3D) -> void:
 	GameManager.ui_manager.dialogue_manager.participants[npc_name] = self

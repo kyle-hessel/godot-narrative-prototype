@@ -70,8 +70,8 @@ func continue_dialogue(dialogue: Dialogue, dialogue_index: int = 0, ending_branc
 		dialogue_index = recalculate_branch_pos(dialogue_index, ending_branch_positions)
 	print(ending_branch_positions)
 	
-	if GameManager.events_manager.in_cutscene == false:
-		participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
+	#if GameManager.events_manager.in_cutscene == false:
+	participants[dialogue_initiator].dialogue_branch_pos = dialogue_index
 	
 	current_dialogue = dialogue
 	
@@ -186,9 +186,9 @@ func advance_dialogue_and_reload_textbox(dialogue_index: int = 0) -> void:
 					line_index = 0
 					
 					# only do the below if not in a cutscene.
-					if GameManager.events_manager.in_cutscene == false:
-						# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
-						participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
+					#if GameManager.events_manager.in_cutscene == false:
+					# make the new NPC dialogue the checkpoint dialogue for the initiator of the conversation.
+					participants[dialogue_initiator].checkpoint_dialogue = current_dialogue.next_dialogue
 					
 					continue_dialogue(current_dialogue.next_dialogue, dialogue_index, ending_branches)
 					
